@@ -3,16 +3,16 @@
 This repository leverages the `browser_use` library to monitor twitter accounts, analyze trends, score tweets, and reply/post/retweet.
 
 ### My Workers
-**Agent A**: Continuously monitor a specified list of accounts and save latest posts/replies database
-**Agent B1**: Monitor the [Trending](https://x.com/explore/tabs/keyword) and [News](https://x.com/explore/tabs/news) tabs by adjusting the location settings, select relevant trends, save their links and descriptions.
-**Agent B2**: Go through the relevant trends, determine which posts to respond to, save those posts.
-**Agent C** (not browser-base): score all the current tweets in the past 10 minutes, determine which ones to respond to.
-**Agent D**: Craft replies/posts, score these.
-**Agent E**: Respond to the highest-scoring tweets. Retweet those. The max tweet count is 2,400 per day.
-**Agent F**: Stream with Elevenlabs to OBS and say them in a twitter space. 
+- **Agent A**: Continuously monitor a specified list of accounts and save latest posts/replies database
+- **Agent B1**: Monitor the [Trending](https://x.com/explore/tabs/keyword) and [News](https://x.com/explore/tabs/news) tabs by adjusting the location settings, select relevant trends, save their links and descriptions.
+- **Agent B2**: Go through the relevant trends, determine which posts to respond to, save those posts.
+- **Agent C** (not browser-base): score all the current tweets in the past 10 minutes, determine which ones to respond to.
+- **Agent D**: Craft replies/posts, score these.
+- **Agent E**: Respond to the highest-scoring tweets. Retweet those. The max tweet count is 2,400 per day.
+- **Agent F**: Stream with Elevenlabs to OBS and say them in a twitter space. 
 
 
-## Why this approach? Why not just use Twitter's V2 API?
+## A. Why this approach? Why not just use Twitter's V2 API?
 
 This approach was chosen as a solution because the Twitter API is prohibitively expensive and is often seen as anti-developer. 
 
@@ -24,14 +24,14 @@ Name a single other major social network around today that has an API and allows
 
 The death of the Twitter API is long, long overdue. Bad for us consumers? Sure. But these companies are not charities, they exist to make money.
 
-### In relation to this project
-- Agent A, B1/2 E could be done easily with V2 access, though you'd be rate-limited. Trends API is more unstable with conflicting information in the documentation.
-- For X's Communities' feature, you can only do one call per 15 minutes. That is a complete mess and scraping is likely better.
-
 Given his heavy investment into XAI, Elon Musk should support AI Agentic Workflows which interact with X through selenium/puppeteer. Otherwise, he'd be anti-AI and threaten US digital sovereignty and national security.
 
 
-### This workflow prioritizes:
+### scraping vs limited/expensive APIs
+- Agent A, B1/2 E could be done easily with V2 access, though you'd be rate-limited. Trends API is more unstable with conflicting information in the documentation.
+- For X's Communities' feature, you can only do one call per 15 minutes. That is a complete mess and scraping is likely better.
+
+### my workflow prioritizes:
 
 1. **Insight Grading**: The system grades tweets based on their insightfulness. Insight is determined by analyzing the content of the tweet, considering factors such as relevance, originality, and depth of information. The grading process involves:
    - **Relevance**: How closely the tweet relates to the specified topic or trend.
