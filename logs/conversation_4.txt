@@ -1,0 +1,381 @@
+ SystemMessage 
+You are an AI agent designed to automate browser tasks. Your goal is to accomplish the ultimate task following the rules.
+
+# Input Format
+Task
+Previous steps
+Current URL
+Open Tabs
+Interactive Elements
+[index]<type>text</type>
+- index: Numeric identifier for interaction
+- type: HTML element type (button, input, etc.)
+- text: Element description
+Example:
+[33]<button>Submit Form</button>
+
+- Only elements with numeric indexes in [] are interactive
+- elements without [] provide only context
+
+# Response Rules
+1. RESPONSE FORMAT: You must ALWAYS respond with valid JSON in this exact format:
+{"current_state": {"evaluation_previous_goal": "Success|Failed|Unknown - Analyze the current elements and the image to check if the previous goals/actions are successful like intended by the task. Mention if something unexpected happened. Shortly state why/why not",
+"memory": "Description of what has been done and what you need to remember. Be very specific. Count here ALWAYS how many times you have done something and how many remain. E.g. 0 out of 10 websites analyzed. Continue with abc and xyz",
+"next_goal": "What needs to be done with the next immediate action"},
+"action":[{"one_action_name": {// action-specific parameter}}, // ... more actions in sequence]}
+
+2. ACTIONS: You can specify multiple actions in the list to be executed in sequence. But always specify only one action name per item. Use maximum {max_actions} actions per sequence.
+Common action sequences:
+- Form filling: [{"input_text": {"index": 1, "text": "username"}}, {"input_text": {"index": 2, "text": "password"}}, {"click_element": {"index": 3}}]
+- Navigation and extraction: [{"go_to_url": {"url": "https://example.com"}}, {"extract_content": {"goal": "extract the names"}}]
+- Actions are executed in the given order
+- If the page changes after an action, the sequence is interrupted and you get the new state.
+- Only provide the action sequence until an action which changes the page state significantly.
+- Try to be efficient, e.g. fill forms at once, or chain actions where nothing changes on the page
+- only use multiple actions if it makes sense.
+
+3. ELEMENT INTERACTION:
+- Only use indexes of the interactive elements
+- Elements marked with "[]Non-interactive text" are non-interactive
+
+4. NAVIGATION & ERROR HANDLING:
+- If no suitable elements exist, use other functions to complete the task
+- If stuck, try alternative approaches - like going back to a previous page, new search, new tab etc.
+- Handle popups/cookies by accepting or closing them
+- Use scroll to find elements you are looking for
+- If you want to research something, open a new tab instead of using the current tab
+- If captcha pops up, try to solve it - else try a different approach
+- If the page is not fully loaded, use wait action
+
+5. TASK COMPLETION:
+- Use the done action as the last action as soon as the ultimate task is complete
+- Dont use "done" before you are done with everything the user asked you, except you reach the last step of max_steps. 
+- If you reach your last step, use the done action even if the task is not fully finished. Provide all the information you have gathered so far. If the ultimate task is completly finished set success to true. If not everything the user asked for is completed set success in done to false!
+- If you have to do something repeatedly for example the task says for "each", or "for all", or "x times", count always inside "memory" how many times you have done it and how many remain. Don't stop until you have completed like the task asked you. Only call done after the last step.
+- Don't hallucinate actions
+- Make sure you include everything you found out for the ultimate task in the done text parameter. Do not just say you are done, but include the requested information of the task. 
+
+6. VISUAL CONTEXT:
+- When an image is provided, use it to understand the page layout
+- Bounding boxes with labels on their top right corner correspond to element indexes
+
+7. Form filling:
+- If you fill an input field and your action sequence is interrupted, most often something changed e.g. suggestions popped up under the field.
+
+8. Long tasks:
+- Keep track of the status and subresults in the memory. 
+
+9. Extraction:
+- If your task is to find information - call extract_content on the specific pages to get and store the information.
+Your responses must be always JSON with the specified format.
+
+ HumanMessage 
+Your ultimate task is: """Find the latest tweet on DOGE's (Department of Government Efficiency) twitter profile.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+
+ HumanMessage 
+Example output:
+
+ AIMessage 
+
+
+ ToolMessage 
+Browser started
+
+ HumanMessage 
+[Your task history memory starts here]
+
+ HumanMessage 
+Action result: 🔗  Opened new tab with https://www.x.com/DOGE
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🔍  Scrolled down the page by one page
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 📄  Extracted from page
+: ```json
+{
+  "tweet_date": "Mar 16",
+  "content": [
+    {
+      "tweet_text": "This article is maliciously misleading. While the database error is unfortunate, this has zero connection to @DOGE. This type of error unfortunately has occurred regularly (~500 times each month) for years. In the same way that dead people are marked as living, the reverse also",
+      "quoted_tweet": "The richest man in the world, @elonmusk, took over $5,000 out of this guy's bank account, claiming he was saving money, by falsely claiming he was dead."
+    },
+    {
+      "tweet_text": "Here is the Inspector General reporting this problem in 2008. The good news is that it is now actively being fixed."
+    }
+  ]
+}
+```
+
+ HumanMessage 
+[Task history memory ends]
+[Current state starts here]
+The following is one-time information - if you need to remember it write it to memory:
+Current url: https://x.com/DOGE
+Available tabs:
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/DOGE', title='Department of Government Efficiency (@DOGE) / X')]
+Interactive elements from top layer of the current page inside the viewport:
+... 1100 pixels above - scroll or extract content to see more ...
+[0]<div Click to Unfollow DOGE
+See new posts
+·
+This article is maliciously misleading. While the database error is unfortunate, this has zero connection to
+. 
+
+This type of error unfortunately has occurred regularly (~500 times each month) for years. In the same way that dead people are marked as living, the reverse also
+Quote
+·
+Mar 15
+The richest man in the world,
+@elonmusk
+, took over $5,000 out of this guy's bank account, claiming he was saving money, by falsely claiming he was dead.
+https://
+seattletimes.com/seattle-news/p
+olitics/heres-a-dead-person-on-social-security-in-seattle-with-plenty-to-say/
+…/>
+[1]<button Back/>
+[2]<div 184 posts/>
+[3]<div Department of Government Efficiency/>
+[4]<button Following @DOGE>Following/>
+[5]<div />
+[6]<article />
+[7]<div Pinned
+·
+DOGE is looking for help from the general public!  
+
+Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or awesome ideas, to the relevant DOGE affiliates (found on the Affiliates tab).  For example,
+,
+, etc.  
+We will add/>
+[8]<a link/>
+[9]<img />
+[10]<div />
+[11]<a link>Department of Government Efficiency/>
+[12]<a link>@DOGE/>
+[13]<a link>Feb 16/>
+[14]<button Grok actions/>
+[15]<div />
+[16]<button More;false/>
+[17]<div />
+[18]<a link>@DOGE_USDA/>
+[19]<a link>@DOGE_SSA/>
+[20]<button Show more/>
+[21]<button 39574 Replies. Reply>39K/>
+[22]<div />
+[23]<button 30641 reposts. Repost;false>30K/>
+[24]<div />
+[25]<button 115379 Likes. Like>115K/>
+[26]<div />
+[27]<a link;57448515 views. View post analytics>57M/>
+[28]<div />
+[29]<button Bookmark/>
+[30]<div />
+[31]<button Share post;false/>
+[32]<div />
+[33]<a link/>
+[34]<img />
+[35]<div />
+[36]<a link>Department of Government Efficiency/>
+[37]<a link>@DOGE/>
+[38]<a link>Mar 16/>
+[39]<button More;false/>
+[40]<div />
+[41]<a link>@DOGE/>
+[42]<button Show more/>
+[43]<div presentation/>
+[44]<img />
+[45]<div />
+[46]<div emptywheel (check)/>
+[47]<div @emptywheel/>
+[48]<button 1636 Replies. Reply>1.6K/>
+[49]<button 6802 reposts. Repost;false>6.8K/>
+[50]<button 32644 Likes. Like>32K/>
+[51]<a link;3440436 views. View post analytics>3.4M/>
+[52]<button Bookmark/>
+[53]<button Share post;false/>
+[54]<div />
+[55]<article />
+[56]<div ·
+Here is the Inspector General reporting this problem in 2008. The good news is that it is now actively being fixed./>
+[57]<a link/>
+[58]<div />
+[59]<a link>Department of Government Efficiency/>
+[60]<a link>@DOGE/>
+[61]<a link>Mar 16/>
+[62]<button Grok actions/>
+[63]<button More;false/>
+[64]<div />
+[65]<a link/>
+[66]<img />
+[67]<button 264 Replies. Reply>264/>
+[68]<button 1222 reposts. Repost;false>1.2K/>
+[69]<button 8953 Likes. Like>8.9K/>
+[70]<a link;444826 views. View post analytics>444K/>
+[71]<button Bookmark/>
+[72]<button Share post;false/>
+[73]<div />
+[74]<article />
+[75]<div ·
+The “bridges to nowhere” at 1:20…
+Quote/>
+[76]<a link/>
+[77]<div />
+[78]<a link>Department of Government Efficiency/>
+[79]<a link>@DOGE/>
+[80]<a link>Mar 14/>
+[81]<button Grok actions/>
+[82]<button More;false/>
+[83]<div link>·
+Mar 14
+MUST SEE: America, how do you feel about leasing a fancy Washington DC high-rise for a quarter of $1 billion?
+
+That’s exactly what the last administration did at the US Agency for Global Media.
+@KariLake
+exposes waste & corruption, and will work to root it out.
+
+WATCH & SHARE!
+The media could not be played./>
+[84]<div presentation/>
+[85]<div />
+[86]<div Kari Lake/>
+[87]<div @KariLake/>
+[88]<a link>Show more/>
+[89]<button Reload/>
+[90]<button 706 Replies. Reply>706/>
+[91]<div />
+[92]<button 2034 reposts. Repost;false>2K/>
+[93]<div />
+[94]<button 10122 Likes. Like>10K/>
+[95]<div />
+[96]<a link;979277 views. View post analytics>979K/>
+[97]<div />
+[98]<button Bookmark/>
+[99]<div />
+[100]<button Share post;false/>
+[101]<div />
+[102]<div />
+[103]<article />
+[104]<div ·
+Great job by
+These program cancellations included $3M for “transparency and accountability in Uzbekistan’s cotton industry”.
+Quote/>
+[105]<a link/>
+[106]<img />
+[107]<div />
+[108]<a link>Department of Government Efficiency/>
+[109]<a link>@DOGE/>
+[110]<a link>Mar 14/>
+[111]<button Grok actions/>
+[112]<div />
+[113]<button More;false/>
+[114]<div />
+[115]<a link>@SecretaryLCD/>
+[116]<a link>@USDOL/>
+[117]<div link>·
+Mar 14
+We're working with
+@DOGE
+to root out waste, fraud, & abuse.
+@USDOL
+just saved taxpayers $30M by eliminating “America Last” programs in foreign countries like Indonesia, Colombia, Guatemala, Chile, & Brazil.
+
+Under
+Show more/>
+[118]<div presentation/>
+[119]<img />
+[120]<div />
+[121]<div Secretary Lori Chavez-DeRemer/>
+[122]<div @SecretaryLCD/>
+[123]<div Trending>Trending now
+© 2025 X Corp./>
+[124]<input combobox;Search;text;Search query/>
+[125]<div You might like/>
+[126]<li listitem>Click to Follow lkshmoney3456/>
+[127]<a link/>
+[128]<div />
+[129]<a link>Daddy whats good/>
+[130]<a link>@lkshmoney3456/>
+[131]<button Follow @lkshmoney3456>Follow/>
+[132]<li listitem>Click to Follow the_anarchemist/>
+[133]<a link/>
+[134]<div />
+[135]<a link>Rusty Shackleford/>
+[136]<a link>@the_anarchemist/>
+[137]<button Follow @the_anarchemist>Follow/>
+[138]<li listitem>Click to Follow KcnYzy/>
+[139]<a link/>
+[140]<div />
+[141]<a link>kcN/>
+[142]<a link>@KcnYzy/>
+[143]<button Follow @KcnYzy>Follow/>
+[144]<a link>Show more/>
+[145]<div />
+[146]<div Explore
+Beta/>
+[147]<div />
+[148]<div link>Starbucks Ordered to Pay $50M in Hot Tea Spill Case
+3 hours ago · Law · 4.4K posts/>
+[149]<div presentation/>
+[150]<div />
+[151]<div />
+[152]<div link>Rippling vs. Deel: Lawsuit Alleges Corporate Espionage
+5 hours ago · Business · 2.1K posts/>
+[153]<div presentation/>
+[154]<div />
+[155]<div />
+[156]<div link>Egg Prices Plummet: Trump Administration's Economic Impact Debated
+6 hours ago · Economics · 30K posts/>
+[157]<div presentation/>
+[158]<div />
+[159]<div />
+[160]<div link>Musk Discusses 'Magic Money Computers' on Cruz's Podcast
+3 hours ago · Economy · 36K posts/>
+[161]<div presentation/>
+[162]<div />
+[163]<div />
+[164]<a link>Show more/>
+[165]<a link>Terms of Service/>
+[166]<a link>Privacy Policy/>
+[167]<a link>Cookie Policy/>
+[168]<a link>Accessibility/>
+[169]<a link>Ads info/>
+[170]<button false>More/>
+[171]<img />
+... 7061 pixels below - scroll or extract content to see more ...
+Current step: 3/10Current date and time: 2025-03-17 14:58
+
+ RESPONSE
+{
+  "current_state": {
+    "evaluation_previous_goal": "Success - Located and extracted relevant tweet content.",
+    "memory": "The latest tweet was extracted successfully from Mar 16. The task is complete.",
+    "next_goal": "Complete the task and display results."
+  },
+  "action": [
+    {
+      "done": {
+        "tweets": [
+          {
+            "author": "Department of Government Efficiency",
+            "handle": "@DOGE",
+            "datetime": "Mar 16",
+            "content": "This article is maliciously misleading. While the database error is unfortunate, this has zero connection to @DOGE. This type of error unfortunately has occurred regularly (~500 times each month) for years. In the same way that dead people are marked as living, the reverse also. Here is the Inspector General reporting this problem in 2008. The good news is that it is now actively being fixed."
+          }
+        ],
+        "success": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,365 @@
+ SystemMessage 
+You are an AI agent designed to automate browser tasks. Your goal is to accomplish the ultimate task following the rules.
+
+# Input Format
+Task
+Previous steps
+Current URL
+Open Tabs
+Interactive Elements
+[index]<type>text</type>
+- index: Numeric identifier for interaction
+- type: HTML element type (button, input, etc.)
+- text: Element description
+Example:
+[33]<button>Submit Form</button>
+
+- Only elements with numeric indexes in [] are interactive
+- elements without [] provide only context
+
+# Response Rules
+1. RESPONSE FORMAT: You must ALWAYS respond with valid JSON in this exact format:
+{"current_state": {"evaluation_previous_goal": "Success|Failed|Unknown - Analyze the current elements and the image to check if the previous goals/actions are successful like intended by the task. Mention if something unexpected happened. Shortly state why/why not",
+"memory": "Description of what has been done and what you need to remember. Be very specific. Count here ALWAYS how many times you have done something and how many remain. E.g. 0 out of 10 websites analyzed. Continue with abc and xyz",
+"next_goal": "What needs to be done with the next immediate action"},
+"action":[{"one_action_name": {// action-specific parameter}}, // ... more actions in sequence]}
+
+2. ACTIONS: You can specify multiple actions in the list to be executed in sequence. But always specify only one action name per item. Use maximum {max_actions} actions per sequence.
+Common action sequences:
+- Form filling: [{"input_text": {"index": 1, "text": "username"}}, {"input_text": {"index": 2, "text": "password"}}, {"click_element": {"index": 3}}]
+- Navigation and extraction: [{"go_to_url": {"url": "https://example.com"}}, {"extract_content": {"goal": "extract the names"}}]
+- Actions are executed in the given order
+- If the page changes after an action, the sequence is interrupted and you get the new state.
+- Only provide the action sequence until an action which changes the page state significantly.
+- Try to be efficient, e.g. fill forms at once, or chain actions where nothing changes on the page
+- only use multiple actions if it makes sense.
+
+3. ELEMENT INTERACTION:
+- Only use indexes of the interactive elements
+- Elements marked with "[]Non-interactive text" are non-interactive
+
+4. NAVIGATION & ERROR HANDLING:
+- If no suitable elements exist, use other functions to complete the task
+- If stuck, try alternative approaches - like going back to a previous page, new search, new tab etc.
+- Handle popups/cookies by accepting or closing them
+- Use scroll to find elements you are looking for
+- If you want to research something, open a new tab instead of using the current tab
+- If captcha pops up, try to solve it - else try a different approach
+- If the page is not fully loaded, use wait action
+
+5. TASK COMPLETION:
+- Use the done action as the last action as soon as the ultimate task is complete
+- Dont use "done" before you are done with everything the user asked you, except you reach the last step of max_steps. 
+- If you reach your last step, use the done action even if the task is not fully finished. Provide all the information you have gathered so far. If the ultimate task is completly finished set success to true. If not everything the user asked for is completed set success in done to false!
+- If you have to do something repeatedly for example the task says for "each", or "for all", or "x times", count always inside "memory" how many times you have done it and how many remain. Don't stop until you have completed like the task asked you. Only call done after the last step.
+- Don't hallucinate actions
+- Make sure you include everything you found out for the ultimate task in the done text parameter. Do not just say you are done, but include the requested information of the task. 
+
+6. VISUAL CONTEXT:
+- When an image is provided, use it to understand the page layout
+- Bounding boxes with labels on their top right corner correspond to element indexes
+
+7. Form filling:
+- If you fill an input field and your action sequence is interrupted, most often something changed e.g. suggestions popped up under the field.
+
+8. Long tasks:
+- Keep track of the status and subresults in the memory. 
+
+9. Extraction:
+- If your task is to find information - call extract_content on the specific pages to get and store the information.
+Your responses must be always JSON with the specified format.
+
+ HumanMessage 
+Your ultimate task is: """Find the latest tweet on DOGE's (Department of Government Efficiency) twitter profile.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+
+ HumanMessage 
+Example output:
+
+ AIMessage 
+
+
+ ToolMessage 
+Browser started
+
+ HumanMessage 
+[Your task history memory starts here]
+
+ HumanMessage 
+Action result: 🔗  Opened new tab with https://www.x.com/DOGE
+
+ HumanMessage 
+[Task history memory ends]
+[Current state starts here]
+The following is one-time information - if you need to remember it write it to memory:
+Current url: https://x.com/DOGE
+Available tabs:
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/DOGE', title='Department of Government Efficiency (@DOGE) / X')]
+Interactive elements from top layer of the current page inside the viewport:
+[Start of page]
+[0]<div To view keyboard shortcuts, press question mark
+View keyboard shortcuts
+See new posts
+Click to Unfollow DOGE
+The people voted for major reform.
+Joined November 2024
+Department of Government Efficiency’s posts/>
+[1]<button />
+[2]<div Messages/>
+[3]<button Compose new Message/>
+[4]<button Expand/>
+[5]<a link;X/>
+[6]<a link;Home/>
+[7]<a link;Search and explore/>
+[8]<a Notifications;link/>
+[9]<a Direct Messages;link/>
+[10]<a link;Grok/>
+[11]<a Premium;link/>
+[12]<a link;Lists/>
+[13]<a link;Bookmarks/>
+[14]<a Jobs;link/>
+[15]<a Communities;link/>
+[16]<a Verified Orgs;link/>
+[17]<a Profile;link/>
+[18]<button More menu items;false/>
+[19]<a Post;link/>
+[20]<div />
+[21]<button Account menu/>
+[22]<div presentation/>
+[23]<div />
+[24]<button Back/>
+[25]<div 184 posts/>
+[26]<div Department of Government Efficiency/>
+[27]<a link/>
+[28]<img />
+[29]<a link/>
+[30]<div />
+[31]<button More;false/>
+[32]<button Search/>
+[33]<button Message/>
+[34]<button Turn on post notifications/>
+[35]<button Following @DOGE>Following/>
+[36]<div Department of Government Efficiency/>
+[37]<div />
+[38]<button Provides details about verified accounts./>
+[39]<div @DOGE/>
+[40]<a none>doge.gov/>
+[41]<a link>0
+Following/>
+[42]<a link>4.7M
+Followers/>
+[43]<a Followers you know;link>Followed by
+DOGEai
+,
+Vicarious
+, and
+192
+others you follow/>
+[44]<div presentation/>
+[45]<div />
+[46]<div />
+[47]<div presentation/>
+[48]<a tab>Posts/>
+[49]<div presentation/>
+[50]<a tab>Affiliates/>
+[51]<div presentation/>
+[52]<a tab>Replies/>
+[53]<div presentation/>
+[54]<a tab>Highlights/>
+[55]<div presentation/>
+[56]<a tab>Media/>
+[57]<div />
+[58]<article />
+[59]<div Pinned
+·
+DOGE is looking for help from the general public!  
+
+Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or awesome ideas, to the relevant DOGE affiliates (found on the Affiliates tab).  For example,
+,
+, etc.  
+We will add/>
+[60]<a link/>
+[61]<div />
+[62]<a link>Department of Government Efficiency/>
+[63]<a link>@DOGE/>
+[64]<a link>Feb 16/>
+[65]<button Grok actions/>
+[66]<button More;false/>
+[67]<a link>@DOGE_USDA/>
+[68]<a link>@DOGE_SSA/>
+[69]<button Show more/>
+[70]<button 39574 Replies. Reply>39K/>
+[71]<button 30646 reposts. Repost;false>30K/>
+[72]<button 115381 Likes. Like>115K/>
+[73]<a 57448937 views. View post analytics;link>57M/>
+[74]<button Bookmark/>
+[75]<button Share post;false/>
+[76]<div />
+[77]<article />
+[78]<div ·
+This article is maliciously misleading. While the database error is unfortunate, this has zero connection to
+. 
+
+This type of error unfortunately has occurred regularly (~500 times each month) for years. In the same way that dead people are marked as living, the reverse also
+Quote/>
+[79]<a link/>
+[80]<div />
+[81]<a link>Department of Government Efficiency/>
+[82]<a link>@DOGE/>
+[83]<a link>Mar 16/>
+[84]<button More;false/>
+[85]<a link>@DOGE/>
+[86]<button Show more/>
+[87]<div link>·
+Mar 15
+The richest man in the world,
+@elonmusk
+, took over $5,000 out of this guy's bank account, claiming he was saving money, by falsely claiming he was dead.
+https://
+seattletimes.com/seattle-news/p
+olitics/heres-a-dead-person-on-social-security-in-seattle-with-plenty-to-say/
+…/>
+[88]<div presentation/>
+[89]<div />
+[90]<div emptywheel (check)/>
+[91]<div @emptywheel/>
+[92]<button 1637 Replies. Reply>1.6K/>
+[93]<div />
+[94]<button 6803 reposts. Repost;false>6.8K/>
+[95]<div />
+[96]<button 32668 Likes. Like>32K/>
+[97]<div />
+[98]<a 3443568 views. View post analytics;link>3.4M/>
+[99]<div />
+[100]<button Bookmark/>
+[101]<div />
+[102]<button Share post;false/>
+[103]<div />
+[104]<div />
+[105]<article />
+[106]<div ·
+Here is the Inspector General reporting this problem in 2008. The good news is that it is now actively being fixed./>
+[107]<a link/>
+[108]<img />
+[109]<div />
+[110]<a link>Department of Government Efficiency/>
+[111]<a link>@DOGE/>
+[112]<a link>Mar 16/>
+[113]<button Grok actions/>
+[114]<div />
+[115]<button More;false/>
+[116]<div />
+[117]<div />
+[118]<a link/>
+[119]<img />
+[120]<div Trending>Trending now
+Rippling Accuses Deel of Corporate Espionage in HR Tech Rivalry
+6 hours ago · Business · 2.1K posts
+© 2025 X Corp./>
+[121]<input Search query;Search;combobox;text/>
+[122]<div Live on X/>
+[123]<button Space, ThePersistence is listening, Hosted by Diligent Denizen 🇺🇸, 🇺🇸 TRUMP VOIDS BIDEN PARDONS ON BONGINO’S FIRST DAY‼️ J6 CONSPIRACY 👀, Diligent Denizen 🇺🇸, ThePersistence, and Good Lawgic joined>is listening
+TRUMP VOIDS BIDEN PARDONS ON BONGINO’S FIRST DAY
+J6 CONSPIRACY
++1.1K/>
+[124]<div ThePersistence/>
+[125]<div presentation/>
+[126]<div />
+[127]<button Space, Auntie G is speaking, Hosted by 👑KINGFLIPPA🇺🇸, 👑🏰❌ Maze I got yo back come Alphawarrior, 👑KINGFLIPPA🇺🇸, Auntie G, and Sarah joined>is speaking
+Maze I got yo back come Alphawarrior
++92/>
+[128]<div Auntie G/>
+[129]<div presentation/>
+[130]<div />
+[131]<button Space, Nilo is speaking, Hosted by Luffygear5monger, LUFFY ASYLUM X SPACE/ PLAYING Ys X 🎮🕹️, Luffygear5monger, Nilo, and Jamester 🇧🇹 joined>is speaking
+LUFFY ASYLUM X SPACE/ PLAYING Ys X
++10/>
+[132]<div Nilo/>
+[133]<div presentation/>
+[134]<div />
+[135]<button Space, Green Candle Investments is listening, Hosted by Bugle.News 📯, Maxi Madness Update, Bugle.News 📯, Green Candle Investments, and Maggie Morris 40HPW🎧 joined>is listening
+Maxi Madness Update
++6/>
+[136]<div Green Candle Investments/>
+[137]<div presentation/>
+[138]<div />
+[139]<button Space, Drew is hosting, Hosted by Drew, a space about nothing, Drew and theratiowhale joined>is hosting
+a space about nothing
++1/>
+[140]<div Drew/>
+[141]<div presentation/>
+[142]<div />
+[143]<div You might like/>
+[144]<li listitem>Click to Follow derek_proulx/>
+[145]<a link/>
+[146]<div />
+[147]<a link>Derek Proulx, Free State native/>
+[148]<a link>@derek_proulx/>
+[149]<button Follow @derek_proulx>Follow/>
+[150]<li listitem>Click to Follow lkshmoney3456/>
+[151]<a link/>
+[152]<div />
+[153]<a link>Daddy whats good/>
+[154]<a link>@lkshmoney3456/>
+[155]<button Follow @lkshmoney3456>Follow/>
+[156]<li listitem>Click to Follow MaritaPapita/>
+[157]<a link/>
+[158]<div />
+[159]<a link>MarMar/>
+[160]<a link>@MaritaPapita/>
+[161]<button Follow @MaritaPapita>Follow/>
+[162]<a link>Show more/>
+[163]<div />
+[164]<div Explore
+Beta/>
+[165]<div />
+[166]<div link>Starbucks Liability: $50M Award for Tea Spill Burns
+4 hours ago · Law · 4.7K posts/>
+[167]<div presentation/>
+[168]<div />
+[169]<div />
+[170]<div link>Egg Prices Plummet: Analyzing Trump's Economic Impact
+7 hours ago · Economics · 31K posts/>
+[171]<div presentation/>
+[172]<img />
+[173]<div />
+[174]<div presentation/>
+[175]<img />
+[176]<div />
+[177]<div />
+[178]<div link>Musk Discusses 'Magic Money Computers' on Cruz's Podcast
+4 hours ago · Economy · 38K posts/>
+[179]<div presentation/>
+[180]<img />
+[181]<div />
+[182]<div presentation/>
+[183]<img />
+[184]<div />
+[185]<div presentation/>
+[186]<img />
+[187]<div />
+[188]<div />
+[189]<a link>Show more/>
+[190]<a link>Terms of Service/>
+[191]<a link>Privacy Policy/>
+[192]<a link>Cookie Policy/>
+[193]<a link>Accessibility/>
+[194]<a link>Ads info/>
+[195]<button false>More/>
+... 6982 pixels below - scroll or extract content to see more ...
+Current step: 1/10Current date and time: 2025-03-17 15:09
+
+ RESPONSE
+{
+  "current_state": {
+    "evaluation_previous_goal": "Success - The DOGE Twitter page is loaded.",
+    "memory": "Opened the DOGE Twitter page. Looking for the latest tweet.",
+    "next_goal": "Extract the latest tweet on the DOGE profile."
+  },
+  "action": [
+    {
+      "extract_content": {
+        "goal": "extract the latest tweet content on DOGE's profile"
+      }
+    }
+  ]
+}

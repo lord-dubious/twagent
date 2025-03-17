@@ -1,0 +1,322 @@
+ SystemMessage 
+You are an AI agent designed to automate browser tasks. Your goal is to accomplish the ultimate task following the rules.
+
+# Input Format
+Task
+Previous steps
+Current URL
+Open Tabs
+Interactive Elements
+[index]<type>text</type>
+- index: Numeric identifier for interaction
+- type: HTML element type (button, input, etc.)
+- text: Element description
+Example:
+[33]<button>Submit Form</button>
+
+- Only elements with numeric indexes in [] are interactive
+- elements without [] provide only context
+
+# Response Rules
+1. RESPONSE FORMAT: You must ALWAYS respond with valid JSON in this exact format:
+{"current_state": {"evaluation_previous_goal": "Success|Failed|Unknown - Analyze the current elements and the image to check if the previous goals/actions are successful like intended by the task. Mention if something unexpected happened. Shortly state why/why not",
+"memory": "Description of what has been done and what you need to remember. Be very specific. Count here ALWAYS how many times you have done something and how many remain. E.g. 0 out of 10 websites analyzed. Continue with abc and xyz",
+"next_goal": "What needs to be done with the next immediate action"},
+"action":[{"one_action_name": {// action-specific parameter}}, // ... more actions in sequence]}
+
+2. ACTIONS: You can specify multiple actions in the list to be executed in sequence. But always specify only one action name per item. Use maximum {max_actions} actions per sequence.
+Common action sequences:
+- Form filling: [{"input_text": {"index": 1, "text": "username"}}, {"input_text": {"index": 2, "text": "password"}}, {"click_element": {"index": 3}}]
+- Navigation and extraction: [{"go_to_url": {"url": "https://example.com"}}, {"extract_content": {"goal": "extract the names"}}]
+- Actions are executed in the given order
+- If the page changes after an action, the sequence is interrupted and you get the new state.
+- Only provide the action sequence until an action which changes the page state significantly.
+- Try to be efficient, e.g. fill forms at once, or chain actions where nothing changes on the page
+- only use multiple actions if it makes sense.
+
+3. ELEMENT INTERACTION:
+- Only use indexes of the interactive elements
+- Elements marked with "[]Non-interactive text" are non-interactive
+
+4. NAVIGATION & ERROR HANDLING:
+- If no suitable elements exist, use other functions to complete the task
+- If stuck, try alternative approaches - like going back to a previous page, new search, new tab etc.
+- Handle popups/cookies by accepting or closing them
+- Use scroll to find elements you are looking for
+- If you want to research something, open a new tab instead of using the current tab
+- If captcha pops up, try to solve it - else try a different approach
+- If the page is not fully loaded, use wait action
+
+5. TASK COMPLETION:
+- Use the done action as the last action as soon as the ultimate task is complete
+- Dont use "done" before you are done with everything the user asked you, except you reach the last step of max_steps. 
+- If you reach your last step, use the done action even if the task is not fully finished. Provide all the information you have gathered so far. If the ultimate task is completly finished set success to true. If not everything the user asked for is completed set success in done to false!
+- If you have to do something repeatedly for example the task says for "each", or "for all", or "x times", count always inside "memory" how many times you have done it and how many remain. Don't stop until you have completed like the task asked you. Only call done after the last step.
+- Don't hallucinate actions
+- Make sure you include everything you found out for the ultimate task in the done text parameter. Do not just say you are done, but include the requested information of the task. 
+
+6. VISUAL CONTEXT:
+- When an image is provided, use it to understand the page layout
+- Bounding boxes with labels on their top right corner correspond to element indexes
+
+7. Form filling:
+- If you fill an input field and your action sequence is interrupted, most often something changed e.g. suggestions popped up under the field.
+
+8. Long tasks:
+- Keep track of the status and subresults in the memory. 
+
+9. Extraction:
+- If your task is to find information - call extract_content on the specific pages to get and store the information.
+Your responses must be always JSON with the specified format.
+
+ HumanMessage 
+Your ultimate task is: """Find the latest tweet on DOGE's (Department of Government Efficiency) twitter profile.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+
+ HumanMessage 
+Example output:
+
+ AIMessage 
+
+
+ ToolMessage 
+Browser started
+
+ HumanMessage 
+[Your task history memory starts here]
+
+ HumanMessage 
+Action result: 🔗  Opened new tab with https://www.x.com
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 6:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action error: Error executing action input_text: Failed to input text into index 0
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: ⌨️  Input your_username into index 5
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 6:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: ⌨️  Input your_email_or_phone into index 4
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 5:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: ⌨️  Input correct_email_or_phone into index 4
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 5:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: ⌨️  Input another_email_or_phone into index 4
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 5:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: ⌨️  Input final_attempt_email_or_phone into index 4
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 5:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🔍  Searched for "DOGE Department of Government Efficiency Twitter" in Google
+
+ HumanMessage 
+[Task history memory ends]
+[Current state starts here]
+The following is one-time information - if you need to remember it write it to memory:
+Current url: https://www.google.com/search?q=DOGE%20Department%20of%20Government%20Efficiency%20Twitter&udm=14
+Available tabs:
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://www.google.com/search?q=DOGE%20Department%20of%20Government%20Efficiency%20Twitter&udm=14', title='DOGE Department of Government Efficiency Twitter - Google Search')]
+Interactive elements from top layer of the current page inside the viewport:
+[Start of page]
+Accessibility Links
+Skip to main content
+Accessibility help
+Accessibility feedback
+[0]<a />
+[1]<img />
+[2]<textarea ;q;false;Search;combobox>DOGE Department of Government Efficiency Twitter/>
+[3]<div  Clear;button/>
+[4]<div button;Search by voice/>
+[5]<div button;Search by image/>
+[6]<button submit;Search/>
+[7]<div Settings;button>Quick Settings/>
+[8]<a false;button;Google apps/>
+[9]<a Sign in/>
+Filters and Topics
+[10]<a link>All/>
+[11]<a link>News/>
+[12]<a link>Images/>
+[13]<a link>Forums/>
+[14]<a link>Short videos/>
+[15]<a link>Web/>
+[16]<a link>Flights/>
+[17]<div false;button>More/>
+[18]<div false;button>Tools/>
+Search Results
+[19]<a DOGE - Department of Government Efficiency
+X · DOGE
+4.7M+ followers/>
+[20]<img />
+[21]<div button;About this result/>
+DOGE is looking for help from the general public
+! Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or awesome ideas, ...
+[22]<a Department of Government Efficiency (@DOGE) / X
+x.com
+https://x.com
+› doge/>
+[23]<img />
+[24]<div button;About this result/>
+3 days ago
+—
+DOGE is looking for help from the general public
+! Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or ...
+Missing:
+Twitter
+‎| Show results with:
+[25]<a Twitter/>
+[26]<a DOGE - Department of Government Efficiency
+X · DOGE
+4.7M+ followers/>
+[27]<img />
+[28]<div button;About this result/>
+DOGE is looking for help from the general public
+! Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or awesome ideas, ...
+[29]<a Department of Government Efficiency
+X
+https://twitter.com
+› DOGE › highlights/>
+[30]<img />
+[31]<div button;About this result/>
+DOGE is looking for help from the general public
+! Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or awesome ideas.
+[32]<a Work | DOGE: Department of Government Efficiency
+doge.gov
+https://doge.gov/>
+[33]<img />
+[34]<div button;About this result/>
+The contract has been canceled and
+DOGE
+will water the plants free of charge.
+Tweet
+image. 08:20 PM · Mar 6, 2025.
+DOGE
+.
+Department of Government Efficiency
+[35]<a DOGE - Department of Government Efficiency
+X · DOGE
+32.2K+ likes  ·  3 days ago/>
+[36]<img />
+[37]<div button;About this result/>
+Contract update! Over the last two days, agencies terminated 239 wasteful contracts with a total ceiling value of ~$1.7B and total savings ...
+[38]<a Department of Government Efficiency (@DOGE) on X
+x.com
+https://x.com
+› DOGE › status/>
+[39]<img />
+[40]<div button;About this result/>
+Nov 14, 2024
+—
+We don't need more part-time idea generators. We need
+super high-IQ small-government revolutionaries
+willing to work 80+ hours per week on ...
+[41]<a Department of Government Efficiency
+Wikipedia
+https://en.wikipedia.org
+› wiki › Department_of_Gover.../>
+[42]<img />
+[43]<div button;About this result/>
+The Department of Government Efficiency (DOGE) is
+an initiative of the second Donald Trump administration
+in the United States.
+[44]<a Doge/>
+· ‎
+[45]<a Doge (meme)/>
+· ‎
+[46]<a Response to the Department.../>
+· ‎
+[47]<a Committee on Department.../>
+[48]<a DOGE - Department of Government Efficiency
+X · DOGE
+87.1K+ likes  ·  1 month ago/>
+[49]<img />
+[50]<div button;About this result/>
+The DOGE Team is looking for world-class talent
+to work long hours identifying/eliminating waste, fraud, and abuse. These are full-time, ...
+[51]<a Department Of Government Efficiency Community
+X · doge_eth_gov
+130+ likes/>
+[52]<img />
+[53]<div button;About this result/>
+... 766 pixels below - scroll or extract content to see more ...
+Current step: 9/10Current date and time: 2025-03-17 02:36
+
+ RESPONSE
+{
+  "current_state": {
+    "evaluation_previous_goal": "Success - Found the link to DOGE's Twitter profile on Google Search.",
+    "memory": "Located the link to DOGE's Twitter profile. Current step 9/10.",
+    "next_goal": "Click the link to access DOGE's Twitter profile."
+  },
+  "action": [
+    {
+      "click_element": {
+        "index": 29
+      }
+    }
+  ]
+}
