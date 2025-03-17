@@ -1,6 +1,6 @@
 # Project Overview
 
-This repository leverages the `browser_use` library to monitor twitter accounts, analyze trends, score tweets, and reply/post/retweet.
+This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor twitter accounts, analyze trends, score tweets, and reply/post/retweet.
 
 ### My Workers
 - **Agent A**: Continuously monitor a specified list of accounts and save latest posts/replies database
