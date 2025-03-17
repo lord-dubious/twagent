@@ -4,11 +4,17 @@ This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor 
 
 ### My Workers
 - **Agent A**: Continuously monitor a specified list of accounts and save latest posts/replies database
+
 - **Agent B1**: Monitor the [Trending](https://x.com/explore/tabs/keyword) and [News](https://x.com/explore/tabs/news) tabs by adjusting the location settings, select relevant trends, save their links and descriptions.
+
 - **Agent B2**: Go through the relevant trends, determine which posts to respond to, save those posts.
+
 - **Agent C** (not browser-base): score all the current tweets in the past 10 minutes, determine which ones to respond to.
+
 - **Agent D**: Craft replies/posts, score these.
+
 - **Agent E**: Respond to the highest-scoring tweets. Retweet those. The max tweet count is 2,400 per day.
+
 - **Agent F**: Stream with Elevenlabs to OBS and say them in a twitter space. 
 
 
