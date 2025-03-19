@@ -96,80 +96,55 @@ Available tabs:
 [TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/DOGE', title='Department of Government Efficiency (@DOGE) / X')]
 Interactive elements from top layer of the current page inside the viewport:
 [Start of page]
-[0]<div To view keyboard shortcuts, press question mark
-View keyboard shortcuts
-See new posts
-Click to Unfollow DOGE
+[0]<div See new posts
+Click to Follow DOGE
 The people voted for major reform.
 Joined November 2024
-Department of Government Efficiency’s posts/>
-[1]<button />
-[2]<div Messages/>
-[3]<button Compose new Message/>
-[4]<button Expand/>
-[5]<a link;X/>
-[6]<a link;Home/>
-[7]<a link;Search and explore/>
-[8]<a Notifications;link/>
-[9]<a Direct Messages;link/>
-[10]<a link;Grok/>
-[11]<a Premium;link/>
-[12]<a link;Lists/>
-[13]<a link;Bookmarks/>
-[14]<a Jobs;link/>
-[15]<a Communities;link/>
-[16]<a Verified Orgs;link/>
-[17]<a Profile;link/>
-[18]<button More menu items;false/>
-[19]<a Post;link/>
-[20]<div />
-[21]<button Account menu/>
-[22]<div presentation/>
-[23]<div />
-[24]<button Back/>
-[25]<div 184 posts/>
-[26]<div Department of Government Efficiency/>
-[27]<a link/>
-[28]<img />
-[29]<a link/>
-[30]<div />
-[31]<button More;false/>
-[32]<button Search/>
-[33]<button Message/>
-[34]<button Turn on post notifications/>
-[35]<button Following @DOGE>Following/>
-[36]<div Department of Government Efficiency/>
-[37]<div />
-[38]<button Provides details about verified accounts./>
-[39]<div @DOGE/>
-[40]<a none>doge.gov/>
-[41]<a link>0
+Department of Government Efficiency’s posts
+·
+This week,
+is dissolving the Federal Consulting Group (FCG), where one government department charges another to broker consulting contracts.
+
+As an example, FCG brokered a $75M contract to design website customer satisfaction surveys, and then attempted to award $830M/>
+[1]<div />
+[2]<div Don’t miss what’s happening
+People on X are the first to know./>
+[3]<a link>Log in/>
+[4]<a link>Sign up/>
+[5]<a X;link/>
+[6]<a Settings;link/>
+[7]<button Back/>
+[8]<div 190 posts/>
+[9]<div Department of Government Efficiency/>
+[10]<a link/>
+[11]<img />
+[12]<a link/>
+[13]<div />
+[14]<button Search/>
+[15]<button Follow @DOGE>Follow/>
+[16]<div Department of Government Efficiency/>
+[17]<div />
+[18]<button Provides details about verified accounts./>
+[19]<div @DOGE/>
+[20]<a none>doge.gov/>
+[21]<a link>0
 Following/>
-[42]<a link>4.7M
+[22]<a link>4.7M
 Followers/>
-[43]<a Followers you know;link>Followed by
-DOGEai
-,
-Vicarious
-, and
-192
-others you follow/>
-[44]<div presentation/>
-[45]<div />
-[46]<div />
-[47]<div presentation/>
-[48]<a tab>Posts/>
-[49]<div presentation/>
-[50]<a tab>Affiliates/>
-[51]<div presentation/>
-[52]<a tab>Replies/>
-[53]<div presentation/>
-[54]<a tab>Highlights/>
-[55]<div presentation/>
-[56]<a tab>Media/>
-[57]<div />
-[58]<article />
-[59]<div Pinned
+[23]<div />
+[24]<div presentation/>
+[25]<a tab>Posts/>
+[26]<div presentation/>
+[27]<a tab>Affiliates/>
+[28]<div presentation/>
+[29]<a tab>Replies/>
+[30]<div presentation/>
+[31]<a tab>Highlights/>
+[32]<div presentation/>
+[33]<a tab>Media/>
+[34]<div />
+[35]<article />
+[36]<div Pinned
 ·
 DOGE is looking for help from the general public!  
 
@@ -177,188 +152,102 @@ Please DM insight for reducing waste, fraud, and abuse, along with any helpful i
 ,
 , etc.  
 We will add/>
-[60]<a link/>
-[61]<div />
-[62]<a link>Department of Government Efficiency/>
-[63]<a link>@DOGE/>
-[64]<a link>Feb 16/>
-[65]<button Grok actions/>
-[66]<button More;false/>
-[67]<a link>@DOGE_USDA/>
-[68]<a link>@DOGE_SSA/>
-[69]<button Show more/>
-[70]<button 39574 Replies. Reply>39K/>
-[71]<button 30646 reposts. Repost;false>30K/>
-[72]<button 115381 Likes. Like>115K/>
-[73]<a 57448937 views. View post analytics;link>57M/>
-[74]<button Bookmark/>
-[75]<button Share post;false/>
-[76]<div />
-[77]<article />
-[78]<div ·
-This article is maliciously misleading. While the database error is unfortunate, this has zero connection to
-. 
+[37]<a link/>
+[38]<div />
+[39]<a link>Department of Government Efficiency/>
+[40]<a link>@DOGE/>
+[41]<a link>Feb 16/>
+[42]<button Grok actions/>
+[43]<button More;false/>
+[44]<a link>@DOGE_USDA/>
+[45]<a link>@DOGE_SSA/>
+[46]<button Show more/>
+[47]<button 40013 Replies. Reply>40K/>
+[48]<button 30834 reposts. Repost;false>30K/>
+[49]<button 116021 Likes. Like>116K/>
+[50]<a 57581338 views. View post analytics;link>57M/>
+[51]<button Bookmark/>
+[52]<button Share post;false/>
+[53]<a link/>
+[54]<div />
+[55]<a link>Department of Government Efficiency/>
+[56]<a link>@DOGE/>
+[57]<a 12 hours ago;link>12h/>
+[58]<button Grok actions/>
+[59]<button More;false/>
+[60]<a link>@Interior/>
+[61]<button Show more/>
+[62]<button 1056 Replies. Reply>1K/>
+[63]<div />
+[64]<button 4278 reposts. Repost;false>4.2K/>
+[65]<div />
+[66]<button 19574 Likes. Like>19K/>
+[67]<div />
+[68]<a 8441961 views. View post analytics;link>8.4M/>
+[69]<div />
+[70]<button Bookmark/>
+[71]<div />
+[72]<button Share post;false/>
+[73]<div />
+[74]<div />
+[75]<article />
+[76]<div ·
+Contract update!
 
-This type of error unfortunately has occurred regularly (~500 times each month) for years. In the same way that dead people are marked as living, the reverse also
-Quote/>
-[79]<a link/>
-[80]<div />
-[81]<a link>Department of Government Efficiency/>
-[82]<a link>@DOGE/>
-[83]<a link>Mar 16/>
-[84]<button More;false/>
-[85]<a link>@DOGE/>
-[86]<button Show more/>
-[87]<div link>·
-Mar 15
-The richest man in the world,
-@elonmusk
-, took over $5,000 out of this guy's bank account, claiming he was saving money, by falsely claiming he was dead.
-https://
-seattletimes.com/seattle-news/p
-olitics/heres-a-dead-person-on-social-security-in-seattle-with-plenty-to-say/
-…/>
-[88]<div presentation/>
-[89]<div />
-[90]<div emptywheel (check)/>
-[91]<div @emptywheel/>
-[92]<button 1637 Replies. Reply>1.6K/>
-[93]<div />
-[94]<button 6803 reposts. Repost;false>6.8K/>
-[95]<div />
-[96]<button 32668 Likes. Like>32K/>
-[97]<div />
-[98]<a 3443568 views. View post analytics;link>3.4M/>
-[99]<div />
-[100]<button Bookmark/>
-[101]<div />
-[102]<button Share post;false/>
-[103]<div />
-[104]<div />
-[105]<article />
-[106]<div ·
-Here is the Inspector General reporting this problem in 2008. The good news is that it is now actively being fixed./>
-[107]<a link/>
-[108]<img />
-[109]<div />
-[110]<a link>Department of Government Efficiency/>
-[111]<a link>@DOGE/>
-[112]<a link>Mar 16/>
-[113]<button Grok actions/>
-[114]<div />
-[115]<button More;false/>
-[116]<div />
-[117]<div />
-[118]<a link/>
-[119]<img />
-[120]<div Trending>Trending now
-Rippling Accuses Deel of Corporate Espionage in HR Tech Rivalry
-6 hours ago · Business · 2.1K posts
+Today, agencies cancelled 47 contracts with a ceiling value of $185M and savings of $90M, including:
+-$3.1M for “healthy relationships social media presence”
+-$3.5M for consultants “to provide professional IT cloud, software, hardware expertise, and expertise in/>
+[77]<a link/>
+[78]<img />
+[79]<div />
+[80]<a link>Department of Government Efficiency/>
+[81]<a link>@DOGE/>
+[82]<a 12 hours ago;link>12h/>
+[83]<button Grok actions/>
+[84]<div />
+[85]<button More;false/>
+[86]<div />
+[87]<button Show more/>
+[88]<div />
+[89]<a link/>
+[90]<img />
+[91]<div Trending>Sign up now to get your own personalized timeline!
+By signing up, you agree to the
+and
+, including
+Win $100k for the best bracket
+Design your college basketball bracket on X. Perfect bracket wins a trip to Mars!
+Rules apply
+Something went wrong. Try reloading.
 © 2025 X Corp./>
-[121]<input Search query;Search;combobox;text/>
-[122]<div Live on X/>
-[123]<button Space, ThePersistence is listening, Hosted by Diligent Denizen 🇺🇸, 🇺🇸 TRUMP VOIDS BIDEN PARDONS ON BONGINO’S FIRST DAY‼️ J6 CONSPIRACY 👀, Diligent Denizen 🇺🇸, ThePersistence, and Good Lawgic joined>is listening
-TRUMP VOIDS BIDEN PARDONS ON BONGINO’S FIRST DAY
-J6 CONSPIRACY
-+1.1K/>
-[124]<div ThePersistence/>
-[125]<div presentation/>
-[126]<div />
-[127]<button Space, Auntie G is speaking, Hosted by 👑KINGFLIPPA🇺🇸, 👑🏰❌ Maze I got yo back come Alphawarrior, 👑KINGFLIPPA🇺🇸, Auntie G, and Sarah joined>is speaking
-Maze I got yo back come Alphawarrior
-+92/>
-[128]<div Auntie G/>
-[129]<div presentation/>
-[130]<div />
-[131]<button Space, Nilo is speaking, Hosted by Luffygear5monger, LUFFY ASYLUM X SPACE/ PLAYING Ys X 🎮🕹️, Luffygear5monger, Nilo, and Jamester 🇧🇹 joined>is speaking
-LUFFY ASYLUM X SPACE/ PLAYING Ys X
-+10/>
-[132]<div Nilo/>
-[133]<div presentation/>
-[134]<div />
-[135]<button Space, Green Candle Investments is listening, Hosted by Bugle.News 📯, Maxi Madness Update, Bugle.News 📯, Green Candle Investments, and Maggie Morris 40HPW🎧 joined>is listening
-Maxi Madness Update
-+6/>
-[136]<div Green Candle Investments/>
-[137]<div presentation/>
-[138]<div />
-[139]<button Space, Drew is hosting, Hosted by Drew, a space about nothing, Drew and theratiowhale joined>is hosting
-a space about nothing
-+1/>
-[140]<div Drew/>
-[141]<div presentation/>
-[142]<div />
-[143]<div You might like/>
-[144]<li listitem>Click to Follow derek_proulx/>
-[145]<a link/>
-[146]<div />
-[147]<a link>Derek Proulx, Free State native/>
-[148]<a link>@derek_proulx/>
-[149]<button Follow @derek_proulx>Follow/>
-[150]<li listitem>Click to Follow lkshmoney3456/>
-[151]<a link/>
-[152]<div />
-[153]<a link>Daddy whats good/>
-[154]<a link>@lkshmoney3456/>
-[155]<button Follow @lkshmoney3456>Follow/>
-[156]<li listitem>Click to Follow MaritaPapita/>
-[157]<a link/>
-[158]<div />
-[159]<a link>MarMar/>
-[160]<a link>@MaritaPapita/>
-[161]<button Follow @MaritaPapita>Follow/>
-[162]<a link>Show more/>
-[163]<div />
-[164]<div Explore
-Beta/>
-[165]<div />
-[166]<div link>Starbucks Liability: $50M Award for Tea Spill Burns
-4 hours ago · Law · 4.7K posts/>
-[167]<div presentation/>
-[168]<div />
-[169]<div />
-[170]<div link>Egg Prices Plummet: Analyzing Trump's Economic Impact
-7 hours ago · Economics · 31K posts/>
-[171]<div presentation/>
-[172]<img />
-[173]<div />
-[174]<div presentation/>
-[175]<img />
-[176]<div />
-[177]<div />
-[178]<div link>Musk Discusses 'Magic Money Computers' on Cruz's Podcast
-4 hours ago · Economy · 38K posts/>
-[179]<div presentation/>
-[180]<img />
-[181]<div />
-[182]<div presentation/>
-[183]<img />
-[184]<div />
-[185]<div presentation/>
-[186]<img />
-[187]<div />
-[188]<div />
-[189]<a link>Show more/>
-[190]<a link>Terms of Service/>
-[191]<a link>Privacy Policy/>
-[192]<a link>Cookie Policy/>
-[193]<a link>Accessibility/>
-[194]<a link>Ads info/>
-[195]<button false>More/>
-... 6982 pixels below - scroll or extract content to see more ...
-Current step: 1/10Current date and time: 2025-03-17 15:09
+[92]<div New to X?/>
+[93]<button Sign up with Apple/>
+[94]<a link>Create account/>
+[95]<a link>Terms of Service/>
+[96]<a link>Privacy Policy/>
+[97]<a link>Cookie Use./>
+[98]<a link>Create a bracket/>
+[99]<button Retry/>
+[100]<a link>Terms of Service/>
+[101]<a link>Privacy Policy/>
+[102]<a link>Cookie Policy/>
+[103]<a link>Accessibility/>
+[104]<a link>Ads info/>
+[105]<button false>More/>
+... 8034 pixels below - scroll or extract content to see more ...
+Current step: 1/10Current date and time: 2025-03-19 14:07
 
  RESPONSE
 {
   "current_state": {
-    "evaluation_previous_goal": "Success - The DOGE Twitter page is loaded.",
-    "memory": "Opened the DOGE Twitter page. Looking for the latest tweet.",
-    "next_goal": "Extract the latest tweet on the DOGE profile."
+    "evaluation_previous_goal": "Success - Opened DOGE's profile on X.",
+    "memory": "Opened DOGE's Twitter page. Now need to find the latest tweet. Currently at step 1.",
+    "next_goal": "Identify the latest tweet from DOGE's profile."
   },
   "action": [
     {
       "extract_content": {
-        "goal": "extract the latest tweet content on DOGE's profile"
+        "goal": "find the latest tweet information from DOGE's Twitter profile."
       }
     }
   ]

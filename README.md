@@ -1,18 +1,27 @@
 # Project Overview
 
 This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor twitter accounts, analyze trends, score tweets, and reply/post/retweet.
+
 ## AI Agentic Workflow Structure
 
-The structure of the AI agentic workflow is designed to create provocative arguments and pick fights online.
-- A general mission statement (system prompt)
-- Accounts to support
-- Accounts to disagree with
-- Trends to view positively
+The structure of the AI agentic workflow is designed for pseudosatirical social causes. It aims to create provocative arguments and pick fights online. Users can specify:
 
-- Trends to view negatively
+- **What people should know (system prompt)**
+  - Example: "Majority of Americans would support Wind Turbines if they sliced deli meat as well."
+- **Accounts to support**
+  - Example: "@WindEnergyAdvocates, @EcoInnovations, @OscarMayer, @HormelFoods"
+
+- **Accounts to disagree with**
+  - Example: "@FossilFuelLobby, @AntiRenewables, @VeganActivists"
+
+- **Trends to view positively**
+  - Example: "#WindTurbineInnovation, #RenewableEnergy, #DeliMeatWindTurbines"
+
+- **Trends to view negatively**
+  - Example: "#FossilFuelDependence, #AntiWindEnergy"
 
 
-By leveraging advanced natural language processing (NLP) techniques and AI-driven analysis, the agents are able to identify contentious topics, craft provocative responses, and engage in online debates. This approach aims to maximize engagement and visibility by stirring up discussions and attracting attention.
+By leveraging advanced natural language processing (NLP) techniques and AI-driven analysis, the agents are able to identify contentious topics, craft provocative responses, and engage in online debates.
 
 The workflow involves several key steps:
 
@@ -43,7 +52,7 @@ The workflow involves several key steps:
 - **Agent F**: Stream with Elevenlabs to OBS and say them in a twitter space. 
 
 
-## A. Why this approach? Why not just use Twitter's V2 API?
+## Why this approach? Why not just use Twitter's V2 API?
 
 This approach was chosen as a solution because the Twitter API is prohibitively expensive and is often seen as anti-developer. 
 
@@ -59,7 +68,7 @@ Given his heavy investment into XAI, Elon Musk should support AI Agentic Workflo
 
 
 ### scraping vs limited/expensive APIs
-- Agent A, B1/2 E could be done easily with V2 access, though you'd be rate-limited. Trends API is more unstable with conflicting information in the documentation.
+- Agent A, B1/2, E could be done easily with V2 access, though you'd be rate-limited. Trends API is more unstable with conflicting information in the documentation.
 - For X's Communities' feature, you can only do one call per 15 minutes. That is a complete mess and scraping is likely better.
 
 ### my workflow prioritizes:

@@ -23,6 +23,12 @@
       "handle": "@DOGE",
       "datetime": "Mar 16",
       "content": "Here is the Inspector General reporting this problem in 2008. The good news is that it is now actively being fixed."
+    },
+    {
+      "author": "Department of Government Efficiency",
+      "handle": "@DOGE",
+      "datetime": "12h",
+      "content": "This week, @Interior is dissolving the Federal Consulting Group (FCG), where one government department charges another to broker consulting contracts. As an example, FCG brokered a $75M contract to design website customer satisfaction surveys, and then attempted to award $830M."
     }
   ]
 }
