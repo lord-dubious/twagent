@@ -1,13 +1,38 @@
 # Project Overview
 
 This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor twitter accounts, analyze trends, score tweets, and reply/post/retweet.
+## AI Agentic Workflow Structure
+
+The structure of the AI agentic workflow is designed to create provocative arguments and pick fights online.
+- A general mission statement (system prompt)
+- Accounts to support
+- Accounts to disagree with
+- Trends to view positively
+
+- Trends to view negatively
+
+
+By leveraging advanced natural language processing (NLP) techniques and AI-driven analysis, the agents are able to identify contentious topics, craft provocative responses, and engage in online debates. This approach aims to maximize engagement and visibility by stirring up discussions and attracting attention.
+
+The workflow involves several key steps:
+
+1. **Contentious Topic Identification**: Agents monitor various Twitter accounts, trending topics, and news to identify subjects that are likely to provoke strong reactions and debates.
+
+2. **Provocative Response Crafting**: Using NLP techniques, the agents generate responses that are designed to challenge opinions, question assumptions, and provoke arguments.
+
+3. **Engagement and Interaction**: The agents actively engage with users by replying to tweets, posting their own provocative statements, and retweeting contentious content. 
+
+4. **Scoring and Prioritization**: Tweets and responses are scored based on their potential to provoke arguments and generate engagement. Higher-scoring content is prioritized for posting and interaction.
+
+5. **Continuous Monitoring and Adaptation**: The agents continuously monitor the impact of their interactions, adapting their strategies based on the responses they receive. This ensures that the workflow remains effective in creating arguments and picking fights online.
+
 
 ### My Workers
-- **Agent A**: Continuously monitor a specified list of accounts and save latest posts/replies database
+- **Agent A**: Using either a Twitter List or the Tweet Deck (https://pro.x.com/i/decks), monitor several accounts and save tweets.
 
-- **Agent B1**: Monitor the [Trending](https://x.com/explore/tabs/keyword) and [News](https://x.com/explore/tabs/news) tabs by adjusting the location settings, select relevant trends, save their links and descriptions.
+- **Agent B1**: Monitor the [Trending](https://x.com/explore/tabs/keyword) and [News](https://x.com/explore/tabs/news) tabs by adjusting the location settings, select 10 most-relevant trends, save their links and descriptions.
 
-- **Agent B2**: Go through the relevant trends, determine which posts to respond to, save those posts.
+- **Agent B2**: For each relevant trend, find the 10 best tweets, save them.
 
 - **Agent C** (not browser-base): score all the current tweets in the past 10 minutes, determine which ones to respond to.
 
@@ -26,7 +51,7 @@ This approach was chosen as a solution because the Twitter API is prohibitively 
 - **Expensive Paid Tiers**: Free-tier access is very limited, and paid tiers are costly.
 - **Rate Limits & Downtime**: Even paid users experience unexpected rate limits and occasional outages.
 
-Name a single other major social network around today that has an API and allows third-party clients. The only one I can think of is Reddit - and even in that case, there are numerous features already being locked out of third-party clients. They are on the same path as Twitter, and at some point they will realize that maintaining a gigantic cost center that provides no revenue (since they don't control ads) and does not allow them to rapidly innovate or build a brand (since they don't control the app) does not make a lot of business sense.
+Name a single other major **social network** around today that has an API and allows third-party clients. The only one I can think of is Reddit - and even in that case, there are numerous features already being locked out of third-party clients. They are on the same path as Twitter, and at some point they will realize that maintaining a gigantic cost center that provides no revenue (since they don't control ads) and does not allow them to rapidly innovate or build a brand (since they don't control the app) does not make a lot of business sense.
 
 The death of the Twitter API is long, long overdue. Bad for us consumers? Sure. But these companies are not charities, they exist to make money.
 
