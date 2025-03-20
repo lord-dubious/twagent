@@ -165,3 +165,8 @@ This will:
 2. Navigate to the specified Twitter profile (currently set to DOGE's profile)
 3. Extract the latest tweets
 4. Save them to `saved_tweets.json`
+
+
+
+### Things to know:
+- Rather than use CrewAI's default MultiOn Tool, I instead use browser-use because it is 1) open-source 2) doesnt require a paid api key and 3) better documentation and community

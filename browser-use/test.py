@@ -12,6 +12,8 @@ import asyncio
 from dotenv import load_dotenv
 import json
 import os.path
+from datetime import datetime
+
 load_dotenv()
 
 browser = Browser()
