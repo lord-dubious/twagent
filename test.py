@@ -60,7 +60,7 @@ async def main():
             except json.JSONDecodeError:
                 print("Error reading existing tweets file. Starting with empty list.")
         
-        # Check each tweet and add if not already in the file
+        # Check each tweet and add if not already in the file¬
         new_tweets_added = False
         for tweet in parsed.tweets:
             # Create a dictionary representation of the tweet

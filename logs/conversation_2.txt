@@ -93,58 +93,85 @@ Action result: 🔗  Opened new tab with https://www.x.com/DOGE
 The following is one-time information - if you need to remember it write it to memory:
 Current url: https://x.com/DOGE
 Available tabs:
-[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/DOGE', title='Department of Government Efficiency (@DOGE) / X')]
+[TabInfo(page_id=0, url='https://x.com/DOGE', title='Department of Government Efficiency (@DOGE) / X')]
 Interactive elements from top layer of the current page inside the viewport:
 [Start of page]
-[0]<div See new posts
-Click to Follow DOGE
+[0]<div To view keyboard shortcuts, press question mark
+View keyboard shortcuts
+See new posts
+Click to Unfollow DOGE
 The people voted for major reform.
 Joined November 2024
-Department of Government Efficiency’s posts
-·
-This week,
-is dissolving the Federal Consulting Group (FCG), where one government department charges another to broker consulting contracts.
-
-As an example, FCG brokered a $75M contract to design website customer satisfaction surveys, and then attempted to award $830M/>
-[1]<div />
-[2]<div Don’t miss what’s happening
-People on X are the first to know./>
-[3]<a link>Log in/>
-[4]<a link>Sign up/>
+Department of Government Efficiency’s posts/>
+[1]<button />
+[2]<div Messages/>
+[3]<button Compose new Message/>
+[4]<button Expand/>
 [5]<a X;link/>
-[6]<a Settings;link/>
-[7]<button Back/>
-[8]<div 190 posts/>
-[9]<div Department of Government Efficiency/>
-[10]<a link/>
-[11]<img />
-[12]<a link/>
-[13]<div />
-[14]<button Search/>
-[15]<button Follow @DOGE>Follow/>
-[16]<div Department of Government Efficiency/>
-[17]<div />
-[18]<button Provides details about verified accounts./>
-[19]<div @DOGE/>
-[20]<a none>doge.gov/>
-[21]<a link>0
-Following/>
-[22]<a link>4.7M
-Followers/>
+[6]<a link>Home/>
+[7]<a Search and explore;link>Explore/>
+[8]<a link>Notifications/>
+[9]<a Direct Messages;link>Messages/>
+[10]<a link>Grok/>
+[11]<a link>Premium/>
+[12]<a link>Lists/>
+[13]<a link>Bookmarks/>
+[14]<a link>Jobs/>
+[15]<a link>Communities/>
+[16]<a link>Verified Orgs/>
+[17]<a link>Profile/>
+[18]<button More menu items;false>More/>
+[19]<a link>Post/>
+[20]<div />
+[21]<button Account menu/>
+[22]<div presentation/>
 [23]<div />
-[24]<div presentation/>
-[25]<a tab>Posts/>
-[26]<div presentation/>
-[27]<a tab>Affiliates/>
-[28]<div presentation/>
-[29]<a tab>Replies/>
-[30]<div presentation/>
-[31]<a tab>Highlights/>
-[32]<div presentation/>
-[33]<a tab>Media/>
-[34]<div />
-[35]<article />
-[36]<div Pinned
+[24]<div zerk-dot/>
+[25]<div @xerkdot/>
+[26]<button Back/>
+[27]<div 191 posts/>
+[28]<div Department of Government Efficiency/>
+[29]<a link/>
+[30]<img />
+[31]<a link/>
+[32]<div />
+[33]<button More;false/>
+[34]<button Search/>
+[35]<button Message/>
+[36]<button Turn on post notifications/>
+[37]<button Following @DOGE>Following/>
+[38]<div Department of Government Efficiency/>
+[39]<div />
+[40]<button Provides details about verified accounts./>
+[41]<div @DOGE/>
+[42]<a none>doge.gov/>
+[43]<a link>0
+Following/>
+[44]<a link>4.7M
+Followers/>
+[45]<a Followers you know;link>Followed by
+DOGEai
+,
+Vicarious
+, and
+191
+others you follow/>
+[46]<div presentation/>
+[47]<div />
+[48]<div />
+[49]<div presentation/>
+[50]<a tab>Posts/>
+[51]<div presentation/>
+[52]<a tab>Affiliates/>
+[53]<div presentation/>
+[54]<a tab>Replies/>
+[55]<div presentation/>
+[56]<a tab>Highlights/>
+[57]<div presentation/>
+[58]<a tab>Media/>
+[59]<div />
+[60]<article />
+[61]<div Pinned
 ·
 DOGE is looking for help from the general public!  
 
@@ -152,103 +179,195 @@ Please DM insight for reducing waste, fraud, and abuse, along with any helpful i
 ,
 , etc.  
 We will add/>
-[37]<a link/>
-[38]<div />
-[39]<a link>Department of Government Efficiency/>
-[40]<a link>@DOGE/>
-[41]<a link>Feb 16/>
-[42]<button Grok actions/>
-[43]<button More;false/>
-[44]<a link>@DOGE_USDA/>
-[45]<a link>@DOGE_SSA/>
-[46]<button Show more/>
-[47]<button 40013 Replies. Reply>40K/>
-[48]<button 30834 reposts. Repost;false>30K/>
-[49]<button 116021 Likes. Like>116K/>
-[50]<a 57581338 views. View post analytics;link>57M/>
-[51]<button Bookmark/>
-[52]<button Share post;false/>
-[53]<a link/>
-[54]<div />
-[55]<a link>Department of Government Efficiency/>
-[56]<a link>@DOGE/>
-[57]<a 12 hours ago;link>12h/>
-[58]<button Grok actions/>
-[59]<button More;false/>
-[60]<a link>@Interior/>
-[61]<button Show more/>
-[62]<button 1056 Replies. Reply>1K/>
+[62]<a link/>
 [63]<div />
-[64]<button 4278 reposts. Repost;false>4.2K/>
-[65]<div />
-[66]<button 19574 Likes. Like>19K/>
-[67]<div />
-[68]<a 8441961 views. View post analytics;link>8.4M/>
-[69]<div />
-[70]<button Bookmark/>
-[71]<div />
-[72]<button Share post;false/>
-[73]<div />
-[74]<div />
-[75]<article />
-[76]<div ·
-Contract update!
+[64]<a link>Department of Government Efficiency/>
+[65]<a link>@DOGE/>
+[66]<a link>Feb 16/>
+[67]<button Grok actions/>
+[68]<button More;false/>
+[69]<a link>@DOGE_USDA/>
+[70]<a link>@DOGE_SSA/>
+[71]<button Show more/>
+[72]<button 40290 Replies. Reply>40K/>
+[73]<button 30912 reposts. Repost;false>30K/>
+[74]<button 116386 Likes. Like>116K/>
+[75]<a link;57677722 views. View post analytics>57M/>
+[76]<button Bookmark/>
+[77]<button false;Share post/>
+[78]<div />
+[79]<article />
+[80]<div ·
+Great partnership with
+Quote/>
+[81]<a link/>
+[82]<div />
+[83]<a link>Department of Government Efficiency/>
+[84]<a link>@DOGE/>
+[85]<a link>Mar 19/>
+[86]<button Grok actions/>
+[87]<button More;false/>
+[88]<a link>@epaleezeldin/>
+[89]<a link>@EPA/>
+[90]<div link>·
+Mar 19
+Loving the exceptional partnership
+@EPA
+has had with
+@ElonMusk
+and the entire
+@DOGE
+team to pursue every efficiency possible as we end wasteful spending and practices./>
+[91]<div presentation/>
+[92]<div />
+[93]<div Lee Zeldin/>
+[94]<div link/>
+[95]<div @epaleezeldin/>
+[96]<div The media could not be played./>
+[97]<button Reload/>
+[98]<button 336 Replies. Reply>336/>
+[99]<div />
+[100]<button false;904 reposts. Repost>904/>
+[101]<div />
+[102]<button 6722 Likes. Like>6.7K/>
+[103]<div />
+[104]<a 637992 views. View post analytics;link>637K/>
+[105]<div />
+[106]<button Bookmark/>
+[107]<div />
+[108]<button false;Share post/>
+[109]<div />
+[110]<div />
+[111]<article />
+[112]<div ·
+This week,
+is dissolving the Federal Consulting Group (FCG), where one government department charges another to broker consulting contracts.
 
-Today, agencies cancelled 47 contracts with a ceiling value of $185M and savings of $90M, including:
--$3.1M for “healthy relationships social media presence”
--$3.5M for consultants “to provide professional IT cloud, software, hardware expertise, and expertise in/>
-[77]<a link/>
-[78]<img />
-[79]<div />
-[80]<a link>Department of Government Efficiency/>
-[81]<a link>@DOGE/>
-[82]<a 12 hours ago;link>12h/>
-[83]<button Grok actions/>
-[84]<div />
-[85]<button More;false/>
-[86]<div />
-[87]<button Show more/>
-[88]<div />
-[89]<a link/>
-[90]<img />
-[91]<div Trending>Sign up now to get your own personalized timeline!
-By signing up, you agree to the
-and
-, including
-Win $100k for the best bracket
-Design your college basketball bracket on X. Perfect bracket wins a trip to Mars!
-Rules apply
-Something went wrong. Try reloading.
+As an example, FCG brokered a $75M contract to design website customer satisfaction surveys, and then attempted to award $830M/>
+[113]<a link/>
+[114]<img />
+[115]<div />
+[116]<a link>Department of Government Efficiency/>
+[117]<a link>@DOGE/>
+[118]<a link>Mar 19/>
+[119]<button Grok actions/>
+[120]<div />
+[121]<button More;false/>
+[122]<div />
+[123]<a link>@Interior/>
+[124]<button Show more/>
+[125]<div />
+[126]<a link/>
+[127]<img />
+[128]<div Trending>Trending now
+Trump Proposes U.S. Bitcoin Reserve, Calls for Stablecoin Legislation
+Trending now · Cryptocurrency · 4.9K posts
 © 2025 X Corp./>
-[92]<div New to X?/>
-[93]<button Sign up with Apple/>
-[94]<a link>Create account/>
-[95]<a link>Terms of Service/>
-[96]<a link>Privacy Policy/>
-[97]<a link>Cookie Use./>
-[98]<a link>Create a bracket/>
-[99]<button Retry/>
-[100]<a link>Terms of Service/>
-[101]<a link>Privacy Policy/>
-[102]<a link>Cookie Policy/>
-[103]<a link>Accessibility/>
-[104]<a link>Ads info/>
-[105]<button false>More/>
-... 8034 pixels below - scroll or extract content to see more ...
-Current step: 1/10Current date and time: 2025-03-19 14:07
+[129]<input combobox;Search query;Search;text/>
+[130]<div Live on X/>
+[131]<button Broadcast, Martin Shkreli is hosting, Hosted by Martin Shkreli, 3-20, Martin Shkreli joined>is hosting
+3-20
++12.3K/>
+[132]<div Martin Shkreli/>
+[133]<div presentation/>
+[134]<div />
+[135]<button Broadcast, Grant Cardone is hosting, Hosted by Grant Cardone, 10X Growth Conference LIVE, Grant Cardone joined>is hosting
+10X Growth Conference LIVE
++7.9K/>
+[136]<div Grant Cardone/>
+[137]<div presentation/>
+[138]<div />
+[139]<button Space, 𝘾𝙚𝙧𝙧𝙖 is co-hosting, Hosted by Mario Nawfal, 🚨BREAKING: TRUMP SHUTS DOWN DEPT OF EDUCATION, Mario Nawfal, 𝘾𝙚𝙧𝙧𝙖, and David Pollack joined>is co-hosting
+BREAKING: TRUMP SHUTS DOWN DEPT OF EDUCATION
++3.2K/>
+[140]<div 𝘾𝙚𝙧𝙧𝙖/>
+[141]<div presentation/>
+[142]<div />
+[143]<button Space, Hosted by Diligent Denizen 🇺🇸, ‼️🇺🇸 JFK FILES PT3 VIDEO MODE • READ ALONG • NEW REVELATIONS 👀, Diligent Denizen 🇺🇸, Destiny Rezendes, and Tyler Nixon joined>JFK FILES PT3 VIDEO MODE • READ ALONG • NEW REVELATIONS
++744/>
+[144]<button Space, Auntie G is speaking, Hosted by Jordan Daley, Debate Day: TRUTH V. Andrew - Brought to you by The Waffle House, Jordan Daley, 𝘽𝘼𝙉𝙆𝙎𝙔, and Auntie G joined>is speaking
+Debate Day: TRUTH V. Andrew - Brought to you by The Waffle House
++246/>
+[145]<div Auntie G/>
+[146]<div presentation/>
+[147]<div />
+[148]<button Show more/>
+[149]<div You might like/>
+[150]<li listitem>Click to Follow PorcupineMark/>
+[151]<a link/>
+[152]<div />
+[153]<a link>Mark Warden/>
+[154]<a link>@PorcupineMark/>
+[155]<button Follow @PorcupineMark>Follow/>
+[156]<li listitem>Click to Follow generalstacks/>
+[157]<a link/>
+[158]<div />
+[159]<a link>S.T.A.C.K.S/>
+[160]<a link>@generalstacks/>
+[161]<button Follow @generalstacks>Follow/>
+[162]<li listitem>Click to Follow KcnYzy/>
+[163]<a link/>
+[164]<div />
+[165]<a link>kcN/>
+[166]<a link>@KcnYzy/>
+[167]<button Follow @KcnYzy>Follow/>
+[168]<a link>Show more/>
+[169]<div />
+[170]<div Explore
+Beta/>
+[171]<div />
+[172]<div link>Elon Musk's DOGE Blocks $52M WEF Payment Amid Efficiency Drive
+2 hours ago · Politics · 15K posts/>
+[173]<div presentation/>
+[174]<div />
+[175]<div presentation/>
+[176]<img />
+[177]<div />
+[178]<div presentation/>
+[179]<img />
+[180]<div />
+[181]<div presentation/>
+[182]<img />
+[183]<div />
+[184]<div />
+[185]<div link>Claude AI Gains Web Search Capability
+3 hours ago · Technology · 1.8K posts/>
+[186]<div presentation/>
+[187]<img />
+[188]<div />
+[189]<div presentation/>
+[190]<img />
+[191]<div />
+[192]<div presentation/>
+[193]<img />
+[194]<div />
+[195]<div />
+[196]<div link>Bigscreen Beyond 2 Launch
+4 hours ago · Technology · 1.4K posts/>
+[197]<div presentation/>
+[198]<img />
+[199]<div />
+[200]<div />
+[201]<a link>Show more/>
+[202]<a link>Terms of Service/>
+[203]<a link>Privacy Policy/>
+[204]<a link>Cookie Policy/>
+[205]<a link>Accessibility/>
+[206]<a link>Ads info/>
+[207]<button false>More/>
+... 7649 pixels below - scroll or extract content to see more ...
+Current step: 1/10Current date and time: 2025-03-20 15:52
 
  RESPONSE
 {
   "current_state": {
-    "evaluation_previous_goal": "Success - Opened DOGE's profile on X.",
-    "memory": "Opened DOGE's Twitter page. Now need to find the latest tweet. Currently at step 1.",
-    "next_goal": "Identify the latest tweet from DOGE's profile."
+    "evaluation_previous_goal": "Success - The page with DOGE's Twitter profile is opened.",
+    "memory": "Opened DOGE's Twitter profile page. Need to identify the latest tweet that is not pinned.",
+    "next_goal": "Scroll through the page to find the latest tweet that is not pinned."
   },
   "action": [
     {
-      "extract_content": {
-        "goal": "find the latest tweet information from DOGE's Twitter profile."
-      }
+      "scroll_down": {}
     }
   ]
 }
