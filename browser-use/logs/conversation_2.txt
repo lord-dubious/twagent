@@ -70,7 +70,7 @@ Common action sequences:
 Your responses must be always JSON with the specified format.
 
  HumanMessage 
-Your ultimate task is: """Find the latest tweet on DOGE's (Department of Government Efficiency) twitter profile.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+Your ultimate task is: """Post a tweet saying:Chicago's sunset is beautiful right now.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
 
  HumanMessage 
 Example output:
@@ -85,290 +85,73 @@ Browser started
 [Your task history memory starts here]
 
  HumanMessage 
-Action result: 🔗  Opened new tab with https://www.x.com/DOGE
+Action result: 🔗  Opened new tab with https://pro.x.com/i/decks/1902192120082866405
 
  HumanMessage 
 [Task history memory ends]
 [Current state starts here]
 The following is one-time information - if you need to remember it write it to memory:
-Current url: https://x.com/DOGE
+Current url: https://pro.x.com/i/decks/1902192120082866405
 Available tabs:
-[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/DOGE', title='(1) Department of Government Efficiency (@DOGE) / X')]
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://pro.x.com/i/decks/1902192120082866405', title='(1) X Pro')]
 Interactive elements from top layer of the current page inside the viewport:
 [Start of page]
 [0]<div To view keyboard shortcuts, press question mark
-View keyboard shortcuts
-See new posts
-Click to Unfollow DOGE
-The people voted for major reform.
-Joined November 2024
-Department of Government Efficiency’s posts/>
-[1]<button />
-[2]<div Messages/>
-[3]<button Compose new Message/>
-[4]<button Expand/>
-[5]<a link;X/>
-[6]<a link>Home/>
-[7]<a link;Search and explore>Explore/>
-[8]<a Notifications (1 unread notification);link>1
-Notifications/>
-[9]<a link;Direct Messages>Messages/>
-[10]<a link>Grok/>
-[11]<a link>Premium/>
-[12]<a link>Lists/>
-[13]<a link>Bookmarks/>
-[14]<a link>Jobs/>
-[15]<a link>Communities/>
-[16]<a link>Verified Orgs/>
-[17]<a link>Profile/>
-[18]<button false;More menu items>More/>
-[19]<a link>Post/>
-[20]<div />
-[21]<button Account menu/>
-[22]<div presentation/>
-[23]<div />
-[24]<div zerk-dot/>
-[25]<div @xerkdot/>
-[26]<button Back/>
-[27]<div 191 posts/>
-[28]<div Department of Government Efficiency/>
-[29]<a link/>
-[30]<img />
-[31]<a link/>
-[32]<div />
-[33]<button false;More/>
-[34]<button Search/>
-[35]<button Message/>
-[36]<button Turn on post notifications/>
-[37]<button Following @DOGE>Following/>
-[38]<div Department of Government Efficiency/>
-[39]<div />
-[40]<button Provides details about verified accounts./>
-[41]<div @DOGE/>
-[42]<a none>doge.gov/>
-[43]<a link>0
-Following/>
-[44]<a link>4.7M
-Followers/>
-[45]<a Followers you know;link>Followed by
-DOGEai
-,
-Vicarious
-, and
-191
-others you follow/>
-[46]<div presentation/>
-[47]<div />
-[48]<div />
-[49]<div presentation/>
-[50]<a tab>Posts/>
-[51]<div presentation/>
-[52]<a tab>Affiliates/>
-[53]<div presentation/>
-[54]<a tab>Replies/>
-[55]<div presentation/>
-[56]<a tab>Highlights/>
-[57]<div presentation/>
-[58]<a tab>Media/>
-[59]<div />
-[60]<article />
-[61]<div Pinned
-·
-DOGE is looking for help from the general public!  
-
-Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or awesome ideas, to the relevant DOGE affiliates (found on the Affiliates tab).  For example,
-,
-, etc.  
-We will add/>
-[62]<a link/>
-[63]<div />
-[64]<a link>Department of Government Efficiency/>
-[65]<a link>@DOGE/>
-[66]<a link>Feb 16/>
-[67]<button Grok actions/>
-[68]<button false;More/>
-[69]<a link>@DOGE_USDA/>
-[70]<a link>@DOGE_SSA/>
-[71]<button Show more/>
-[72]<button 40303 Replies. Reply>40K/>
-[73]<button false;30902 reposts. Repost>30K/>
-[74]<button 116396 Likes. Like>116K/>
-[75]<a 57684064 views. View post analytics;link>57M/>
-[76]<button Bookmark/>
-[77]<button false;Share post/>
-[78]<div />
-[79]<article />
-[80]<div ·
-Great partnership with
-Quote/>
-[81]<a link/>
-[82]<div />
-[83]<a link>Department of Government Efficiency/>
-[84]<a link>@DOGE/>
-[85]<a link>Mar 19/>
-[86]<button Grok actions/>
-[87]<button false;More/>
-[88]<a link>@epaleezeldin/>
-[89]<a link>@EPA/>
-[90]<div link>·
-Mar 19
-Loving the exceptional partnership
-@EPA
-has had with
-@ElonMusk
-and the entire
-@DOGE
-team to pursue every efficiency possible as we end wasteful spending and practices./>
-[91]<div presentation/>
-[92]<div />
-[93]<div Lee Zeldin/>
-[94]<div link/>
-[95]<div @epaleezeldin/>
-[96]<div The media could not be played./>
-[97]<button Reload/>
-[98]<button 344 Replies. Reply>344/>
-[99]<div />
-[100]<button false;916 reposts. Repost>916/>
-[101]<div />
-[102]<button 6788 Likes. Like>6.7K/>
-[103]<div />
-[104]<a 649131 views. View post analytics;link>649K/>
-[105]<div />
-[106]<button Bookmark/>
-[107]<div />
-[108]<button false;Share post/>
-[109]<div />
-[110]<div />
-[111]<article />
-[112]<div ·
-This week,
-is dissolving the Federal Consulting Group (FCG), where one government department charges another to broker consulting contracts.
-
-As an example, FCG brokered a $75M contract to design website customer satisfaction surveys, and then attempted to award $830M/>
-[113]<a link/>
-[114]<img />
-[115]<div />
-[116]<a link>Department of Government Efficiency/>
-[117]<a link>@DOGE/>
-[118]<a link>Mar 19/>
-[119]<button Grok actions/>
-[120]<div />
-[121]<button false;More/>
-[122]<div />
-[123]<a link>@Interior/>
-[124]<button Show more/>
-[125]<div />
-[126]<a link/>
-[127]<img />
-[128]<div Trending>Trending now
-Musk's DOGE Stops $52M WEF Payment
-4 hours ago · Politics · 22K posts
+View keyboard shortcuts/>
+[1]<div Messages/>
+[2]<button Compose new Message/>
+[3]<button Expand/>
+[4]<div Opens dialog to create a new deck
+Pro
 © 2025 X Corp./>
-[129]<input Search;combobox;text;Search query/>
-[130]<div Live on X/>
-[131]<button Broadcast, Grant Cardone is hosting, Hosted by Grant Cardone, 10X Growth Conference LIVE, Grant Cardone joined>is hosting
-10X Growth Conference LIVE
-+10.9K/>
-[132]<div Grant Cardone/>
-[133]<div presentation/>
-[134]<div />
-[135]<button Space, Stealth Medical is hosting, Hosted by Stealth Medical, Trump’s Global War Room:Dept of Education- Musk Yemen Lebanon Iran, Stealth Medical, Sarah, and Christopher The Warrior joined>is hosting
-Trump’s Global War Room:Dept of Education- Musk Yemen Lebanon Iran
-+431/>
-[136]<div Stealth Medical/>
-[137]<div presentation/>
-[138]<div />
-[139]<button Space, Auntie G is speaking, Hosted by Jordan Daley, Debate Day: Brought 2u by The Waffle House, Jordan Daley, Auntie G, and Trevor Thuso joined>is speaking
-Debate Day: Brought 2u by The Waffle House
-+253/>
-[140]<div Auntie G/>
-[141]<div presentation/>
-[142]<div />
-[143]<button Space, Will Upton is speaking, Hosted by Raging Rigo, 🚨RRR: Real talk Real News Real Opinions: Tin Foil hat Thursday lol 👽, Raging Rigo, Will Upton, and CharlieSue ~ “Use Some Common Sense” joined>is speaking
-RRR: Real talk Real News Real Opinions: Tin Foil hat Thursday lol
-+105/>
-[144]<div Will Upton/>
-[145]<div presentation/>
-[146]<div />
-[147]<button Space, Hosted by HK, Quick space to vent about spaces 💀, HK, أنك., and Trauma joined>Quick space to vent about spaces
-+49/>
-[148]<button Show more/>
-[149]<div You might like/>
-[150]<li listitem>Click to Follow x_UTOI/>
-[151]<a link/>
-[152]<div />
-[153]<a link>ẍ/>
-[154]<a link>@x_UTOI/>
-[155]<button Follow @x_UTOI>Follow/>
-[156]<li listitem>Click to Follow theonlyonejayy/>
-[157]<a link/>
-[158]<div />
-[159]<a link>Jay/>
-[160]<a link>@theonlyonejayy/>
-[161]<button Follow @theonlyonejayy>Follow/>
-[162]<li listitem>Click to Follow AntiSociallRey_/>
-[163]<a link/>
-[164]<div />
-[165]<a link>Rey/>
-[166]<a link>@AntiSociallRey_/>
-[167]<button Follow @AntiSociallRey_>Follow/>
-[168]<a link>Show more/>
-[169]<div />
-[170]<div Explore
-Beta/>
-[171]<div />
-[172]<div link>Europe Plans for Possible U.S. NATO Replacement
-Trending now · Politics · 2.4K posts/>
-[173]<div presentation/>
-[174]<div />
-[175]<div presentation/>
-[176]<img />
-[177]<div />
-[178]<div presentation/>
-[179]<img />
-[180]<div />
-[181]<div presentation/>
-[182]<img />
-[183]<div />
-[184]<div />
-[185]<div link>Claude Gains Web Search Capability
-5 hours ago · Technology · 2.2K posts/>
-[186]<div presentation/>
-[187]<img />
-[188]<div />
-[189]<div presentation/>
-[190]<img />
-[191]<div />
-[192]<div presentation/>
-[193]<img />
-[194]<div />
-[195]<div />
-[196]<div link>Bigscreen Beyond 2 Launch
-6 hours ago · Technology · 1.6K posts/>
-[197]<div presentation/>
-[198]<img />
-[199]<div />
-[200]<div />
-[201]<a link>Show more/>
-[202]<a link>Terms of Service/>
-[203]<a link>Privacy Policy/>
-[204]<a link>Cookie Policy/>
-[205]<a link>Accessibility/>
-[206]<a link>Ads info/>
-[207]<button false>More/>
-... 7629 pixels below - scroll or extract content to see more ...
-Current step: 1/10Current date and time: 2025-03-20 17:29
+[5]<div />
+[6]<button Account menu/>
+[7]<div presentation/>
+[8]<div />
+[9]<div zerk-dot/>
+[10]<div @xerkdot/>
+[11]<button Compose post>Post/>
+[12]<button Add column/>
+[13]<button false>Search/>
+[14]<a Manage Decks;link>Decks
+Opens dialog to manage your decks/>
+[15]<a link>New Deck/>
+[16]<button Selected Deck Personal>Personal
+Opens dialog to manage the selected deck/>
+[17]<a link;Edit Deck/>
+[18]<button More menu items;false>More/>
+[19]<button Nav bar;true/>
+[20]<section region>See new posts/>
+[21]<button Reorder column - Elon Musk's gang/>
+[22]<div List
+Elon Musk's gang/>
+[23]<button Open column options - Elon Musk's gang/>
+[24]<div />
+[25]<div progressbar;Loading posts/>
+[26]<a link>Add column/>
+[27]<a link;Display/>
+[28]<a link;Edit Deck/>
+[29]<a link>Terms of Service/>
+[30]<a link>Privacy Policy/>
+[31]<a link>Cookie Policy/>
+[32]<a link>Accessibility/>
+[33]<a link>Ads info/>
+[34]<button false>More/>
+[End of page]
+Current step: 1/10Current date and time: 2025-03-20 18:54
 
  RESPONSE
 {
   "current_state": {
-    "evaluation_previous_goal": "Success - Successfully navigated to DOGE's Twitter profile.",
-    "memory": "Opened DOGE's Twitter profile. Need to find the latest tweet.",
-    "next_goal": "Scroll down to find the latest tweet."
+    "evaluation_previous_goal": "Success - Loaded the X Pro page.",
+    "memory": "Need to post a tweet. Current step 1/10.",
+    "next_goal": "Click 'Compose post' to draft a new tweet."
   },
   "action": [
     {
-      "scroll_down": {}
+      "click_element": {
+        "index": 11
+      }
     }
   ]
 }

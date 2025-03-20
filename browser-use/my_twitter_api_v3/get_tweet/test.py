@@ -18,17 +18,23 @@ load_dotenv()
 
 browser = Browser()
 initial_actions = [
-	{'open_tab': {'url': 'https://www.x.com/DOGE'}},
+	{'open_tab': {'url': 'https://www.x.com/'}},
 ]
 
 file_path = os.path.join(os.path.dirname(__file__), 'twitter_cookies.txt')
 context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
 
 class Tweet(BaseModel):
-    author: str
     handle: str
+    display_name: str
+    text: str
+    likes: int
+    retweets: int
+    replies: int
+    bookmarks: int
+    tweet_link: str
+    viewcount: int
     datetime: str
-    content: str
 
 class Tweets(BaseModel):
     tweets: list[Tweet]
@@ -38,7 +44,13 @@ controller = Controller(output_model=Tweets)
 async def main():
 
     agent = Agent(
-        task="Find the latest tweet on DOGE's (Department of Government Efficiency) twitter profile.",
+        task=(
+            "1. Go to the replies tab."\
+            "2. If there is a pinned tweet, ignore it."\
+            "3. Find the latest non-retweet post/comment originating from Elon Musk. Click on the text."\
+            "4. Return the tweet's text, the datetime, the viewcount, the comments, the reposts, "
+            "the likes, and the bookmarks"
+        ),
         llm=ChatOpenAI(model="gpt-4o"),
         save_conversation_path="logs/conversation",  # Save chat logs
 		browser_context=context,
@@ -67,17 +79,16 @@ async def main():
         for tweet in parsed.tweets:
             # Create a dictionary representation of the tweet
             tweet_dict = {
-                "author": tweet.author,
                 "handle": tweet.handle,
                 "datetime": tweet.datetime,
-                "content": tweet.content
+                "text": tweet.text
             }
             
             # Check if this tweet is already in our existing tweets
             if not any(
                 existing["handle"] == tweet.handle and 
                 existing["datetime"] == tweet.datetime and
-                existing["content"] == tweet.content
+                existing["text"] == tweet.text
                 for existing in existing_tweets
             ):
                 existing_tweets.append(tweet_dict)
@@ -85,10 +96,9 @@ async def main():
                 print(f"Added new tweet from {tweet.handle}")
             
             # Print tweet info
-            print(f"Author: {tweet.author}")
             print(f"Handle: {tweet.handle}")
             print(f"Datetime: {tweet.datetime}")
-            print(f"Content: {tweet.content}")
+            print(f"text: {tweet.text}")
             print()
         
         # Save updated tweets list if any new tweets were added
