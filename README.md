@@ -1,25 +1,58 @@
 # Project Overview
 
-This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor twitter accounts, analyze trends, score tweets, and reply/post/retweet.
+This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor twitter accounts, analyze trends, score tweets, reply/post/retweet, and speak in twitter spaces.
 
 ## AI Agentic Workflow Structure
 
 The structure of the AI agentic workflow is designed for pseudosatirical social causes. It aims to create provocative arguments and pick fights online. Users can specify:
 
-- **What people should know (system prompt)**
-  - Example: "Majority of Americans would support Wind Turbines if they sliced deli meat as well."
-- **Accounts to support**
-  - Example: "@WindEnergyAdvocates, @EcoInnovations, @OscarMayer, @HormelFoods"
-
-- **Accounts to disagree with**
-  - Example: "@FossilFuelLobby, @AntiRenewables, @VeganActivists"
-
-- **Trends to view positively**
-  - Example: "#WindTurbineInnovation, #RenewableEnergy, #DeliMeatWindTurbines"
-
-- **Trends to view negatively**
-  - Example: "#FossilFuelDependence, #AntiWindEnergy"
-
+1) ** What people should know (mission statement; system prompt)**
+  ```
+  [{
+    "cause": "The Bureau of Ergonomic Justice And Reparations"
+    "description": "Advocating for the fair distribution of standing desks, 
+                    lumbar-support chairs, 
+                    and those squishy keyboard wrist pads."
+  }]
+```
+2) **Accounts and Trends to monitor**
+  specify how much they would support the mission statement (20 is agreement, -20 is oppose)
+```
+//accounts
+[
+  {
+    "handle": "@HealthyPostureAlliance",
+    "rating": 20
+  },
+  {
+    "handle": "@BendAtTheKneesOrHips",
+    "rating": 8
+  },
+  {
+    "handle": "@BringBackCubicles",
+    "rating": -20
+  }
+  ...
+]
+```
+```
+//trends
+[
+  {
+    "handle": "#ErgonomicRevolution",
+    "rating": 18
+  },
+  {
+    "handle": "#OfficePostureMatters",
+    "rating": 10
+  },
+  {
+    "handle": "#SittingIsFreedom",
+    "rating": -20
+  }
+  ...
+]
+```
 
 By leveraging advanced natural language processing (NLP) techniques and AI-driven analysis, the agents are able to identify contentious topics, craft provocative responses, and engage in online debates.
 
@@ -48,6 +81,8 @@ The workflow involves several key steps:
 - **Agent D**: Craft replies/posts, score these.
 
 - **Agent E**: Respond to the highest-scoring tweets. Retweet those. The max tweet count is 2,400 per day.
+
+    - Default scheme is 30/30/30 (of tweets, retweets, and comments)
 
 - **Agent F**: Stream with Elevenlabs to OBS and say them in a twitter space. 
 

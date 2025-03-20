@@ -44,6 +44,8 @@ async def main():
         max_actions_per_step=4,
         controller=controller
     )
+
+    
     history = await agent.run(max_steps=10)
     result = history.final_result()
     if result:
