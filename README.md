@@ -6,7 +6,7 @@ This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor 
 
 The structure of the AI agentic workflow is designed for pseudosatirical social causes. It aims to create provocative arguments and pick fights online. Users can specify:
 
-1) **What people should know (mission statement; system prompt)**
+<!-- 1) **What people should know (mission statement; system prompt)**
   ```
   [{
     "cause": "The Bureau of Ergonomic Justice And Reparations"
@@ -52,7 +52,7 @@ The structure of the AI agentic workflow is designed for pseudosatirical social 
   }
   ...
 ]
-```
+``` -->
 
 By leveraging advanced natural language processing (NLP) techniques and AI-driven analysis, the agents are able to identify contentious topics, craft provocative responses, and engage in online debates.
 
