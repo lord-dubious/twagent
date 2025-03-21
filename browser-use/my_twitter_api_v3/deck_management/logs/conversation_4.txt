@@ -70,7 +70,7 @@ Common action sequences:
 Your responses must be always JSON with the specified format.
 
  HumanMessage 
-Your ultimate task is: """1. Go to the replies tab.2. If there is a pinned tweet, ignore it.3. Find the latest non-retweet post/comment originating from Elon Musk. Click on the text.4. Return the tweet's text, the datetime, the viewcount, the comments, the reposts, the likes, and the bookmarks""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+Your ultimate task is: """Create a new deck. Name it koala. Add column. Set to explore.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
 
  HumanMessage 
 Example output:
@@ -85,7 +85,7 @@ Browser started
 [Your task history memory starts here]
 
  HumanMessage 
-Action result: 🔗  Opened new tab with https://www.x.com/elonmusk
+Action result: 🔗  Opened new tab with https://pro.x.com
 
  AIMessage 
 
@@ -94,7 +94,7 @@ Action result: 🔗  Opened new tab with https://www.x.com/elonmusk
 
 
  HumanMessage 
-Action result: 🖱️  Clicked button with index 53:
+Action result: 🖱️  Clicked button with index 15:
 
  AIMessage 
 
@@ -103,57 +103,72 @@ Action result: 🖱️  Clicked button with index 53:
 
 
  HumanMessage 
-Action result: 🔍  Scrolled down the page by one page
-
- AIMessage 
-
-
- ToolMessage 
-
+Action result: ⌨️  Input koala into index 4
 
  HumanMessage 
-Action result: 🔍  Scrolled down the page by one page
-
- AIMessage 
-
-
- ToolMessage 
-
-
- HumanMessage 
-Action result: 🔍  Scrolled down the page by one page
-
- AIMessage 
-
-
- ToolMessage 
-
-
- HumanMessage 
-Action result: 🔍  Scrolled down the page by one page
+Action result: 🖱️  Clicked button with index 3:
 
  HumanMessage 
 [Task history memory ends]
 [Current state starts here]
 The following is one-time information - if you need to remember it write it to memory:
-Current url: https://x.com/elonmusk/with_replies
+Current url: https://pro.x.com/i/decks/1902881415097647344
 Available tabs:
-[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/elonmusk/with_replies', title='Posts with replies by Elon Musk (@elonmusk) / X')]
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://pro.x.com/i/decks/1902881415097647344', title='Explore / X')]
 Interactive elements from top layer of the current page inside the viewport:
-empty page
-Current step: 6/10Current date and time: 2025-03-20 18:27
+[Start of page]
+[0]<div To view keyboard shortcuts, press question mark
+View keyboard shortcuts/>
+[1]<div Messages/>
+[2]<button Compose new Message/>
+[3]<button Expand/>
+[4]<div Opens dialog to create a new deck
+Pro
+© 2025 X Corp./>
+[5]<div />
+[6]<button Account menu/>
+[7]<div presentation/>
+[8]<div />
+[9]<div zerk-dot/>
+[10]<div @xerkdot/>
+[11]<button Compose post>Post/>
+[12]<button Add column/>
+[13]<button false>Search/>
+[14]<a link;Manage Decks>Decks
+Opens dialog to manage your decks/>
+[15]<a link>New Deck/>
+[16]<a Unselected Deck List;link>List/>
+[17]<a link;Unselected Deck explore_trends>explore_trends/>
+[18]<a Unselected Deck koa;link>koa/>
+[19]<a Unselected Deck koala;link>koala/>
+[20]<button Selected Deck koala>koala
+Opens dialog to manage the selected deck/>
+[21]<a Edit Deck;link/>
+[22]<button More menu items;false>More/>
+[23]<button Nav bar;true/>
+[24]<a link>Add column/>
+[25]<a link;Display/>
+[26]<a Edit Deck;link/>
+[27]<a link>Terms of Service/>
+[28]<a link>Privacy Policy/>
+[29]<a link>Cookie Policy/>
+[30]<a link>Accessibility/>
+[31]<a link>Ads info/>
+[32]<button false>More/>
+[End of page]
+Current step: 3/10Current date and time: 2025-03-20 19:34
 
  RESPONSE
 {
   "current_state": {
-    "evaluation_previous_goal": "Success - The latest non-retweet from Elon Musk identified.",
-    "memory": "Latest non-retweet by Elon Musk is 'Interesting'. Extract information such as text, datetime, viewcount, comments, reposts, likes, and bookmarks.",
-    "next_goal": "Extract information from the latest non-retweet post by Elon Musk."
+    "evaluation_previous_goal": "Success - The deck named 'koala' was created successfully.",
+    "memory": "Deck 'koala' is created. Need to add a column and set it to explore.",
+    "next_goal": "Click 'Add column' to add a new column to the deck."
   },
   "action": [
     {
-      "extract_content": {
-        "goal": "Retrieve the tweet's text, the datetime, the viewcount, the comments, the reposts, the likes, and the bookmarks of Elon Musk's latest non-retweet post."
+      "click_element": {
+        "index": 12
       }
     }
   ]

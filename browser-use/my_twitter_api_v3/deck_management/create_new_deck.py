@@ -18,22 +18,24 @@ load_dotenv()
 
 browser = Browser()
 initial_actions = [
-	{'open_tab': {'url': 'https://pro.x.com/i/decks/1902192120082866405'}},
+	{'open_tab': {'url': 'https://pro.x.com'}},
 ]
 
 file_path = os.path.join(os.path.dirname(__file__), 'twitter_cookies.txt')
 context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
-json_file_path = "../../../data/posted_tweets.json"
+json_file_path = "../../../data/decks.json"
 
 
 controller = Controller()
 
 async def main():
 
-    my_post = "I want mexican food right now."
+    deck_name = "koala"
+    column_type = "explore"
     agent = Agent(
         task=(
-            "Post a tweet saying:" + my_post
+            "Create a new deck. Name it " + deck_name + 
+            ". Add column. Set to " + column_type + "."
         ),
         llm=ChatOpenAI(model="gpt-4o"),
         save_conversation_path="logs/conversation",  # Save chat logs
@@ -47,8 +49,8 @@ async def main():
     if result:
 
         with open(json_file_path, "w") as f:
-            json.dump({"tweets": my_post}, f, indent=2)
-            print(f"Updated tweets saved to {json_file_path}")
+            json.dump({"deck_name": deck_name, "column_type": column_type}, f, indent=2)
+            print(f"Updated decks saved to {json_file_path}")
     else:
         print('No result')
 

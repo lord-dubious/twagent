@@ -70,7 +70,7 @@ Common action sequences:
 Your responses must be always JSON with the specified format.
 
  HumanMessage 
-Your ultimate task is: """Post a tweet saying:Chicago's sunset is beautiful right now.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+Your ultimate task is: """Create a new deck. Name it koala. Add column. Set to explore.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
 
  HumanMessage 
 Example output:
@@ -85,15 +85,15 @@ Browser started
 [Your task history memory starts here]
 
  HumanMessage 
-Action result: 🔗  Opened new tab with https://pro.x.com/i/decks/1902192120082866405
+Action result: 🔗  Opened new tab with https://pro.x.com
 
  HumanMessage 
 [Task history memory ends]
 [Current state starts here]
 The following is one-time information - if you need to remember it write it to memory:
-Current url: https://pro.x.com/i/decks/1902192120082866405
+Current url: https://pro.x.com/i/decks/1902881106208203041
 Available tabs:
-[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://pro.x.com/i/decks/1902192120082866405', title='(1) X Pro')]
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://pro.x.com/i/decks/1902881106208203041', title='X Pro')]
 Interactive elements from top layer of the current page inside the viewport:
 [Start of page]
 [0]<div To view keyboard shortcuts, press question mark
@@ -113,44 +113,153 @@ Pro
 [11]<button Compose post>Post/>
 [12]<button Add column/>
 [13]<button false>Search/>
-[14]<a Manage Decks;link>Decks
+[14]<a link;Manage Decks>Decks
 Opens dialog to manage your decks/>
 [15]<a link>New Deck/>
-[16]<button Selected Deck Personal>Personal
+[16]<a Unselected Deck List;link>List/>
+[17]<a link;Unselected Deck explore_trends>explore_trends/>
+[18]<a Unselected Deck koa;link>koa/>
+[19]<button Selected Deck koala>koala
 Opens dialog to manage the selected deck/>
-[17]<a link;Edit Deck/>
-[18]<button More menu items;false>More/>
-[19]<button Nav bar;true/>
-[20]<section region>See new posts/>
-[21]<button Reorder column - Elon Musk's gang/>
-[22]<div List
-Elon Musk's gang/>
-[23]<button Open column options - Elon Musk's gang/>
-[24]<div />
-[25]<div progressbar;Loading posts/>
-[26]<a link>Add column/>
-[27]<a link;Display/>
-[28]<a link;Edit Deck/>
-[29]<a link>Terms of Service/>
-[30]<a link>Privacy Policy/>
-[31]<a link>Cookie Policy/>
-[32]<a link>Accessibility/>
-[33]<a link>Ads info/>
-[34]<button false>More/>
+[20]<a Edit Deck;link/>
+[21]<button More menu items;false>More/>
+[22]<button Nav bar;true/>
+[23]<section region>See new posts
+See new posts
+Explore
+·
+Sorry, if you're going 100+ mph over the speed limit, you dont get a "low income fee".
+
+You go strait to MF jail.
+Quote
+·
+19h
+SPEED CAMERAS 
+
+Here are the fines speeding drivers in San Francisco will face after a 60-day grace period that starts tomorrow
+@KTVU
+Show more/>
+[24]<button Reorder column - Explore/>
+[25]<div @xerkdot
+Explore/>
+[26]<button Open column options - Explore/>
+[27]<div Entertainment
+Saved/>
+[28]<div presentation/>
+[29]<a tab>For you/>
+[30]<div presentation/>
+[31]<a tab>Trending/>
+[32]<div presentation/>
+[33]<a tab>News/>
+[34]<div presentation/>
+[35]<a tab>Sports/>
+[36]<div />
+[37]<div link>Jets at Oilers
+NHL
+·
+Starts at 8:00 PM/>
+[38]<div />
+[39]<a link>Follow the action/>
+[40]<button />
+[41]<div />
+[42]<div Stories For You/>
+[43]<div />
+[44]<div link>DoorDash and Klarna: A New Era of Food Financing
+8 hours ago · Finance · 25K posts/>
+[45]<div presentation/>
+[46]<div />
+[47]<img />
+[48]<div />
+[49]<div link>European Powers Plan for NATO Defense Shift
+3 hours ago · Defense · 6.6K posts/>
+[50]<div presentation/>
+[51]<div />
+[52]<img />
+[53]<div />
+[54]<div link>Nvidia Ventures into Quantum with Boston Lab
+6 hours ago · Technology · 1.6K posts/>
+[55]<div presentation/>
+[56]<div />
+[57]<img />
+[58]<div />
+[59]<div link>Perplexity AI's Funding Talks
+3 hours ago · Technology · 296 posts/>
+[60]<div presentation/>
+[61]<div />
+[62]<img />
+[63]<div />
+[64]<div />
+[65]<button />
+[66]<a link>Speed Cameras Go Live in San Francisco, Sparking Fine Debate/>
+[67]<a link/>
+[68]<div />
+[69]<a link>YIMBYLAND/>
+[70]<a link>@YIMBYLAND/>
+[71]<a link;6 hours ago>6h/>
+[72]<button More;false/>
+[73]<div presentation/>
+[74]<div />
+[75]<div Betty Yu/>
+[76]<div @bett_yu/>
+[77]<div />
+[78]<a link/>
+[79]<img />
+[80]<button 92 Replies. Reply>92/>
+[81]<div />
+[82]<button 165 reposts. Repost;false>165/>
+[83]<div />
+[84]<button 3771 Likes. Like>3.7K/>
+[85]<div />
+[86]<a link;139324 views. View post analytics>139K/>
+[87]<div />
+[88]<button Share post;false/>
+[89]<div />
+[90]<div />
+[91]<article />
+[92]<div ·
+100mph anywhere within San Francisco city limits should mean crushing your car into a tiny cube
+Quote/>
+[93]<a link/>
+[94]<img />
+[95]<div />
+[96]<a link>Elai/>
+[97]<a link>@elaifresh/>
+[98]<a 3 hours ago;link>3h/>
+[99]<button More;false/>
+[100]<div />
+[101]<div link>·
+19h
+SPEED CAMERAS 
+
+Here are the fines speeding drivers in San Francisco will face after a 60-day grace period that starts tomorrow/>
+[102]<div presentation/>
+[103]<img />
+[104]<div />
+[105]<div Betty Yu/>
+[106]<div @bett_yu/>
+[107]<a link>Add column/>
+[108]<a link;Display/>
+[109]<a Edit Deck;link/>
+[110]<a link>Terms of Service/>
+[111]<a link>Privacy Policy/>
+[112]<a link>Cookie Policy/>
+[113]<a link>Accessibility/>
+[114]<a link>Ads info/>
+[115]<button false>More/>
 [End of page]
-Current step: 1/10Current date and time: 2025-03-20 18:54
+Current step: 1/10Current date and time: 2025-03-20 19:34
 
  RESPONSE
 {
   "current_state": {
-    "evaluation_previous_goal": "Success - Loaded the X Pro page.",
-    "memory": "Need to post a tweet. Current step 1/10.",
-    "next_goal": "Click 'Compose post' to draft a new tweet."
+    "evaluation_previous_goal": "Success - Page for managing decks is open.",
+    "memory": "On the page for managing decks. Need to create and name a new deck, 'koala', and add a column before setting it to explore.",
+    "next_goal": "Click on 'New Deck' to create a new deck."
   },
   "action": [
     {
       "click_element": {
-        "index": 11
+        "index": 15
       }
     }
   ]

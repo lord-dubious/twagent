@@ -1,0 +1,341 @@
+ SystemMessage 
+You are an AI agent designed to automate browser tasks. Your goal is to accomplish the ultimate task following the rules.
+
+# Input Format
+Task
+Previous steps
+Current URL
+Open Tabs
+Interactive Elements
+[index]<type>text</type>
+- index: Numeric identifier for interaction
+- type: HTML element type (button, input, etc.)
+- text: Element description
+Example:
+[33]<button>Submit Form</button>
+
+- Only elements with numeric indexes in [] are interactive
+- elements without [] provide only context
+
+# Response Rules
+1. RESPONSE FORMAT: You must ALWAYS respond with valid JSON in this exact format:
+{"current_state": {"evaluation_previous_goal": "Success|Failed|Unknown - Analyze the current elements and the image to check if the previous goals/actions are successful like intended by the task. Mention if something unexpected happened. Shortly state why/why not",
+"memory": "Description of what has been done and what you need to remember. Be very specific. Count here ALWAYS how many times you have done something and how many remain. E.g. 0 out of 10 websites analyzed. Continue with abc and xyz",
+"next_goal": "What needs to be done with the next immediate action"},
+"action":[{"one_action_name": {// action-specific parameter}}, // ... more actions in sequence]}
+
+2. ACTIONS: You can specify multiple actions in the list to be executed in sequence. But always specify only one action name per item. Use maximum {max_actions} actions per sequence.
+Common action sequences:
+- Form filling: [{"input_text": {"index": 1, "text": "username"}}, {"input_text": {"index": 2, "text": "password"}}, {"click_element": {"index": 3}}]
+- Navigation and extraction: [{"go_to_url": {"url": "https://example.com"}}, {"extract_content": {"goal": "extract the names"}}]
+- Actions are executed in the given order
+- If the page changes after an action, the sequence is interrupted and you get the new state.
+- Only provide the action sequence until an action which changes the page state significantly.
+- Try to be efficient, e.g. fill forms at once, or chain actions where nothing changes on the page
+- only use multiple actions if it makes sense.
+
+3. ELEMENT INTERACTION:
+- Only use indexes of the interactive elements
+- Elements marked with "[]Non-interactive text" are non-interactive
+
+4. NAVIGATION & ERROR HANDLING:
+- If no suitable elements exist, use other functions to complete the task
+- If stuck, try alternative approaches - like going back to a previous page, new search, new tab etc.
+- Handle popups/cookies by accepting or closing them
+- Use scroll to find elements you are looking for
+- If you want to research something, open a new tab instead of using the current tab
+- If captcha pops up, try to solve it - else try a different approach
+- If the page is not fully loaded, use wait action
+
+5. TASK COMPLETION:
+- Use the done action as the last action as soon as the ultimate task is complete
+- Dont use "done" before you are done with everything the user asked you, except you reach the last step of max_steps. 
+- If you reach your last step, use the done action even if the task is not fully finished. Provide all the information you have gathered so far. If the ultimate task is completly finished set success to true. If not everything the user asked for is completed set success in done to false!
+- If you have to do something repeatedly for example the task says for "each", or "for all", or "x times", count always inside "memory" how many times you have done it and how many remain. Don't stop until you have completed like the task asked you. Only call done after the last step.
+- Don't hallucinate actions
+- Make sure you include everything you found out for the ultimate task in the done text parameter. Do not just say you are done, but include the requested information of the task. 
+
+6. VISUAL CONTEXT:
+- When an image is provided, use it to understand the page layout
+- Bounding boxes with labels on their top right corner correspond to element indexes
+
+7. Form filling:
+- If you fill an input field and your action sequence is interrupted, most often something changed e.g. suggestions popped up under the field.
+
+8. Long tasks:
+- Keep track of the status and subresults in the memory. 
+
+9. Extraction:
+- If your task is to find information - call extract_content on the specific pages to get and store the information.
+Your responses must be always JSON with the specified format.
+
+ HumanMessage 
+Your ultimate task is: """Post a tweet saying:I want mexican food right now.The last word in the tweet should be bolded (press the B button to bold)""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+
+ HumanMessage 
+Example output:
+
+ AIMessage 
+
+
+ ToolMessage 
+Browser started
+
+ HumanMessage 
+[Your task history memory starts here]
+
+ HumanMessage 
+Action result: 🔗  Opened new tab with https://pro.x.com/i/decks/1902192120082866405
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 11:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: ⌨️  Input I want mexican food right now into index 29
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 53:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 49:
+
+ HumanMessage 
+Action result: Something new appeared after action 1 / 2
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 22:
+
+ HumanMessage 
+[Task history memory ends]
+[Current state starts here]
+The following is one-time information - if you need to remember it write it to memory:
+Current url: https://pro.x.com/i/decks/1902192120082866405
+Available tabs:
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://pro.x.com/i/decks/1902192120082866405', title='X Pro')]
+Interactive elements from top layer of the current page inside the viewport:
+[Start of page]
+[0]<div To view keyboard shortcuts, press question mark
+View keyboard shortcuts/>
+[1]<div Messages/>
+[2]<button Compose new Message/>
+[3]<button Expand/>
+[4]<div />
+[5]<div Your post was sent. You have 1 hour to make any edits./>
+[6]<a link>View/>
+[7]<div Opens dialog to create a new deck
+Pro
+© 2025 X Corp./>
+[8]<div />
+[9]<button Account menu/>
+[10]<div presentation/>
+[11]<div />
+[12]<div zerk-dot/>
+[13]<div @xerkdot/>
+[14]<button Compose post>Post/>
+[15]<button Add column/>
+[16]<button false>Search/>
+[17]<a link;Manage Decks>Decks
+Opens dialog to manage your decks/>
+[18]<a link>New Deck/>
+[19]<button Selected Deck Personal>Personal
+Opens dialog to manage the selected deck/>
+[20]<a Edit Deck;link/>
+[21]<button More menu items;false>More/>
+[22]<button true;Nav bar/>
+[23]<section region>See new posts
+List
+·
+TRUMP: MOST MONEY SPENT PER PUPIL, YET WE’RE AT THE BOTTOM
+
+"After 45 years, the United States spends more money on education by far than any other country, and spends likewise by far more money per pupil than any country, and it's not even close. 
+
+Yet, we rank near the
+Quote/>
+[24]<button Reorder column - Elon Musk's gang/>
+[25]<div List
+Elon Musk's gang/>
+[26]<button Clear posts/>
+[27]<button Set Column Content - Elon Musk's gang/>
+[28]<button Search posts/>
+[29]<button Open column options - Elon Musk's gang/>
+[30]<div />
+[31]<article />
+[32]<div ·
+Some people didn’t like the fact that when I made this video, I didn’t mention that these tariffs only apply after US exports to Canada hit a quota.
+
+People seem determined to argue that not mentioning the quota fundamentally changes the point I made in the video.
+
+It doesn’t.
+Quote/>
+[33]<a link>Elon Musk
+reposted/>
+[34]<a link/>
+[35]<div />
+[36]<a link>Kaizen D. Asiedu/>
+[37]<a link>@thatsKAIZEN/>
+[38]<a 1 hour ago;link>1h/>
+[39]<button More;false/>
+[40]<button Show more/>
+[41]<div link>·
+Mar 11
+Would you believe these insane tariffs that the U.S. is bullying Canada with?
+
+250% for milk?
+291% for butter?
+208% for whey?
+241% for CHEESE?
+ 
+Oh wait - those are actually tariffs that Canada imposed on the U.S. last year.
+Show more/>
+[42]<div presentation/>
+[43]<div />
+[44]<div Kaizen D. Asiedu/>
+[45]<div @thatsKAIZEN/>
+[46]<div />
+[47]<div />
+[48]<div />
+[49]<div />
+[50]<div />
+[51]<div />
+[52]<button Play Video.  3 minutes 5 seconds long/>
+[53]<button 560 Replies. Reply>560/>
+[54]<button 1333 reposts. Repost;false>1.3K/>
+[55]<button 5908 Likes. Like>5.9K/>
+[56]<a 1222484 views. View post analytics;link>1.2M/>
+[57]<button false;Share post/>
+[58]<div />
+[59]<article />
+[60]<div ·
+From/>
+[61]<a link/>
+[62]<div />
+[63]<a link>Elon Musk/>
+[64]<div link/>
+[65]<a link>@elonmusk/>
+[66]<a 1 hour ago;link>1h/>
+[67]<button More;false/>
+[68]<div />
+[69]<div />
+[70]<div />
+[71]<div />
+[72]<div />
+[73]<div />
+[74]<button Play Video.  1 minute 10 seconds long/>
+[75]<a link/>
+[76]<div Trump War Room/>
+[77]<div link/>
+[78]<button 1679 Replies. Reply>1.6K/>
+[79]<button false;3260 reposts. Repost>3.2K/>
+[80]<button 19613 Likes. Like>19K/>
+[81]<a link;2059968 views. View post analytics>2M/>
+[82]<button false;Share post/>
+[83]<a link>Elon Musk
+reposted/>
+[84]<a link/>
+[85]<div />
+[86]<a link>Mario Nawfal/>
+[87]<div link/>
+[88]<a link>@MarioNawfal/>
+[89]<a link;2 hours ago>2h/>
+[90]<button More;false/>
+[91]<button Show more/>
+[92]<div />
+[93]<div />
+[94]<div />
+[95]<div />
+[96]<div />
+[97]<div />
+[98]<button Play Video.  1 minute 36 seconds long/>
+[99]<div link>·
+2h
+TRUMP: U.S. MAKING BIG MOVES ON RARE EARTHS—INCLUDING IN UKRAINE
+
+"I will sign an executive order to dramatically increase production of critical minerals and rare earths.
+
+It's a big thing in this country, and as you know, we're also signing agreements in various locations/>
+[100]<div presentation/>
+[101]<img />
+[102]<div />
+[103]<div Mario Nawfal/>
+[104]<div link/>
+[105]<div @MarioNawfal/>
+[106]<div />
+[107]<div />
+[108]<div 0:30/>
+[109]<img />
+[110]<button 622 Replies. Reply>622/>
+[111]<div />
+[112]<button 1268 reposts. Repost;false>1.2K/>
+[113]<div />
+[114]<button 6410 Likes. Like>6.4K/>
+[115]<div />
+[116]<a 1285804 views. View post analytics;link>1.2M/>
+[117]<div />
+[118]<button false;Share post/>
+[119]<div />
+[120]<div />
+[121]<article />
+[122]<div ·/>
+[123]<a link>Elon Musk
+reposted/>
+[124]<a link/>
+[125]<img />
+[126]<div />
+[127]<a link>Rothmus/>
+[128]<div link/>
+[129]<a link>@Rothmus/>
+[130]<a link;2 hours ago>2h/>
+[131]<button More;false/>
+[132]<div />
+[133]<a link>Add column/>
+[134]<a link;Display/>
+[135]<a Edit Deck;link/>
+[136]<a link>Terms of Service/>
+[137]<a link>Privacy Policy/>
+[138]<a link>Cookie Policy/>
+[139]<a link>Accessibility/>
+[140]<a link>Ads info/>
+[141]<button false>More/>
+[End of page]
+Current step: 5/10Current date and time: 2025-03-20 19:07
+
+ RESPONSE
+{
+  "current_state": {
+    "evaluation_previous_goal": "Success - The tweet was posted successfully.",
+    "memory": "The task of posting the tweet is completed. Tweet content: 'I want mexican food right **now**.'",
+    "next_goal": "No further action required as the task is accomplished."
+  },
+  "action": [
+    {
+      "done": {
+        "text": "Posted the tweet 'I want mexican food right **now**.' with the last word bolded successfully.",
+        "success": true
+      }
+    }
+  ]
+}
