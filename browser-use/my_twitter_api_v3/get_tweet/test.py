@@ -18,11 +18,12 @@ load_dotenv()
 
 browser = Browser()
 initial_actions = [
-	{'open_tab': {'url': 'https://www.x.com/'}},
+	{'open_tab': {'url': 'https://x.com/ShawnOnTheRight/status/1902883820468044200'}},
 ]
 
 file_path = os.path.join(os.path.dirname(__file__), 'twitter_cookies.txt')
 context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
+json_file_path = "../../../data/saved_tweets.json"
 
 class Tweet(BaseModel):
     handle: str
@@ -45,11 +46,8 @@ async def main():
 
     agent = Agent(
         task=(
-            "1. Go to the replies tab."\
-            "2. If there is a pinned tweet, ignore it."\
-            "3. Find the latest non-retweet post/comment originating from Elon Musk. Click on the text."\
-            "4. Return the tweet's text, the datetime, the viewcount, the comments, the reposts, "
-            "the likes, and the bookmarks"
+            "Return the tweet's text, datetime, viewcount, comments, reposts, "
+            "likes, bookmarks"
         ),
         llm=ChatOpenAI(model="gpt-4o"),
         save_conversation_path="logs/conversation",  # Save chat logs
@@ -64,7 +62,6 @@ async def main():
         parsed: Tweets = Tweets.model_validate_json(result)
         
         # Load existing tweets from JSON file if it exists
-        json_file_path = "saved_tweets.json"
         existing_tweets = []
         if os.path.exists(json_file_path):
             try:
@@ -81,7 +78,13 @@ async def main():
             tweet_dict = {
                 "handle": tweet.handle,
                 "datetime": tweet.datetime,
-                "text": tweet.text
+                "text": tweet.text,
+                "likes": tweet.likes,
+                "retweets": tweet.retweets,
+                "replies": tweet.replies,
+                "bookmarks": tweet.bookmarks,
+                "tweet_link": tweet.tweet_link,
+                "viewcount": tweet.viewcount
             }
             
             # Check if this tweet is already in our existing tweets
@@ -95,11 +98,6 @@ async def main():
                 new_tweets_added = True
                 print(f"Added new tweet from {tweet.handle}")
             
-            # Print tweet info
-            print(f"Handle: {tweet.handle}")
-            print(f"Datetime: {tweet.datetime}")
-            print(f"text: {tweet.text}")
-            print()
         
         # Save updated tweets list if any new tweets were added
         if new_tweets_added:
