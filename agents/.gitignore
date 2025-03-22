@@ -1,5 +1,4 @@
 .env
 __pycache__/
+lib/
 .DS_Store
-venv
-twitter_cookies.txt
