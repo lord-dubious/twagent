@@ -74,6 +74,17 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
 
         # Initialize the LLM
         llm = LLM(model="openai/gpt-4o-mini", response_format=TweetBatch)
+        
+        # Adjust length for humorous tone
+        target_length = state.length_category
+        if state.tone == "humorous":
+            # For humorous tone, aim for 1/3 of the original length
+            humor_length = round(state.tweet_length / 3)
+            # Recalculate the length category for humor
+            category_start = math.floor(humor_length / 20) * 20
+            category_end = category_start + 20
+            target_length = f"{category_start+1}-{category_end}"
+            print(f"Humor tone selected - adjusting length to approximately {target_length} characters")
 
         # Create the messages for the tweet options
         messages = [
@@ -83,10 +94,10 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
             
             Create 10 different reply options about "{state.topic}" with a {state.tone} tone.
             
-            Make each reply have a similar length to the original tweet (approximately {state.length_category} characters).
+            Make each reply have a similar length to {target_length} characters.
             The original tweet has an average word length of {state.avg_word_size:.1f} characters.
             
-            For each tweet option, include only the full tweet text (match the length category of {state.length_category} characters)
+            For each tweet option, include only the full tweet text (match the target length of {target_length} characters)
 
             Make each option distinct and compelling as a direct reply to the original tweet.
             """}
