@@ -16,9 +16,12 @@ from datetime import datetime
 
 load_dotenv()
 
+initialTweet = "https://x.com/SolJakey/status/1903232593254027508"
 browser = Browser()
 initial_actions = [
-	{'open_tab': {'url': 'https://pro.x.com/i/decks/1902192120082866405'}},
+	{'open_tab': {'url': initialTweet}},
+    {'scroll_down': {'amount': 500}},
+
 ]
 
 file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
@@ -34,10 +37,10 @@ context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_fi
 
 async def main():
 
-    my_post = "I want mexican food right now."
+    my_post = "gross"
     agent = Agent(
         task=(
-            "Post a tweet saying:" + my_post
+            "Reply to the tweet with: " + my_post + " and then make sure to click the reply button."
         ),
         llm=ChatOpenAI(model="gpt-4o"),
         save_conversation_path="logs/conversation",  # Save chat logs
@@ -49,10 +52,12 @@ async def main():
     history = await agent.run(max_steps=10)
     result = history.final_result()
     if result:
+        # Get current timestamp
         reply_time = datetime.now().isoformat()
-
+        
         # Prepare data to save
         tweet_data = {
+            "initial_tweet_url": initialTweet,
             "reply_text": my_post,
             "reply_time": reply_time
         }

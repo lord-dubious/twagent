@@ -3,3 +3,7 @@ venv
 my_twitter_api_v3/twitter_cookies.txt
 agents/.venv
 agents/.env
+my_twitter_api_v3/manage_posts/logs
+my_twitter_api_v3/follows/logs
+my_twitter_api_v3/deck_management/logs
+my_twitter_api_v3/get_tweet/logs

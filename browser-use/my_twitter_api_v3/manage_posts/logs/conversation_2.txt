@@ -70,7 +70,7 @@ Common action sequences:
 Your responses must be always JSON with the specified format.
 
  HumanMessage 
-Your ultimate task is: """Post a tweet saying:I want mexican food right now.The last word in the tweet should be bolded (press the B button to bold)""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+Your ultimate task is: """Reply to the tweet with: gross and then make sure to click the reply button.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
 
  HumanMessage 
 Example output:
@@ -85,108 +85,217 @@ Browser started
 [Your task history memory starts here]
 
  HumanMessage 
-Action result: 🔗  Opened new tab with https://pro.x.com/i/decks/1902192120082866405
+Action result: 🔗  Opened new tab with https://x.com/SolJakey/status/1903232593254027508
+
+ HumanMessage 
+Action result: 🔍  Scrolled down the page by 500 pixels
 
  HumanMessage 
 [Task history memory ends]
 [Current state starts here]
 The following is one-time information - if you need to remember it write it to memory:
-Current url: https://pro.x.com/i/decks/1902192120082866405
+Current url: https://x.com/SolJakey/status/1903232593254027508
 Available tabs:
-[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://pro.x.com/i/decks/1902192120082866405', title='X Pro')]
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/SolJakey/status/1903232593254027508', title='Jakey on X: "The morning routine https://t.co/aEPD3ynOqp" / X')]
 Interactive elements from top layer of the current page inside the viewport:
-[Start of page]
+... 500 pixels above - scroll or extract content to see more ...
 [0]<div To view keyboard shortcuts, press question mark
-View keyboard shortcuts/>
-[1]<div Messages/>
-[2]<button Compose new Message/>
-[3]<button Expand/>
-[4]<div Opens dialog to create a new deck
-Pro
-© 2025 X Corp./>
-[5]<div />
-[6]<button Account menu/>
-[7]<div presentation/>
-[8]<div />
-[9]<div zerk-dot/>
-[10]<div @xerkdot/>
-[11]<button Compose post>Post/>
-[12]<button Add column/>
-[13]<button false>Search/>
-[14]<a link;Manage Decks>Decks
-Opens dialog to manage your decks/>
-[15]<a link>New Deck/>
-[16]<button Selected Deck Personal>Personal
-Opens dialog to manage the selected deck/>
-[17]<a Edit Deck;link/>
-[18]<button More menu items;false>More/>
-[19]<button true;Nav bar/>
-[20]<div />
-[21]<button Done/>
-[22]<button Post/>
-[23]<div />
-[24]<div presentation/>
-[25]<div />
-[26]<div />
-[27]<button Choose audience;false>Everyone/>
-[28]<div What’s happening?/>
-[29]<div textbox;Post text/>
-[30]<div />
-[31]<div />
-[32]<div />
-[33]<div />
+View keyboard shortcuts
+See new posts
+Conversation
+Click to Subscribe to SolJakey
+The morning routine
+·
+9.3M
+Views
+Ad
+A mini honey packet in my morning coffee is like a sweet love boost, providing instant gratification to kickstart my day with a smile./>
+[1]<button />
+[2]<button Skip to home timeline/>
+[3]<button Skip to trending/>
+[4]<a link;X/>
+[5]<a Home;link/>
+[6]<a link;Search and explore/>
+[7]<a link;Notifications/>
+[8]<a link;Direct Messages/>
+[9]<a Grok;link/>
+[10]<a link;Premium/>
+[11]<a link;Lists/>
+[12]<a link;Bookmarks/>
+[13]<a link;Jobs/>
+[14]<a link;Communities/>
+[15]<a link;Verified Orgs/>
+[16]<a link;Profile/>
+[17]<button false;More menu items/>
+[18]<a link;Post/>
+[19]<div />
+[20]<button Account menu/>
+[21]<div presentation/>
+[22]<div />
+[23]<button Back/>
+[24]<div Post/>
+[25]<a link/>
+[26]<a link/>
+[27]<img />
+[28]<div />
+[29]<a link>Jakey/>
+[30]<div link/>
+[31]<a link>@SolJakey/>
+[32]<button Subscribe to @SolJakey>Subscribe/>
+[33]<button false;More/>
 [34]<div />
-[35]<button Everyone can reply/>
-[36]<div />
-[37]<div presentation/>
-[38]<button Add photos or video/>
-[39]<div presentation/>
-[40]<button Add a GIF/>
-[41]<div presentation/>
-[42]<button Enhance your post with Grok/>
-[43]<div presentation/>
-[44]<button Add poll/>
-[45]<div presentation/>
-[46]<div />
-[47]<button Add emoji/>
-[48]<div presentation/>
-[49]<button Schedule post/>
-[50]<div presentation/>
-[51]<button Tag location/>
-[52]<div presentation/>
-[53]<button Bold, (CTRL+B)/>
-[54]<div presentation/>
-[55]<button Italic, (CTRL+I)/>
-[56]<section region>See new posts/>
-[57]<button Reorder column - Elon Musk's gang/>
-[58]<div List
-Elon Musk's gang/>
-[59]<button Open column options - Elon Musk's gang/>
-[60]<div />
-[61]<div Loading posts;progressbar/>
-[62]<a link>Add column/>
-[63]<a link;Display/>
-[64]<a Edit Deck;link/>
-[65]<a link>Terms of Service/>
-[66]<a link>Privacy Policy/>
-[67]<a link>Cookie Policy/>
-[68]<a link>Accessibility/>
-[69]<a link>Ads info/>
-[70]<button false>More/>
-[End of page]
-Current step: 1/10Current date and time: 2025-03-20 19:07
+[35]<div The media could not be played./>
+[36]<button Reload/>
+[37]<a link>6:49 PM · Mar 21, 2025/>
+[38]<button 2290 Replies. Reply>2.2K/>
+[39]<button false;15420 reposts. Repost>15K/>
+[40]<button 167199 Likes. Like>167K/>
+[41]<button 16551 Bookmarks. Bookmark>16K/>
+[42]<button false;Share post/>
+[43]<div />
+[44]<a link/>
+[45]<div />
+[46]<div Post your reply/>
+[47]<div Post text;textbox/>
+[48]<div />
+[49]<div />
+[50]<div />
+[51]<div />
+[52]<button Reply/>
+[53]<div />
+[54]<article />
+[55]<div ·
+my only shill here is,
+
+check my highlights./>
+[56]<a link/>
+[57]<div />
+[58]<a link>Jakey/>
+[59]<div link/>
+[60]<a link>@SolJakey/>
+[61]<a link;13 hours ago>13h/>
+[62]<button Grok actions/>
+[63]<button false;More/>
+[64]<button 22 Replies. Reply>22/>
+[65]<button false;5 reposts. Repost>5/>
+[66]<button 1110 Likes. Like>1.1K/>
+[67]<a link;257682 views. View post analytics>257K/>
+[68]<button Bookmark/>
+[69]<button false;Share post/>
+[70]<div />
+[71]<article />
+[72]<div ·
+memecoins.
+Quote/>
+[73]<a link/>
+[74]<div />
+[75]<a link>Jakey/>
+[76]<div link/>
+[77]<a link>@SolJakey/>
+[78]<a link;1 hour ago>1h/>
+[79]<button Grok actions/>
+[80]<button false;More/>
+[81]<div link>·
+1h
+Your homie invests in memecoins./>
+[82]<div presentation/>
+[83]<div />
+[84]<div Jakey/>
+[85]<div link/>
+[86]<div @SolJakey/>
+[87]<div />
+[88]<div />
+[89]<div />
+[90]<div />
+[91]<div />
+[92]<div The media could not be played./>
+[93]<button Reload/>
+[94]<button 15 Replies. Reply>15/>
+[95]<button false;1 repost. Repost>1/>
+[96]<button 16 Likes. Like>16/>
+[97]<a link;22002 views. View post analytics>22K/>
+[98]<button Bookmark/>
+[99]<button false;Share post/>
+[100]<a link/>
+[101]<div />
+[102]<a link>Bee Natural Honey/>
+[103]<a link>@BeeNaturalHoney/>
+[104]<button false;More/>
+[105]<div Slide 1 of 4 - Carousel/>
+[106]<div group/>
+[107]<div />
+[108]<a link>my morning coffee (or tea)/>
+[109]<img />
+[110]<div />
+[111]<a link>my morning coffee (or tea)/>
+[112]<img />
+[113]<div />
+[114]<button Next slide/>
+[115]<div Trending>Your Premium subscription is expiring!
+Keep the best of X.
+Blue checkmark, Reply boost, increased Grok limits and much more.
+Trending now
+© 2025 X Corp./>
+[116]<input Search;text;combobox;Search query/>
+[117]<div Relevant people/>
+[118]<li listitem>Click to Follow SolJakey
+What a time to be alive |
+|/>
+[119]<a link/>
+[120]<div />
+[121]<a link>Jakey/>
+[122]<div link/>
+[123]<a link>@SolJakey/>
+[124]<button Follow @SolJakey>Follow/>
+[125]<a link>@SUPERBASEDD/>
+[126]<a link>@bonkbot_io/>
+[127]<button Renew subscription/>
+[128]<div />
+[129]<div Explore
+Beta/>
+[130]<div />
+[131]<div link>Northville High School Coach Jim Zullo Fired After Ponytail Incident
+Trending now · Sports · 3.8K posts/>
+[132]<div presentation/>
+[133]<div />
+[134]<div />
+[135]<div link>Kavanagh Triumphs Over Dos Santos in Thrilling UFC London Bout
+Trending now · MMA · 379 posts/>
+[136]<div presentation/>
+[137]<div />
+[138]<div />
+[139]<div link>Neighbours' Hit on Martinez Sparks Controversy in Blues vs. Blackhawks Game
+Trending now · Hockey · 186 posts/>
+[140]<div presentation/>
+[141]<div />
+[142]<div />
+[143]<div link>Pat Maroon Announces Retirement at Season's End
+Trending now · Hockey · 905 posts/>
+[144]<div presentation/>
+[145]<div />
+[146]<div />
+[147]<a link>Show more/>
+[148]<a link>Terms of Service/>
+[149]<a link>Privacy Policy/>
+[150]<a link>Cookie Policy/>
+[151]<a link>Accessibility/>
+[152]<a link>Ads info/>
+[153]<button false>More/>
+[154]<img />
+... 2811 pixels below - scroll or extract content to see more ...
+Current step: 1/10Current date and time: 2025-03-22 15:33
 
  RESPONSE
 {
   "current_state": {
-    "evaluation_previous_goal": "Unknown - No previous action relevance yet to evaluate the task.",
-    "memory": "Need to post a tweet saying: 'I want mexican food right now.' with the last word bolded. ",
-    "next_goal": "Click 'Post' button to start composing a tweet."
+    "evaluation_previous_goal": "Unknown - Have not interacted with the tweet yet.",
+    "memory": "Need to post the reply 'gross' to the tweet and then click the reply button.",
+    "next_goal": "Post the reply 'gross' to the tweet box."
   },
   "action": [
     {
       "click_element": {
-        "index": 11
+        "index": 46
       }
     }
   ]

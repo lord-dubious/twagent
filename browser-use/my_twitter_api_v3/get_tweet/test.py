@@ -44,6 +44,7 @@ class Tweets(BaseModel):
     tweets: list[Tweet]
 
 controller = Controller(output_model=Tweets)
+context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
 
 async def main():
 

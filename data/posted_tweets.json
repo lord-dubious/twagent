@@ -1,3 +1,12 @@
-{
-  "tweets": "I want mexican food right now."
-}
+[
+  {
+    "initial_tweet_url": "https://x.com/hayasaka_aryan/status/1903230198629249426",
+    "reply_text": "noo",
+    "reply_time": "2025-03-22T15:26:26.691467"
+  },
+  {
+    "initial_tweet_url": "https://x.com/SolJakey/status/1903232593254027508",
+    "reply_text": "gross",
+    "reply_time": "2025-03-22T15:33:40.637294"
+  }
+]

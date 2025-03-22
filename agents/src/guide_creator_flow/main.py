@@ -110,9 +110,6 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
             1. Do not end any tweet with punctuation at the end of the last sentence.
                Example: "This is a good tweet" (correct)
                Example: "This is a good tweet." (incorrect)
-            2. The first sentence of each tweet MUST be more than 20 characters long.
-               Example: "This is a good first sentence. Then a second one." (correct)
-               Example: "Hi there! This is the main content." (incorrect - first sentence too short)
 
             Make each option distinct and compelling as a direct reply to the original tweet.
             """}
@@ -125,16 +122,27 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
         options_dict = json.loads(response)
         self.state.tweet_batch = TweetBatch(**options_dict)
         
-        # Remove trailing punctuation from all tweets
+        # Process all tweets for formatting requirements
         for option in self.state.tweet_batch.tweet_options:
+            # Remove trailing punctuation
             option.tweet_text = option.tweet_text.rstrip('.,!?;:')
             
-            # Validate first sentence length (fallback check)
-            first_sentence_end = option.tweet_text.find('.')
+            # Replace all exclamation points with periods
+            option.tweet_text = option.tweet_text.replace('!', '.')
+            
+            # Validate first sentence length using multiple sentence endings
+            first_sentence_end = min(
+                (pos for pos in [
+                    option.tweet_text.find('.'), 
+                    option.tweet_text.find('?')
+                ] if pos != -1),
+                default=-1
+            )
+            # Check if the first sentence is less than 20 characters
             if first_sentence_end != -1 and first_sentence_end < 20:
-                # Add filler to make first sentence longer if it's too short
-                parts = option.tweet_text.split('.', 1)
-                option.tweet_text = parts[0] + " actually" + ("." + parts[1] if len(parts) > 1 else "")
+                second_sentence_start = option.tweet_text.find(' ', first_sentence_end + 1)
+                if second_sentence_start != -1:
+                    option.tweet_text = option.tweet_text[second_sentence_start + 1:]
 
         print(f"Generated {len(self.state.tweet_batch.tweet_options)} tweet reply options")
         return self.state.tweet_batch
@@ -168,20 +176,43 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
                 selected_index = int(selection) - 1
                 self.state.selected_tweet = tweet_batch.tweet_options[selected_index]
                 
-                # Check if the directory exists, if not, create it
-                directory = os.path.dirname(locationToSaveGeneratedTweets)
-                if not os.path.exists(directory):
-                    os.makedirs(directory)
-                    
-                # Save the selected tweet to a file
-                with open(locationToSaveGeneratedTweets, "w") as f:
-                    tweet_dict = {
-                        "original_tweet": self.state.original_tweet,
-                        "reply": self.state.selected_tweet.model_dump()
-                    }
-                    json.dump(tweet_dict, f, indent=2)
+                # Get the current date and time in ISO format
+                current_date = datetime.datetime.now().isoformat()
                 
-                print(f"\nTweet reply selected and saved to: {locationToSaveGeneratedTweets}")
+                # Prepare data to save
+                tweet_dict = {
+                    "original_tweet": self.state.original_tweet,
+                    "reply": {
+                        "tweet_text": self.state.selected_tweet.tweet_text,
+                        "date_created": current_date
+                    }
+                }
+
+                # Load existing data if file exists
+                existing_data = []
+                if os.path.exists(locationToSaveGeneratedTweets) and os.path.getsize(locationToSaveGeneratedTweets) > 0:
+                    try:
+                        with open(locationToSaveGeneratedTweets, "r") as f:
+                            existing_data = json.load(f)
+                            # Convert to list if it's a single object
+                            if not isinstance(existing_data, list):
+                                existing_data = [existing_data]
+                    except json.JSONDecodeError:
+                        print("Error reading existing file. Starting with empty list.")
+
+                # Append new data
+                existing_data.append(tweet_dict)
+
+                # Make sure directory exists
+                directory = os.path.dirname(locationToSaveGeneratedTweets)
+                if directory and not os.path.exists(directory):
+                    os.makedirs(directory)
+
+                # Save updated data
+                with open(locationToSaveGeneratedTweets, "w") as f:
+                    json.dump(existing_data, f, indent=2)
+                    print(f"\nTweet reply selected and saved to: {locationToSaveGeneratedTweets}")
+
                 return self.state.selected_tweet
             
             else:
@@ -209,59 +240,7 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
             }
         }
 
-        try:
-            # Create directory if it doesn't exist
-            directory = os.path.dirname(output_file)
-            if directory and not os.path.exists(directory):
-                print(f"Creating directory: {directory}")
-                os.makedirs(directory, exist_ok=True)
-            
-            # Simply write the tweet to the file, creating a new file if necessary
-            if not os.path.exists(output_file) or os.path.getsize(output_file) == 0:
-                # File doesn't exist or is empty - create new file with array
-                print(f"Creating new file at {output_file}")
-                with open(output_file, "w", encoding="utf-8") as f:
-                    json.dump([new_tweet_data], f, indent=2)
-                print(f"Created new file with tweet")
-            else:
-                # File exists - try to append
-                try:
-                    # First read existing data
-                    with open(output_file, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                        if not isinstance(data, list):
-                            data = [data]
-                    
-                    # Append new data and write back
-                    data.append(new_tweet_data)
-                    with open(output_file, "w", encoding="utf-8") as f:
-                        json.dump(data, f, indent=2)
-                    print(f"Appended tweet to existing file")
-                    
-                except json.JSONDecodeError:
-                    # Invalid JSON - overwrite with just this tweet
-                    print(f"File contains invalid JSON, creating new file")
-                    with open(output_file, "w", encoding="utf-8") as f:
-                        json.dump([new_tweet_data], f, indent=2)
-        except Exception as e:
-            print(f"Error saving tweet: {str(e)}")
-            import traceback
-            traceback.print_exc()
-            
-            # Check if locationToSaveGeneratedTweets is properly defined
-            print(f"Output file path: {output_file}")
-            print(f"Directory exists: {os.path.exists(os.path.dirname(output_file)) if os.path.dirname(output_file) else 'No directory specified'}")
-            print(f"Current working directory: {os.getcwd()}")
-            
-            # Try saving to a fallback location in the current directory
-            fallback_file = "saved_tweets.json"
-            try:
-                print(f"Trying fallback location: {fallback_file}")
-                with open(fallback_file, "w", encoding="utf-8") as f:
-                    json.dump([new_tweet_data], f, indent=2)
-                print(f"Saved to fallback location: {fallback_file}")
-            except Exception as e2:
-                print(f"Fallback also failed: {str(e2)}")
+       
         
         return selected_tweet
 
@@ -270,7 +249,12 @@ def kickoff():
     result = TweetCreatorFlow().kickoff()
     if result:
         print("\n=== Flow Complete ===")
-        print(f"Your tweet reply is ready: {result.tweet_text}")
+        if hasattr(result, 'tweet_text'):
+            print(f"Your tweet reply is ready: {result.tweet_text}")
+        elif isinstance(result, TweetCreatorState) and result.selected_tweet:
+            print(f"Your tweet reply is ready: {result.selected_tweet.tweet_text}")
+        else:
+            print("Tweet created successfully.")
     else:
         print("\n=== Flow Cancelled ===")
 
