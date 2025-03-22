@@ -106,27 +106,25 @@ Conversation
 Click to Subscribe to SolJakey
 The morning routine
 ·
-9.3M
-Views
-Ad
-A mini honey packet in my morning coffee is like a sweet love boost, providing instant gratification to kickstart my day with a smile./>
+10.4M
+Views/>
 [1]<button />
 [2]<button Skip to home timeline/>
 [3]<button Skip to trending/>
-[4]<a link;X/>
-[5]<a Home;link/>
+[4]<a X;link/>
+[5]<a link;Home/>
 [6]<a link;Search and explore/>
 [7]<a link;Notifications/>
 [8]<a link;Direct Messages/>
 [9]<a Grok;link/>
-[10]<a link;Premium/>
-[11]<a link;Lists/>
-[12]<a link;Bookmarks/>
-[13]<a link;Jobs/>
+[10]<a Premium;link/>
+[11]<a Lists;link/>
+[12]<a Bookmarks;link/>
+[13]<a Jobs;link/>
 [14]<a link;Communities/>
 [15]<a link;Verified Orgs/>
-[16]<a link;Profile/>
-[17]<button false;More menu items/>
+[16]<a Profile;link/>
+[17]<button More menu items;false/>
 [18]<a link;Post/>
 [19]<div />
 [20]<button Account menu/>
@@ -142,21 +140,21 @@ A mini honey packet in my morning coffee is like a sweet love boost, providing i
 [30]<div link/>
 [31]<a link>@SolJakey/>
 [32]<button Subscribe to @SolJakey>Subscribe/>
-[33]<button false;More/>
+[33]<button More;false/>
 [34]<div />
 [35]<div The media could not be played./>
 [36]<button Reload/>
 [37]<a link>6:49 PM · Mar 21, 2025/>
-[38]<button 2290 Replies. Reply>2.2K/>
-[39]<button false;15420 reposts. Repost>15K/>
-[40]<button 167199 Likes. Like>167K/>
-[41]<button 16551 Bookmarks. Bookmark>16K/>
-[42]<button false;Share post/>
+[38]<button 2520 Replies. Reply>2.5K/>
+[39]<button 17215 reposts. Repost;false>17K/>
+[40]<button 186192 Likes. Like>186K/>
+[41]<button 18571 Bookmarks. Bookmark>18K/>
+[42]<button Share post;false/>
 [43]<div />
 [44]<a link/>
 [45]<div />
 [46]<div Post your reply/>
-[47]<div Post text;textbox/>
+[47]<div textbox;Post text/>
 [48]<div />
 [49]<div />
 [50]<div />
@@ -173,129 +171,179 @@ check my highlights./>
 [58]<a link>Jakey/>
 [59]<div link/>
 [60]<a link>@SolJakey/>
-[61]<a link;13 hours ago>13h/>
+[61]<a 15 hours ago;link>15h/>
 [62]<button Grok actions/>
-[63]<button false;More/>
-[64]<button 22 Replies. Reply>22/>
-[65]<button false;5 reposts. Repost>5/>
-[66]<button 1110 Likes. Like>1.1K/>
-[67]<a link;257682 views. View post analytics>257K/>
+[63]<button More;false/>
+[64]<button 29 Replies. Reply>29/>
+[65]<button 5 reposts. Repost;false>5/>
+[66]<button 1307 Likes. Like>1.3K/>
+[67]<a link;289555 views. View post analytics>289K/>
 [68]<button Bookmark/>
-[69]<button false;Share post/>
+[69]<button Share post;false/>
 [70]<div />
 [71]<article />
 [72]<div ·
-memecoins.
-Quote/>
+grossgross/>
 [73]<a link/>
 [74]<div />
-[75]<a link>Jakey/>
-[76]<div link/>
-[77]<a link>@SolJakey/>
-[78]<a link;1 hour ago>1h/>
-[79]<button Grok actions/>
-[80]<button false;More/>
-[81]<div link>·
-1h
-Your homie invests in memecoins./>
-[82]<div presentation/>
-[83]<div />
-[84]<div Jakey/>
-[85]<div link/>
-[86]<div @SolJakey/>
-[87]<div />
-[88]<div />
-[89]<div />
+[75]<a link>EndDoge.com (Libertarians Against DOGE)/>
+[76]<a link>@basedbassass/>
+[77]<a 34 minutes ago;link>34m/>
+[78]<button Grok actions/>
+[79]<button More;false/>
+[80]<button 0 Replies. Reply/>
+[81]<button 0 reposts. Repost;false/>
+[82]<button 0 Likes. Like/>
+[83]<a link;12 views. View post analytics>12/>
+[84]<button Bookmark/>
+[85]<button Share post;false/>
+[86]<div />
+[87]<article />
+[88]<div ·
+gross/>
+[89]<a link/>
 [90]<div />
-[91]<div />
-[92]<div The media could not be played./>
-[93]<button Reload/>
-[94]<button 15 Replies. Reply>15/>
-[95]<button false;1 repost. Repost>1/>
-[96]<button 16 Likes. Like>16/>
-[97]<a link;22002 views. View post analytics>22K/>
-[98]<button Bookmark/>
-[99]<button false;Share post/>
-[100]<a link/>
-[101]<div />
-[102]<a link>Bee Natural Honey/>
-[103]<a link>@BeeNaturalHoney/>
-[104]<button false;More/>
-[105]<div Slide 1 of 4 - Carousel/>
-[106]<div group/>
-[107]<div />
-[108]<a link>my morning coffee (or tea)/>
-[109]<img />
-[110]<div />
-[111]<a link>my morning coffee (or tea)/>
-[112]<img />
-[113]<div />
-[114]<button Next slide/>
-[115]<div Trending>Your Premium subscription is expiring!
+[91]<a link>EndDoge.com (Libertarians Against DOGE)/>
+[92]<a link>@basedbassass/>
+[93]<a 53 minutes ago;link>53m/>
+[94]<button Grok actions/>
+[95]<button More;false/>
+[96]<button 0 Replies. Reply/>
+[97]<button 0 reposts. Repost;false/>
+[98]<button 0 Likes. Like/>
+[99]<a link;21 views. View post analytics>21/>
+[100]<button Bookmark/>
+[101]<button Share post;false/>
+[102]<div />
+[103]<article />
+[104]<div ·
+memecoins.
+Quote/>
+[105]<a link/>
+[106]<div />
+[107]<a link>Jakey/>
+[108]<div link/>
+[109]<a link>@SolJakey/>
+[110]<a link;3 hours ago>3h/>
+[111]<button Grok actions/>
+[112]<button More;false/>
+[113]<div link>·
+3h
+Your homie invests in memecoins./>
+[114]<div presentation/>
+[115]<div />
+[116]<div Jakey/>
+[117]<div link/>
+[118]<div @SolJakey/>
+[119]<div />
+[120]<div />
+[121]<div />
+[122]<div />
+[123]<div />
+[124]<div The media could not be played./>
+[125]<button Reload/>
+[126]<button 22 Replies. Reply>22/>
+[127]<div />
+[128]<button 1 repost. Repost;false>1/>
+[129]<div />
+[130]<button 41 Likes. Like>41/>
+[131]<div />
+[132]<a 60463 views. View post analytics;link>60K/>
+[133]<div />
+[134]<button Bookmark/>
+[135]<div />
+[136]<button Share post;false/>
+[137]<div />
+[138]<div />
+[139]<article />
+[140]<div Ad
+Have trouble falling asleep or getting a good night's rest? Wish you could turn off your racing thoughts like pressing a button?
+
+Don't compromise on your rest—take these steps to sleep better and wake up refreshed./>
+[141]<a link/>
+[142]<img />
+[143]<div />
+[144]<a link>Bryte/>
+[145]<a link>@SleepBryte/>
+[146]<button More;false/>
+[147]<div />
+[148]<a link>#BetterSleep/>
+[149]<a link>#RestWell/>
+[150]<a link>#Sleep/>
+[151]<div />
+[152]<a link/>
+[153]<img />
+[154]<div Trending>Your Premium subscription is expiring!
 Keep the best of X.
 Blue checkmark, Reply boost, increased Grok limits and much more.
 Trending now
 © 2025 X Corp./>
-[116]<input Search;text;combobox;Search query/>
-[117]<div Relevant people/>
-[118]<li listitem>Click to Follow SolJakey
+[155]<input text;Search query;Search;combobox/>
+[156]<div Relevant people/>
+[157]<li listitem>Click to Follow SolJakey
 What a time to be alive |
 |/>
-[119]<a link/>
-[120]<div />
-[121]<a link>Jakey/>
-[122]<div link/>
-[123]<a link>@SolJakey/>
-[124]<button Follow @SolJakey>Follow/>
-[125]<a link>@SUPERBASEDD/>
-[126]<a link>@bonkbot_io/>
-[127]<button Renew subscription/>
-[128]<div />
-[129]<div Explore
+[158]<a link/>
+[159]<div />
+[160]<a link>Jakey/>
+[161]<div link/>
+[162]<a link>@SolJakey/>
+[163]<button Follow @SolJakey>Follow/>
+[164]<a link>@SUPERBASEDD/>
+[165]<a link>@bonkbot_io/>
+[166]<button Renew subscription/>
+[167]<div />
+[168]<div Explore
 Beta/>
-[130]<div />
-[131]<div link>Northville High School Coach Jim Zullo Fired After Ponytail Incident
-Trending now · Sports · 3.8K posts/>
-[132]<div presentation/>
-[133]<div />
-[134]<div />
-[135]<div link>Kavanagh Triumphs Over Dos Santos in Thrilling UFC London Bout
-Trending now · MMA · 379 posts/>
-[136]<div presentation/>
-[137]<div />
-[138]<div />
-[139]<div link>Neighbours' Hit on Martinez Sparks Controversy in Blues vs. Blackhawks Game
-Trending now · Hockey · 186 posts/>
-[140]<div presentation/>
-[141]<div />
-[142]<div />
-[143]<div link>Pat Maroon Announces Retirement at Season's End
-Trending now · Hockey · 905 posts/>
-[144]<div presentation/>
-[145]<div />
-[146]<div />
-[147]<a link>Show more/>
-[148]<a link>Terms of Service/>
-[149]<a link>Privacy Policy/>
-[150]<a link>Cookie Policy/>
-[151]<a link>Accessibility/>
-[152]<a link>Ads info/>
-[153]<button false>More/>
-[154]<img />
-... 2811 pixels below - scroll or extract content to see more ...
-Current step: 1/10Current date and time: 2025-03-22 15:33
+[169]<div />
+[170]<div link>Aspinall's Playful Jab at Jon Jones with a Rubber Duck at UFC London
+Trending now · MMA · 694 posts/>
+[171]<div presentation/>
+[172]<div />
+[173]<div />
+[174]<div link>Coach Jim Zullo Dismissed After Ponytail Incident at State Championship
+2 hours ago · Sports · 15K posts/>
+[175]<div presentation/>
+[176]<div />
+[177]<div />
+[178]<div link>Shooting in Memphis: Rapper Sauce Walka Injured, Sayso P Deceased
+Trending now · Music · 2.2K posts/>
+[179]<div presentation/>
+[180]<div />
+[181]<div />
+[182]<div link>Overwatch Server Crash Sparks Outrage and Frustration Among Players
+Trending now · Gaming · 48 posts/>
+[183]<div presentation/>
+[184]<div />
+[185]<div />
+[186]<a link>Show more/>
+[187]<a link>Terms of Service/>
+[188]<a link>Privacy Policy/>
+[189]<a link>Cookie Policy/>
+[190]<a link>Accessibility/>
+[191]<a link>Ads info/>
+[192]<button false>More/>
+[193]<img />
+... 2875 pixels below - scroll or extract content to see more ...
+Current step: 1/10Current date and time: 2025-03-22 17:35
 
  RESPONSE
 {
   "current_state": {
-    "evaluation_previous_goal": "Unknown - Have not interacted with the tweet yet.",
-    "memory": "Need to post the reply 'gross' to the tweet and then click the reply button.",
-    "next_goal": "Post the reply 'gross' to the tweet box."
+    "evaluation_previous_goal": "Unknown - No previous actions related to replying identified.",
+    "memory": "Plan to reply to tweet and click reply. No actions done yet.",
+    "next_goal": "Scroll to the reply section and type 'gross'."
   },
   "action": [
     {
-      "click_element": {
-        "index": 46
+      "scroll_to_text": {
+        "text": "Post your reply"
+      }
+    },
+    {
+      "input_text": {
+        "index": 46,
+        "text": "gross"
       }
     }
   ]

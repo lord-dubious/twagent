@@ -18,11 +18,10 @@ review_section_task:
   description: >
     Your review should:
     1. Fix any grammatical or spelling errors
-    2. Improve clarity and readability
-    3. Ensure content is comprehensive and accurate
-    4. Enhance the structure and flow
-    5. Add any missing key information
-
+    2. Ensure content is comprehensive and accurate
+    3. Enhance the structure and flow
+    4. Add any missing key information
+    5. have tremendous wit
   expected_output: >
     An improved, polished version enhances clarity, accuracy, and consistency. Is not academic.
   agent: content_reviewer

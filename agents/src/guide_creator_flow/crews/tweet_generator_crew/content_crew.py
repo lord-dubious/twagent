@@ -1,9 +1,9 @@
-# src/guide_creator_flow/crews/content_crew/content_crew.py
+# src/guide_creator_flow/crews/tweet_generator_crew/content_crew.py
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
 @CrewBase
-class ContentCrew():
+class TweetGeneratorCrew():
     """Content writing crew"""
 
     @agent

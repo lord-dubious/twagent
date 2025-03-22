@@ -13,12 +13,19 @@ from dotenv import load_dotenv
 import json
 import os.path
 from datetime import datetime
+import argparse  # Added for command line arguments
 
 load_dotenv()
 
+# Add argument parsing
+parser = argparse.ArgumentParser(description='Fetch and save tweet data')
+parser.add_argument('tweet_url', nargs='?', 
+                    help='URL of the tweet to fetch')
+args = parser.parse_args()
+
 browser = Browser()
 initial_actions = [
-	{'open_tab': {'url': 'https://x.com/ShawnOnTheRight/status/1902883820468044200'}},
+	{'open_tab': {'url': args.tweet_url}},  # Use the provided tweet URL
 ]
 
 file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')

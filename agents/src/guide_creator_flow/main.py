@@ -6,7 +6,10 @@ from typing import List
 from pydantic import BaseModel, Field
 from crewai import LLM
 from crewai.flow.flow import Flow, listen, start
+import random
 import datetime  # Add this import at the top with other imports
+from guide_creator_flow.crews.tweet_generator_crew.content_crew import TweetGeneratorCrew
+from guide_creator_flow.utils.browser_subprocess import call_twitter_reply_script
 
 # Convert relative path to absolute path based on the script location
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +39,54 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
     """Flow for creating tweets"""
 
     @start()
+    def get_last_saved_tweet(self):
+        """Retrieve the last saved tweet from the saved_tweets.json file"""
+        try:
+            with open(os.path.join(SCRIPT_DIR, "../../../data/saved_tweets.json"), "r") as f:
+                data = json.load(f)
+                if data and "tweets" in data and data["tweets"]:
+                    last_tweet = data["tweets"][-1]
+                    print("Last saved tweet retrieved successfully.")
+                    print(f"Last Tweet: {last_tweet}")
+                    # Get original tweet to reply to
+                    self.state.original_tweet = last_tweet.get("text", "")
+                    
+                    # Calculate tweet metrics
+                    self.state.tweet_length = len(self.state.original_tweet)
+                    
+                    # Calculate average word size
+                    words = self.state.original_tweet
+                    if words:
+                        self.state.avg_word_size = sum(len(word) for word in words) / len(words)
+                    else:
+                        self.state.avg_word_size = 0
+                        
+                    # Determine length category (0-20, 21-40, 41-60, etc.)
+                    category_start = math.floor(self.state.tweet_length / 20) * 20
+                    category_end = category_start + 20
+                    self.state.length_category = f"{category_start+1}-{category_end}"
+                    
+                    self.state.topic = "funny"
+
+                    # Get tone with validation
+                    self.state.tone = random.choice(["professional", "casual", "humorous"])
+                    print(f"Randomly selected tone: {self.state.tone}")
+
+                    print(f"\nOriginal tweet is {self.state.tweet_length} characters with avg word size of {self.state.avg_word_size:.1f}")
+                    print(f"Length category: {self.state.length_category} characters")
+                    print(f"Creating 10 reply options on {self.state.topic} with a {self.state.tone} tone...\n")
+                    return self.state
+                else:
+                    print("No tweets found in the saved_tweets.json file.")
+                    return None
+        except FileNotFoundError:
+            print("The saved_tweets.json file does not exist.")
+            return None
+        except json.JSONDecodeError:
+            print("Error decoding the saved_tweets.json file.")
+            return None
+
+
     def get_user_input(self):
         """Get input from the user about the tweet topic, tone, and original tweet to reply to"""
         print("\n=== Create Your Engaging Tweet Reply ===\n")
@@ -74,11 +125,13 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
         print(f"Creating 10 reply options on {self.state.topic} with a {self.state.tone} tone...\n")
         return self.state
 
-    @listen(get_user_input)
+
+
+    @listen(get_last_saved_tweet)
     def generate_tweet_options(self, state):
         """Generate multiple tweet reply options using an LLM"""
         print("Generating tweet reply options...")
-
+        
         # Initialize the LLM
         llm = LLM(model="openai/gpt-4o-mini", response_format=TweetBatch)
         
@@ -106,16 +159,12 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
             
             For each tweet option, include only the full tweet text (match the target length of {target_length} characters)
             
-            IMPORTANT REQUIREMENTS:
-            1. Do not end any tweet with punctuation at the end of the last sentence.
-               Example: "This is a good tweet" (correct)
-               Example: "This is a good tweet." (incorrect)
-
             Make each option distinct and compelling as a direct reply to the original tweet.
             """}
         ]
 
         # Make the LLM call with JSON response format
+        #response = TweetGeneratorCrew().crew().kickoff(inputs=messages)
         response = llm.call(messages=messages)
 
         # Parse the JSON response
@@ -218,30 +267,39 @@ class TweetCreatorFlow(Flow[TweetCreatorState]):
             else:
                 print("Invalid selection. Please try again.")
 
+    
     @listen(select_tweet)
-    def save_selected_tweet(self, selected_tweet):
-        """Save the selected tweet to a JSON file by appending it"""
-        print("\nSaving your selected tweet reply...")
-                
-        output_file = locationToSaveGeneratedTweets
-        print(f"Attempting to save to: {output_file}")
-        print(f"Script directory: {SCRIPT_DIR}")
-        print(f"Absolute path: {os.path.abspath(output_file)}")
-        
-        # Get the current date and time in ISO format
-        current_date = datetime.datetime.now().isoformat()
-        
-        # Create new tweet data
-        new_tweet_data = {
-            "original_tweet": self.state.original_tweet,
-            "reply": {
-                "tweet_text": selected_tweet.tweet_text,
-                "date_created": current_date
+    def post_tweet(self, selected_tweet):
+        """Display the tweet dictionary and call the Twitter reply script"""
+        if selected_tweet:
+            # Get the current date and time in ISO format (same as in select_tweet)
+            current_date = datetime.datetime.now().isoformat()
+            
+            # Recreate the tweet_dict structure
+            tweet_dict = {
+                "original_tweet": self.state.original_tweet,
+                "reply": {
+                    "tweet_text": selected_tweet.tweet_text,
+                    "date_created": current_date
+                }
             }
-        }
+            
+            print("\n=== Tweet Dictionary Details ===")
+            print(f"Original tweet: {tweet_dict['original_tweet']}")
+            print(f"Reply text: {tweet_dict['reply']['tweet_text']}")
+            print(f"Date created: {tweet_dict['reply']['date_created']}")
+            
+            # Ask the user if they want to post this tweet as a reply on Twitter
+            post_to_twitter = input("\nWould you like to post this as a reply on Twitter? (yes/no): ")
+            
+            if post_to_twitter.lower() in ['yes', 'y']:
+                # Call the utility function to handle Twitter reply via subprocess
+                call_twitter_reply_script(selected_tweet.tweet_text)
+            else:
+                print("Tweet not posted to Twitter.")
+        else:
+            print("No tweet was selected.")
 
-       
-        
         return selected_tweet
 
 def kickoff():
