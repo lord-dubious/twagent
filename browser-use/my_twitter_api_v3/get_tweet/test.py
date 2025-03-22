@@ -21,9 +21,12 @@ initial_actions = [
 	{'open_tab': {'url': 'https://x.com/ShawnOnTheRight/status/1902883820468044200'}},
 ]
 
-file_path = os.path.join(os.path.dirname(__file__), 'twitter_cookies.txt')
-context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
-json_file_path = "../../../data/saved_tweets.json"
+file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
+# Use script location as reference point for json file path
+script_dir = os.path.dirname(os.path.abspath(__file__))
+json_file_path = os.path.join(script_dir, "../../../data/saved_tweets.json")
+# Make the path absolute to resolve the relative components
+json_file_path = os.path.abspath(json_file_path)
 
 class Tweet(BaseModel):
     handle: str

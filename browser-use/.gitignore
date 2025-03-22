@@ -1,5 +1,5 @@
 .env
 venv
-twitter_cookies.txt
+my_twitter_api_v3/twitter_cookies.txt
 agents/.venv
 agents/.env

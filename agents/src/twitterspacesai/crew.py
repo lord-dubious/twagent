@@ -1,13 +1,55 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-
+from tools.custom_tool import CustomTool
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
 
+from crewai_tools import DirectorySearchTool, CodeInterpreterTool
+from crewai import Tool
+
+
+
+
 @CrewBase
 class Twitterspacesai():
     """Twitterspacesai crew"""
+
+
+    code_interpreter = CodeInterpreterTool()
+    directory_search = DirectorySearchTool(directory='../../browser-use/my_twitter_api_v3/follows/follow_user.py')
+
+
+    def find_and_run_python_file(filename):
+        # Search for the file
+        search_result = directory_search.search(f"Find {filename}")
+        
+        if search_result:
+            file_path = search_result[0]  # Assuming the first result is the correct file
+            
+            # Read the file content
+            with open(file_path, 'r') as file:
+                code = file.read()
+            
+            # Execute the code
+            return code_interpreter.execute(code)
+        else:
+            return f"File {filename} not found."
+
+    def find_and_run_tool(self) -> Tool:
+        return Tool(
+            name="Find and Run Python File",
+            description="Finds a Python file in a specified directory and runs it",
+            func=find_and_run_python_file
+        )
+
+
+
+
+
+
+
+
 
     # Learn more about YAML configuration files here:
     # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
@@ -15,9 +57,9 @@ class Twitterspacesai():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
 
-    # If you would like to add tools to your agents, you can learn more about it here:
+# If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
-    @agent
+    """     @agent
     def researcher(self) -> Agent:
         return Agent(
             config=self.agents_config['researcher'],
@@ -28,6 +70,16 @@ class Twitterspacesai():
     def reporting_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config['reporting_analyst'],
+            verbose=True
+        ) """
+
+    @agent
+    def python_runner(self) -> Agent:
+        return Agent(
+            role='Python File Runner',
+            goal='Find and execute Python files',
+            backstory='An agent specialized in locating and running Python scripts.',
+            tools=[find_and_run_tool],
             verbose=True
         )
 

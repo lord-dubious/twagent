@@ -1,0 +1,356 @@
+ SystemMessage 
+You are an AI agent designed to automate browser tasks. Your goal is to accomplish the ultimate task following the rules.
+
+# Input Format
+Task
+Previous steps
+Current URL
+Open Tabs
+Interactive Elements
+[index]<type>text</type>
+- index: Numeric identifier for interaction
+- type: HTML element type (button, input, etc.)
+- text: Element description
+Example:
+[33]<button>Submit Form</button>
+
+- Only elements with numeric indexes in [] are interactive
+- elements without [] provide only context
+
+# Response Rules
+1. RESPONSE FORMAT: You must ALWAYS respond with valid JSON in this exact format:
+{"current_state": {"evaluation_previous_goal": "Success|Failed|Unknown - Analyze the current elements and the image to check if the previous goals/actions are successful like intended by the task. Mention if something unexpected happened. Shortly state why/why not",
+"memory": "Description of what has been done and what you need to remember. Be very specific. Count here ALWAYS how many times you have done something and how many remain. E.g. 0 out of 10 websites analyzed. Continue with abc and xyz",
+"next_goal": "What needs to be done with the next immediate action"},
+"action":[{"one_action_name": {// action-specific parameter}}, // ... more actions in sequence]}
+
+2. ACTIONS: You can specify multiple actions in the list to be executed in sequence. But always specify only one action name per item. Use maximum {max_actions} actions per sequence.
+Common action sequences:
+- Form filling: [{"input_text": {"index": 1, "text": "username"}}, {"input_text": {"index": 2, "text": "password"}}, {"click_element": {"index": 3}}]
+- Navigation and extraction: [{"go_to_url": {"url": "https://example.com"}}, {"extract_content": {"goal": "extract the names"}}]
+- Actions are executed in the given order
+- If the page changes after an action, the sequence is interrupted and you get the new state.
+- Only provide the action sequence until an action which changes the page state significantly.
+- Try to be efficient, e.g. fill forms at once, or chain actions where nothing changes on the page
+- only use multiple actions if it makes sense.
+
+3. ELEMENT INTERACTION:
+- Only use indexes of the interactive elements
+- Elements marked with "[]Non-interactive text" are non-interactive
+
+4. NAVIGATION & ERROR HANDLING:
+- If no suitable elements exist, use other functions to complete the task
+- If stuck, try alternative approaches - like going back to a previous page, new search, new tab etc.
+- Handle popups/cookies by accepting or closing them
+- Use scroll to find elements you are looking for
+- If you want to research something, open a new tab instead of using the current tab
+- If captcha pops up, try to solve it - else try a different approach
+- If the page is not fully loaded, use wait action
+
+5. TASK COMPLETION:
+- Use the done action as the last action as soon as the ultimate task is complete
+- Dont use "done" before you are done with everything the user asked you, except you reach the last step of max_steps. 
+- If you reach your last step, use the done action even if the task is not fully finished. Provide all the information you have gathered so far. If the ultimate task is completly finished set success to true. If not everything the user asked for is completed set success in done to false!
+- If you have to do something repeatedly for example the task says for "each", or "for all", or "x times", count always inside "memory" how many times you have done it and how many remain. Don't stop until you have completed like the task asked you. Only call done after the last step.
+- Don't hallucinate actions
+- Make sure you include everything you found out for the ultimate task in the done text parameter. Do not just say you are done, but include the requested information of the task. 
+
+6. VISUAL CONTEXT:
+- When an image is provided, use it to understand the page layout
+- Bounding boxes with labels on their top right corner correspond to element indexes
+
+7. Form filling:
+- If you fill an input field and your action sequence is interrupted, most often something changed e.g. suggestions popped up under the field.
+
+8. Long tasks:
+- Keep track of the status and subresults in the memory. 
+
+9. Extraction:
+- If your task is to find information - call extract_content on the specific pages to get and store the information.
+Your responses must be always JSON with the specified format.
+
+ HumanMessage 
+Your ultimate task is: """Follow @doge""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+
+ HumanMessage 
+Example output:
+
+ AIMessage 
+
+
+ ToolMessage 
+Browser started
+
+ HumanMessage 
+[Your task history memory starts here]
+
+ HumanMessage 
+Action result: 🔗  Opened new tab with https://x.com/@doge
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 1:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 42:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 2:
+
+ AIMessage 
+
+
+ ToolMessage 
+
+
+ HumanMessage 
+Action result: 🖱️  Clicked button with index 41:
+
+ HumanMessage 
+[Task history memory ends]
+[Current state starts here]
+The following is one-time information - if you need to remember it write it to memory:
+Current url: https://x.com/doge
+Available tabs:
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/doge', title='Department of Government Efficiency (@DOGE) / X')]
+Interactive elements from top layer of the current page inside the viewport:
+[Start of page]
+[0]<div To view keyboard shortcuts, press question mark
+View keyboard shortcuts
+How can I help you today?
+See new posts
+Click to Unfollow DOGE
+The people voted for major reform.
+Joined November 2024
+Not followed by anyone you’re following
+Department of Government Efficiency’s posts/>
+[1]<div Grok/>
+[2]<button Open conversation/>
+[3]<button Collapse/>
+[4]<div />
+[5]<textarea Ask anything/>
+[6]<button Media/>
+[7]<button />
+[8]<button />
+[9]<button />
+[10]<button />
+[11]<button Grok something/>
+[12]<a link;X/>
+[13]<a link;Home/>
+[14]<a link;Search and explore/>
+[15]<a link;Notifications/>
+[16]<a Direct Messages;link/>
+[17]<a link;Grok/>
+[18]<a link;Premium/>
+[19]<a Lists;link/>
+[20]<a Bookmarks;link/>
+[21]<a Jobs;link/>
+[22]<a link;Communities/>
+[23]<a Verified Orgs;link/>
+[24]<a link;Profile/>
+[25]<button More menu items;false/>
+[26]<a link;Post/>
+[27]<div />
+[28]<button Account menu/>
+[29]<div presentation/>
+[30]<div />
+[31]<button Back/>
+[32]<div 195 posts/>
+[33]<div Department of Government Efficiency/>
+[34]<a link/>
+[35]<img />
+[36]<a link/>
+[37]<div />
+[38]<button More;false/>
+[39]<button Search/>
+[40]<button Message/>
+[41]<button Turn on post notifications/>
+[42]<button Following @DOGE>Following/>
+[43]<div Department of Government Efficiency/>
+[44]<div />
+[45]<button Provides details about verified accounts./>
+[46]<div @DOGE/>
+[47]<a none>doge.gov/>
+[48]<a link>0
+Following/>
+[49]<a link>4.7M
+Followers/>
+[50]<div />
+[51]<div presentation/>
+[52]<a tab>Posts/>
+[53]<div presentation/>
+[54]<a tab>Affiliates/>
+[55]<div presentation/>
+[56]<a tab>Replies/>
+[57]<div presentation/>
+[58]<a tab>Highlights/>
+[59]<div presentation/>
+[60]<a tab>Media/>
+[61]<div />
+[62]<article />
+[63]<div Pinned
+·
+DOGE is looking for help from the general public!  
+
+Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or awesome ideas, to the relevant DOGE affiliates (found on the Affiliates tab).  For example,
+,
+, etc.  
+We will add/>
+[64]<a link/>
+[65]<div />
+[66]<a link>Department of Government Efficiency/>
+[67]<a link>@DOGE/>
+[68]<a link>Feb 16/>
+[69]<button Grok actions/>
+[70]<button More;false/>
+[71]<a link>@DOGE_USDA/>
+[72]<a link>@DOGE_SSA/>
+[73]<button Show more/>
+[74]<button 40571 Replies. Reply>40K/>
+[75]<button 31021 reposts. Repost;false>31K/>
+[76]<button 116714 Likes. Like>116K/>
+[77]<a link;57782707 views. View post analytics>57M/>
+[78]<button Bookmark/>
+[79]<button Share post;false/>
+[80]<div />
+[81]<article />
+[82]<div ·
+There is a pattern across all agencies where IT “modernization” contracts do not pay for outcomes/performance; instead, they pay for time.  Therefore, the incentive is for contractors to “never finish,” resulting in incredible waste. 
+
+As an example, IRS modernization started in/>
+[83]<a link/>
+[84]<div />
+[85]<a link>Department of Government Efficiency/>
+[86]<a link>@DOGE/>
+[87]<a link;10 hours ago>10h/>
+[88]<button Grok actions/>
+[89]<button More;false/>
+[90]<button Show more/>
+[91]<div The media could not be played./>
+[92]<button Reload/>
+[93]<button 1342 Replies. Reply>1.3K/>
+[94]<div />
+[95]<button 5840 reposts. Repost;false>5.8K/>
+[96]<div />
+[97]<button 25338 Likes. Like>25K/>
+[98]<div />
+[99]<a 1484603 views. View post analytics;link>1.4M/>
+[100]<div />
+[101]<button Bookmark/>
+[102]<div />
+[103]<button Share post;false/>
+[104]<div />
+[105]<div />
+[106]<article />
+[107]<div ·
+The IRS has the transaction volume of a mid-sized bank, running similar infrastructure. Those banks typically have an Operations and Maintenance (O&M) budget of ~$20M/yr.  
+
+The IRS has a ~$3.5B O&M budget (which doesn’t include an additional $3.7B modernization budget).  ~80% of/>
+[108]<a link/>
+[109]<img />
+[110]<div />
+[111]<a link>Department of Government Efficiency/>
+[112]<a link>@DOGE/>
+[113]<a link;10 hours ago>10h/>
+[114]<button Grok actions/>
+[115]<div />
+[116]<button More;false/>
+[117]<div />
+[118]<button Show more/>
+[119]<button 324 Replies. Reply>324/>
+[120]<div />
+[121]<button 1196 reposts. Repost;false>1.1K/>
+[122]<div />
+[123]<button 7588 Likes. Like>7.5K/>
+[124]<div />
+[125]<a link;362239 views. View post analytics>362K/>
+[126]<div />
+[127]<button Bookmark/>
+[128]<div />
+[129]<button Share post;false/>
+[130]<div />
+[131]<div />
+[132]<article />
+[133]<div ·
+Contract update!
+
+Today, agencies terminated 105 contracts with a ceiling value of $935M and $580M in savings, including a $1.03M National Science Foundation consulting contract for “fitness center services”./>
+[134]<a link/>
+[135]<img />
+[136]<div />
+[137]<a link>Department of Government Efficiency/>
+[138]<a link>@DOGE/>
+[139]<a link;20 hours ago>20h/>
+[140]<button Grok actions/>
+[141]<div />
+[142]<button More;false/>
+[143]<div />
+[144]<div Trending>Trending now
+Show more
+Terms of Service
+Privacy Policy
+Cookie Policy
+Accessibility
+Ads info
+More
+© 2025 X Corp./>
+[145]<input combobox;Search query;Search;text/>
+[146]<div />
+[147]<div Explore
+Beta/>
+[148]<div />
+[149]<div link>Maysville Panthers Triumph in D4 Basketball Championship
+2 hours ago · Basketball · 145 posts/>
+[150]<div presentation/>
+[151]<div />
+[152]<div />
+[153]<div link>Hokies Edge Out Louisville in Thrilling Baseball Clash
+Trending now · Baseball · 45 posts/>
+[154]<div presentation/>
+[155]<div />
+[156]<div />
+[157]<div link>Cornell and Quinnipiac Battle to a Draw in ECAC Semifinal
+2 hours ago · Hockey · 55 posts/>
+[158]<div presentation/>
+[159]<div />
+[160]<div />
+[161]<div link>Memphis' PJ Haggerty Struggles in NCAA Tournament Loss to Colorado State
+2 hours ago · Basketball · 56 posts/>
+[162]<div presentation/>
+[163]<div />
+... 7530 pixels below - scroll or extract content to see more ...
+Current step: 5/10Current date and time: 2025-03-21 19:20
+
+ RESPONSE
+{
+  "current_state": {
+    "evaluation_previous_goal": "Success - The 'Following' button indicates we are successfully following @DOGE.",
+    "memory": "We are following @DOGE as indicated by the 'Following' button. Task successfully completed.",
+    "next_goal": "Complete the task and confirm success."
+  },
+  "action": [
+    {
+      "done": {
+        "text": "Successfully followed @DOGE on X.",
+        "success": true
+      }
+    }
+  ]
+}

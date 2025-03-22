@@ -76,7 +76,8 @@ The workflow involves several key steps:
 
 - **Agent B2**: For each relevant trend, find the 10 best tweets, save them.
 
-- **Agent C** (not browser-base): score all the current tweets in the past 10 minutes, determine which ones to respond to.
+- **Agent 
+C** (not browser-base): score all the current tweets in the past 10 minutes, determine which ones to respond to.
 
 - **Agent D**: Craft replies/posts, score these.
 
