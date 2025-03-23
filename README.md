@@ -56,37 +56,6 @@ The structure of the AI agentic workflow is designed for pseudosatirical social 
 
 By leveraging advanced natural language processing (NLP) techniques and AI-driven analysis, the agents are able to identify contentious topics, craft provocative responses, and engage in online debates.
 
-The workflow involves several key steps:
-
-1. **Contentious Topic Identification**: Agents monitor various Twitter accounts, trending topics, and news to identify subjects that are likely to provoke strong reactions and debates.
-
-2. **Provocative Response Crafting**: Using NLP techniques, the agents generate responses that are designed to challenge opinions, question assumptions, and provoke arguments.
-
-3. **Engagement and Interaction**: The agents actively engage with users by replying to tweets, posting their own provocative statements, and retweeting contentious content. 
-
-4. **Scoring and Prioritization**: Tweets and responses are scored based on their potential to provoke arguments and generate engagement. Higher-scoring content is prioritized for posting and interaction.
-
-5. **Continuous Monitoring and Adaptation**: The agents continuously monitor the impact of their interactions, adapting their strategies based on the responses they receive. This ensures that the workflow remains effective in creating arguments and picking fights online.
-
-
-### My Workers
-- **Agent A**: Using either a Twitter List or the Tweet Deck (https://pro.x.com/i/decks), monitor several accounts and save tweets.
-
-- **Agent B1**: Monitor the [Trending](https://x.com/explore/tabs/keyword) and [News](https://x.com/explore/tabs/news) tabs by adjusting the location settings, select 10 most-relevant trends, save their links and descriptions.
-
-- **Agent B2**: For each relevant trend, find the 10 best tweets, save them.
-
-- **Agent 
-C** (not browser-base): score all the current tweets in the past 10 minutes, determine which ones to respond to.
-
-- **Agent D**: Craft replies/posts, score these.
-
-- **Agent E**: Respond to the highest-scoring tweets. Retweet those. The max tweet count is 2,400 per day.
-
-    - Default scheme is 30/30/30 (of tweets, retweets, and comments)
-
-- **Agent F**: Stream with Elevenlabs to OBS and say them in a twitter space. 
-
 
 ## Why this approach? Why not just use Twitter's V2 API?
 
@@ -102,10 +71,6 @@ The death of the Twitter API is long, long overdue. Bad for us consumers? Sure. 
 
 Given his heavy investment into XAI, Elon Musk should support AI Agentic Workflows which interact with X through selenium/puppeteer. Otherwise, he'd be anti-AI and threaten US digital sovereignty and national security.
 
-
-### scraping vs limited/expensive APIs
-- Agent A, B1/2, E could be done easily with V2 access, though you'd be rate-limited. Trends API is more unstable with conflicting information in the documentation.
-- For X's Communities' feature, you can only do one call per 15 minutes. That is a complete mess and scraping is likely better.
 
 ### my workflow prioritizes:
 

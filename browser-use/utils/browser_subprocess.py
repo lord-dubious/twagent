@@ -15,8 +15,8 @@ def call_twitter_reply_script(reply_text: str, original_tweet_url: Optional[str]
     # Create a temporary file to pass the data between environments
     with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as tmp:
         json.dump({
-            "reply_text": reply_text,
-            "original_tweet_url": original_tweet_url
+            "tweet_text": reply_text,
+            "tweet_url": original_tweet_url
         }, tmp)
         temp_file_path = tmp.name
     
