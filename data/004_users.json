@@ -107,21 +107,21 @@
   {
     "handle": "@picturesfoider",
     "score": 100,
-    "alreadyFollowingOrBlocked": false
+    "alreadyFollowingOrBlocked": true
   },
   {
     "handle": "@DudespostingWs",
     "score": 100,
-    "alreadyFollowingOrBlocked": false
+    "alreadyFollowingOrBlocked": true
   },
   {
     "handle": "@InternetH0F",
     "score": 100,
-    "alreadyFollowingOrBlocked": false
+    "alreadyFollowingOrBlocked": true
   },
   {
     "handle": "@Macbaconai",
     "score": 100,
-    "alreadyFollowingOrBlocked": false
+    "alreadyFollowingOrBlocked": true
   }
 ]

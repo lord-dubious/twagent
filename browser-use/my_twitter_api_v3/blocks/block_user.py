@@ -17,7 +17,7 @@ from datetime import datetime
 load_dotenv()
 
 
-async def follow_user(handle = "@doge"):
+async def block_user(handle = "@doge"):
 
     browser = Browser()
     initial_actions = [
@@ -37,7 +37,7 @@ async def follow_user(handle = "@doge"):
     controller = Controller()
     agent = Agent(
         task=(
-            "Follow " + handle
+            "Block " + handle
         ),
         llm=ChatOpenAI(model="gpt-4o"),
         save_conversation_path="logs/conversation",  # Save chat logs
@@ -47,9 +47,7 @@ async def follow_user(handle = "@doge"):
         controller=controller
     )
     history = await agent.run(max_steps=10)
-    result = history.final_result()
-
     return True
 
 if __name__ == "__main__":
-    asyncio.run(follow_user())
+    asyncio.run(block_user())

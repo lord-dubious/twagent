@@ -99,10 +99,10 @@ class TweetCreatorFlow:
                     filtered_data = {user['handle']: user['score'] for user in data if user['score'] == 100 and not user.get('alreadyFollowingOrBlocked', False)}
                     print(filtered_data)
 
-                    from my_twitter_api_v3.follows.follow_user import follow_user
+                    from my_twitter_api_v3.blocks.block_user import block_user
                     import asyncio
                     for user_handle in filtered_data.keys():
-                        asyncio.run(follow_user(handle=user_handle))
+                        asyncio.run(block_user(handle=user_handle))
                         # Update the 'alreadyFollowingOrBlocked' field to True for each followed user
                         for user in data:
                             if user['handle'] in filtered_data:
