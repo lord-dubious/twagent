@@ -4,7 +4,7 @@ This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor 
 
 ## AI Agentic Workflow Structure
 
-The structure of the AI agentic workflow is designed for pseudosatirical social causes. It aims to create provocative arguments and pick fights online. Users can specify:
+The workflow is designed for pseudosatirical social causes. It aims to create provocative arguments and pick fights online.
 
 <!-- 1) **What people should know (mission statement; system prompt)**
   ```
@@ -54,10 +54,8 @@ The structure of the AI agentic workflow is designed for pseudosatirical social 
 ]
 ``` -->
 
-By leveraging advanced natural language processing (NLP) techniques and AI-driven analysis, the agents are able to identify contentious topics, craft provocative responses, and engage in online debates.
 
-
-## Why this approach? Why not just use Twitter's V2 API?
+## Why browser-use? Why not just use Twitter's V2 API?
 
 This approach was chosen as a solution because the Twitter API is prohibitively expensive and is often seen as anti-developer. 
 
@@ -131,8 +129,3 @@ This will:
 2. Navigate to the specified Twitter profile (currently set to DOGE's profile)
 3. Extract the latest tweets
 4. Save them to `saved_tweets.json`
-
-
-
-### Things to know:
-- Rather than use CrewAI's default MultiOn Tool, I instead use browser-use because it is 1) open-source 2) doesnt require a paid api key and 3) better documentation and community
