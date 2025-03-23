@@ -14,9 +14,9 @@ load_dotenv()
 SCRIPT_DIR = os.path.dirname(__file__)
 
 pathToData = "../data"
-lastSavedTweets = "/saved_tweets.json"
-generatedTweets = "/generated_tweets.json"
-postedTweets = "/posted_tweets.json"
+lastSavedTweets = "/001_saved_tweets.json"
+generatedTweets = "/002_generated_tweets.json"
+postedTweets = "/003_posted_tweets.json"
 
 # Define the Tweet model
 class Tweet(BaseModel):
@@ -104,7 +104,7 @@ class TweetCreatorFlow:
                     print(f"Last Tweet: {last_tweet}")
                     # Get original tweet to reply to
                     self.state.original_tweet = last_tweet.get("text", "")
-                    self.state.tweet_url = last_tweet.get("url", "")
+                    self.state.tweet_url = last_tweet.get("tweet_link", "")
 
                     # Calculate tweet metrics
                     self.state.tweet_length = len(self.state.original_tweet)
@@ -361,39 +361,18 @@ class TweetCreatorFlow:
                     print(f"Last Reply: {last_reply}")
                     # Prepare data to save
                     posted_tweet_dict = {
-                        "tweet_url": last_reply["tweet_text"],
+                        "tweet_url": last_reply["tweet_url"],
+                        "tweet_text": last_reply["tweet_text"],
                         "reply_text": last_reply["reply"]["tweet_text"],
                         "reply_time": last_reply["reply"]["date_created"]
                     }
 
-                    # Load existing data if file exists
-                    existing_posted_data = []
-                    if os.path.exists(pathToData+postedTweets) and os.path.getsize(pathToData+postedTweets) > 0:
-                        try:
-                            with open(pathToData+postedTweets, "r") as f:
-                                existing_posted_data = json.load(f)
-                                # Convert to list if it's a single object
-                                if not isinstance(existing_posted_data, list):
-                                    existing_posted_data = [existing_posted_data]
-                        except json.JSONDecodeError:
-                            print("Error reading existing posted tweets file. Starting with empty list.")
+                    from my_twitter_api_v3.manage_posts.reply_to_post import reply_to_post
+                    import asyncio
+                    asyncio.run(reply_to_post(tweet_url=last_reply["tweet_url"], my_post=last_reply["reply"]["tweet_text"]))
 
-                    # Append new data
-                    existing_posted_data.append(posted_tweet_dict)
 
-                    # Make sure directory exists
-                    directory = os.path.dirname(pathToData+postedTweets)
-                    if directory and not os.path.exists(directory):
-                        os.makedirs(directory)
 
-                    # Save updated data
-                    with open(pathToData+postedTweets, "w") as f:
-                        json.dump(existing_posted_data, f, indent=2)
-                        print(f"\nTweet reply posted and saved to: {pathToData+postedTweets}")
-                    return True
-                else:
-                    print("No tweets found in the generated_tweets.json file.")
-                    return False
         except FileNotFoundError:
             print("The generated_tweets.json file does not exist.")
             return False

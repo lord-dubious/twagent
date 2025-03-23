@@ -16,30 +16,34 @@ from datetime import datetime
 
 load_dotenv()
 
-browser = Browser()
-initial_actions = [
-	{'open_tab': {'url': 'https://pro.x.com/i/decks/1902192120082866405'}},
-]
 
-file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
-# Use script location as reference point for json file path
-script_dir = os.path.dirname(os.path.abspath(__file__))
-json_file_path = os.path.join(script_dir, "../../../data/posted_tweets.json")
-# Make the path absolute to resolve the relative components
-json_file_path = os.path.abspath(json_file_path)
+async def main(tweet_url = 'https://pro.x.com/i/decks/1902192120082866405',
+    my_post = "I want mexican food right now."):
 
 
-controller = Controller()
-context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
 
-async def main():
 
-    my_post = "I want mexican food right now."
+    browser = Browser()
+    initial_actions = [
+        {'open_tab': {'url': tweet_url}},
+    ]
+
+    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
+    # Use script location as reference point for json file path
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.join(script_dir, "../../../data/posted_tweets.json")
+    # Make the path absolute to resolve the relative components
+    json_file_path = os.path.abspath(json_file_path)
+
+
+    controller = Controller()
+    context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
+
     agent = Agent(
         task=(
             "Post a tweet saying:" + my_post
         ),
-        llm=ChatOpenAI(model="gpt-4o"),
+        llm=ChatOpenAI(model="gpt-4o-mini"),
         save_conversation_path="logs/conversation",  # Save chat logs
 		browser_context=context,
         initial_actions=initial_actions,
@@ -57,27 +61,11 @@ async def main():
             "reply_time": reply_time
         }
         
-        # Load existing data if file exists
-        existing_data = []
-        if os.path.exists(json_file_path) and os.path.getsize(json_file_path) > 0:
-            try:
-                with open(json_file_path, "r") as f:
-                    existing_data = json.load(f)
-                    # Convert to list if it's a single object
-                    if not isinstance(existing_data, list):
-                        existing_data = [existing_data]
-            except json.JSONDecodeError:
-                print("Error reading existing file. Starting with empty list.")
-        
-        # Append new data
-        existing_data.append(tweet_data)
-        
-        # Save updated data
         with open(json_file_path, "w") as f:
-            json.dump(existing_data, f, indent=2)
+            json.dump(tweet_data, f, indent=2)
             print(f"Updated tweet data saved to {json_file_path}")
     else:
         print('No result')
 
-
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

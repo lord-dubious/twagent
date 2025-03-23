@@ -16,33 +16,35 @@ from datetime import datetime
 
 load_dotenv()
 
-initialTweet = "https://x.com/SolJakey/status/1903232593254027508"
-browser = Browser()
-initial_actions = [
-	{'open_tab': {'url': initialTweet}},
-    {'scroll_down': {'amount': 500}},
-
-]
-
-file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
-# Use script location as reference point for json file path
-script_dir = os.path.dirname(os.path.abspath(__file__))
-json_file_path = os.path.join(script_dir, "../../../data/posted_tweets.json")
-# Make the path absolute to resolve the relative components
-json_file_path = os.path.abspath(json_file_path)
+async def reply_to_post(my_post = "gross",
+    tweet_url = "https://x.com/SolJakey/status/1903232593254027508"):
 
 
-controller = Controller()
-context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
+    browser = Browser()
+    initial_actions = [
+        {'open_tab': {'url': tweet_url}},
+        {'scroll_down': {'amount': 200}},
 
-async def main():
+    ]
 
-    my_post = "gross"
+    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
+    # Use script location as reference point for json file path
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.join(script_dir, "../../../data/posted_tweets.json")
+    # Make the path absolute to resolve the relative components
+    json_file_path = os.path.abspath(json_file_path)
+
+
+    controller = Controller()
+    context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
+
+
+    
     agent = Agent(
         task=(
             "Reply to the tweet with: " + my_post + " and then make sure to click the reply button."
         ),
-        llm=ChatOpenAI(model="gpt-4o"),
+        llm=ChatOpenAI(model="gpt-4o-mini"),
         save_conversation_path="logs/conversation",  # Save chat logs
 		browser_context=context,
         initial_actions=initial_actions,
@@ -57,7 +59,7 @@ async def main():
         
         # Prepare data to save
         tweet_data = {
-            "initial_tweet_url": initialTweet,
+            "initial_tweet_url": tweet_url,
             "reply_text": my_post,
             "reply_time": reply_time
         }
@@ -84,5 +86,5 @@ async def main():
     else:
         print('No result')
 
-
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(reply_to_post())

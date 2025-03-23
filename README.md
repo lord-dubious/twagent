@@ -2,7 +2,6 @@
 
 This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor twitter accounts, analyze trends, score tweets, reply/post/retweet, and speak in twitter spaces.
 
-## AI Agentic Workflow Structure
 
 The workflow is designed for pseudosatirical social causes. It aims to create provocative arguments and pick fights online.
 

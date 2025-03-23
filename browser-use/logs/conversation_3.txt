@@ -70,7 +70,7 @@ Common action sequences:
 Your responses must be always JSON with the specified format.
 
  HumanMessage 
-Your ultimate task is: """Follow @doge""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
+Your ultimate task is: """Reply to the tweet with: They’re their own worst enemies. 😂 and then make sure to click the reply button.""". If you achieved your ultimate task, stop everything and use the done action in the next step to complete the task. If not, continue as usual.
 
  HumanMessage 
 Example output:
@@ -85,7 +85,10 @@ Browser started
 [Your task history memory starts here]
 
  HumanMessage 
-Action result: 🔗  Opened new tab with https://x.com/@doge
+Action result: 🔗  Opened new tab with https://x.com/ShawnOnTheRight/status/1902883820468044200
+
+ HumanMessage 
+Action result: 🔍  Scrolled down the page by 200 pixels
 
  AIMessage 
 
@@ -94,225 +97,245 @@ Action result: 🔗  Opened new tab with https://x.com/@doge
 
 
  HumanMessage 
-Action result: 🖱️  Clicked button with index 31:
+Action result: ⌨️  Input They’re their own worst enemies. 😂 into index 41
 
  HumanMessage 
 [Task history memory ends]
 [Current state starts here]
 The following is one-time information - if you need to remember it write it to memory:
-Current url: https://x.com/doge
+Current url: https://x.com/ShawnOnTheRight/status/1902883820468044200
 Available tabs:
-[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/doge', title='Department of Government Efficiency (@DOGE) / X')]
+[TabInfo(page_id=0, url='about:blank', title=''), TabInfo(page_id=1, url='https://x.com/ShawnOnTheRight/status/1902883820468044200', title='shawn on X: "Your nemeses will defeat themselves before you get the chance to swing." / X')]
 Interactive elements from top layer of the current page inside the viewport:
-[Start of page]
+... 200 pixels above - scroll or extract content to see more ...
 [0]<div To view keyboard shortcuts, press question mark
 View keyboard shortcuts
 See new posts
-Click to Unfollow DOGE
-The people voted for major reform.
-Joined November 2024
-Not followed by anyone you’re following
-Department of Government Efficiency’s posts/>
-[1]<button />
-[2]<a link;X/>
-[3]<a Home;link/>
-[4]<a Search and explore;link/>
-[5]<a Notifications;link/>
-[6]<a Direct Messages;link/>
-[7]<a Grok;link/>
-[8]<a Premium;link/>
-[9]<a Lists;link/>
-[10]<a link;Bookmarks/>
-[11]<a link;Jobs/>
-[12]<a Communities;link/>
-[13]<a link;Verified Orgs/>
-[14]<a link;Profile/>
-[15]<button More menu items;false/>
-[16]<a Post;link/>
-[17]<div />
-[18]<button Account menu/>
-[19]<div presentation/>
-[20]<div />
-[21]<button Back/>
-[22]<div 195 posts/>
-[23]<div Department of Government Efficiency/>
-[24]<a link/>
-[25]<img />
-[26]<a link/>
-[27]<div />
-[28]<button More;false/>
-[29]<button Search/>
-[30]<button Message/>
-[31]<button Turn on post notifications/>
-[32]<button Following @DOGE>Following/>
-[33]<div Department of Government Efficiency/>
-[34]<div />
-[35]<button Provides details about verified accounts./>
-[36]<div @DOGE/>
-[37]<a none>doge.gov/>
-[38]<a link>0
-Following/>
-[39]<a link>4.7M
-Followers/>
-[40]<div />
-[41]<div presentation/>
-[42]<a tab>Posts/>
-[43]<div presentation/>
-[44]<a tab>Affiliates/>
-[45]<div presentation/>
-[46]<a tab>Replies/>
-[47]<div presentation/>
-[48]<a tab>Highlights/>
-[49]<div presentation/>
-[50]<a tab>Media/>
-[51]<div />
-[52]<article />
-[53]<div Pinned
+Conversation
+Click to Subscribe to ShawnOnTheRight
+Your nemeses will defeat themselves before you get the chance to swing.
+7:43 PM · Mar 20, 2025
 ·
-DOGE is looking for help from the general public!  
-
-Please DM insight for reducing waste, fraud, and abuse, along with any helpful insights or awesome ideas, to the relevant DOGE affiliates (found on the Affiliates tab).  For example,
-,
-, etc.  
-We will add/>
-[54]<a link/>
-[55]<div />
-[56]<a link>Department of Government Efficiency/>
-[57]<a link>@DOGE/>
-[58]<a link>Feb 16/>
-[59]<button Grok actions/>
-[60]<button More;false/>
-[61]<a link>@DOGE_USDA/>
-[62]<a link>@DOGE_SSA/>
-[63]<button Show more/>
-[64]<button 40573 Replies. Reply>40K/>
-[65]<button 31022 reposts. Repost;false>31K/>
-[66]<button 116716 Likes. Like>116K/>
-[67]<a 57782926 views. View post analytics;link>57M/>
-[68]<button Bookmark/>
-[69]<button Share post;false/>
-[70]<div />
-[71]<article />
-[72]<div ·
-There is a pattern across all agencies where IT “modernization” contracts do not pay for outcomes/performance; instead, they pay for time.  Therefore, the incentive is for contractors to “never finish,” resulting in incredible waste. 
-
-As an example, IRS modernization started in/>
-[73]<a link/>
-[74]<div />
-[75]<a link>Department of Government Efficiency/>
-[76]<a link>@DOGE/>
-[77]<a link;10 hours ago>10h/>
-[78]<button Grok actions/>
-[79]<button More;false/>
-[80]<button Show more/>
-[81]<div The media could not be played./>
-[82]<button Reload/>
-[83]<button 1342 Replies. Reply>1.3K/>
-[84]<div />
-[85]<button 5848 reposts. Repost;false>5.8K/>
-[86]<div />
-[87]<button 25379 Likes. Like>25K/>
-[88]<div />
-[89]<a 1487984 views. View post analytics;link>1.4M/>
-[90]<div />
-[91]<button Bookmark/>
+2,529
+Views
+2
+4
+46
+2
+Heidi
+@HeidiBriones
+·
+3h
+Get rid of food stamps and then we won't have to argue about what they should cover./>
+[1]<button />
+[2]<button Skip to home timeline/>
+[3]<button Skip to trending/>
+[4]<a link;X/>
+[5]<a link>Home/>
+[6]<a link;Search and explore>Explore/>
+[7]<a link>Notifications/>
+[8]<a link;Direct Messages>Messages/>
+[9]<a link>Grok/>
+[10]<a link>Premium/>
+[11]<a link>Lists/>
+[12]<a link>Bookmarks/>
+[13]<a link>Jobs/>
+[14]<a link>Communities/>
+[15]<a link>Verified Orgs/>
+[16]<a link>Profile/>
+[17]<button More menu items;false>More/>
+[18]<a link>Post/>
+[19]<div />
+[20]<button Account menu/>
+[21]<div presentation/>
+[22]<div />
+[23]<div EndDoge.com (Libertarians Against DOGE)/>
+[24]<div @basedbassass/>
+[25]<button Back/>
+[26]<div Post/>
+[27]<a link/>
+[28]<img />
+[29]<div />
+[30]<a link>shawn/>
+[31]<a link>@ShawnOnTheRight/>
+[32]<button Subscribe to @ShawnOnTheRight>Subscribe/>
+[33]<button Grok actions/>
+[34]<div />
+[35]<button More;false/>
+[36]<div />
+[37]<button Replying to
+@ShawnOnTheRight/>
+[38]<div />
+[39]<a link/>
+[40]<div />
+[41]<div />
+[42]<div Post text;textbox>hey’re their own worst enemies. 😂/>
+[43]<div />
+[44]<div presentation/>
+[45]<button Add photos or video/>
+[46]<div presentation/>
+[47]<button Add a GIF/>
+[48]<div presentation/>
+[49]<button Enhance your post with Grok/>
+[50]<div presentation/>
+[51]<div />
+[52]<button Add emoji/>
+[53]<div presentation/>
+[54]<button Tag location/>
+[55]<div presentation/>
+[56]<button Bold, (CTRL+B)/>
+[57]<div presentation/>
+[58]<button Italic, (CTRL+I)/>
+[59]<button Reply/>
+[60]<div />
+[61]<article />
+[62]<div ·
+Long story short you'll survive/>
+[63]<a link/>
+[64]<div />
+[65]<a link>Noah Hanson/>
+[66]<a link>@noah24hanson/>
+[67]<a link>Mar 21/>
+[68]<button Grok actions/>
+[69]<button More;false/>
+[70]<button 1 Reply. Reply>1/>
+[71]<button 0 reposts. Repost;false/>
+[72]<button 1 Like. Like>1/>
+[73]<a link;22 views. View post analytics>22/>
+[74]<button Bookmark/>
+[75]<button Share post;false/>
+[76]<div />
+[77]<article />
+[78]<div ·
+Exactly!/>
+[79]<a link/>
+[80]<div />
+[81]<a link>shawn/>
+[82]<a link>@ShawnOnTheRight/>
+[83]<a link;11 hours ago>11h/>
+[84]<button Grok actions/>
+[85]<button More;false/>
+[86]<button 0 Replies. Reply/>
+[87]<button 0 reposts. Repost;false/>
+[88]<button 0 Likes. Like/>
+[89]<a link;3 views. View post analytics>3/>
+[90]<button Bookmark/>
+[91]<button Share post;false/>
 [92]<div />
-[93]<button Share post;false/>
-[94]<div />
-[95]<div />
-[96]<article />
-[97]<div ·
-The IRS has the transaction volume of a mid-sized bank, running similar infrastructure. Those banks typically have an Operations and Maintenance (O&M) budget of ~$20M/yr.  
-
-The IRS has a ~$3.5B O&M budget (which doesn’t include an additional $3.7B modernization budget).  ~80% of/>
-[98]<a link/>
-[99]<img />
-[100]<div />
-[101]<a link>Department of Government Efficiency/>
-[102]<a link>@DOGE/>
-[103]<a link;10 hours ago>10h/>
-[104]<button Grok actions/>
+[93]<article />
+[94]<div ·/>
+[95]<a link/>
+[96]<div />
+[97]<a link>John McNally/>
+[98]<a link>@john_mcnally/>
+[99]<a link>Mar 20/>
+[100]<button Grok actions/>
+[101]<button More;false/>
+[102]<div />
+[103]<div />
+[104]<div />
 [105]<div />
-[106]<button More;false/>
-[107]<div />
-[108]<button Show more/>
-[109]<button 324 Replies. Reply>324/>
-[110]<div />
-[111]<button 1197 reposts. Repost;false>1.1K/>
-[112]<div />
-[113]<button 7598 Likes. Like>7.5K/>
+[106]<div The media could not be played./>
+[107]<button Reload/>
+[108]<button 0 Replies. Reply/>
+[109]<button 0 reposts. Repost;false/>
+[110]<button 2 Likes. Like>2/>
+[111]<a 60 views. View post analytics;link>60/>
+[112]<button Bookmark/>
+[113]<button Share post;false/>
 [114]<div />
-[115]<a 363008 views. View post analytics;link>363K/>
-[116]<div />
-[117]<button Bookmark/>
-[118]<div />
-[119]<button Share post;false/>
-[120]<div />
+[115]<div Discover more
+Sourced from across X/>
+[116]<button 91 Replies. Reply>91/>
+[117]<div />
+[118]<button 54 reposts. Repost;false>54/>
+[119]<div />
+[120]<button 698 Likes. Like>698/>
 [121]<div />
-[122]<article />
-[123]<div ·
-Contract update!
-
-Today, agencies terminated 105 contracts with a ceiling value of $935M and $580M in savings, including a $1.03M National Science Foundation consulting contract for “fitness center services”./>
-[124]<a link/>
-[125]<img />
-[126]<div />
-[127]<a link>Department of Government Efficiency/>
-[128]<a link>@DOGE/>
-[129]<a link;20 hours ago>20h/>
-[130]<button Grok actions/>
-[131]<div />
-[132]<button More;false/>
+[122]<a link;13483 views. View post analytics>13K/>
+[123]<div />
+[124]<button Bookmark/>
+[125]<div />
+[126]<button Share post;false/>
+[127]<div />
+[128]<div />
+[129]<article />
+[130]<div ·
+Saturday errand running! Taking advantage of this beautiful day!/>
+[131]<a link/>
+[132]<img />
 [133]<div />
-[134]<div Trending>Trending now
-© 2025 X Corp./>
-[135]<input Search;combobox;text;Search query/>
-[136]<div />
-[137]<div Explore
-Beta/>
+[134]<a link>Cajunhairgroomer/>
+[135]<a link>@Thevhairgroomer/>
+[136]<a link;9 hours ago>9h/>
+[137]<button Grok actions/>
 [138]<div />
-[139]<div link>Hokies Edge Out Louisville in Thrilling Baseball Clash
-Trending now · Baseball · 46 posts/>
-[140]<div presentation/>
+[139]<button More;false/>
+[140]<div />
 [141]<div />
-[142]<div />
-[143]<div link>Maysville Panthers Triumph in D4 Basketball Championship
-2 hours ago · Basketball · 157 posts/>
-[144]<div presentation/>
-[145]<div />
-[146]<div />
-[147]<div link>IRS Modernization Lag and Tax Reform Talk
-6 hours ago · Government · 48K posts/>
-[148]<div presentation/>
+[142]<a link/>
+[143]<img />
+[144]<div Trending>Your Premium subscription is expiring!
+Keep the best of X.
+Blue checkmark, Reply boost, increased Grok limits and much more.
+Trending now
+© 2025 X Corp./>
+[145]<input Search query;combobox;text;Search/>
+[146]<div Relevant people/>
+[147]<li listitem>Click to Follow ShawnOnTheRight
+Critical Thinker | ENTP | Ex-Fortune 40 Corporate Strategist | Political Commentator | America-First Patriot/>
+[148]<a link/>
 [149]<div />
-[150]<div />
-[151]<div link>DOGE Denies Social Security Closures in Georgia Amidst Political Confusion
-9 hours ago · Politics · 11K posts/>
-[152]<div presentation/>
-[153]<div />
+[150]<a link>shawn/>
+[151]<a link>@ShawnOnTheRight/>
+[152]<button Follow @ShawnOnTheRight>Follow/>
+[153]<button Renew subscription/>
 [154]<div />
-[155]<a link>Show more/>
-[156]<a link>Terms of Service/>
-[157]<a link>Privacy Policy/>
-[158]<a link>Cookie Policy/>
-[159]<a link>Accessibility/>
-[160]<a link>Ads info/>
-[161]<button false>More/>
-... 7530 pixels below - scroll or extract content to see more ...
-Current step: 2/10Current date and time: 2025-03-21 19:24
+[155]<div Explore
+Beta/>
+[156]<div />
+[157]<div link>Northville High School Coach Jim Zullo Fired After Hair-Pulling Incident
+4 hours ago · Sports · 24K posts/>
+[158]<div presentation/>
+[159]<div />
+[160]<div />
+[161]<div link>Lifetime's 'Single Black Female 3' Sparks Viewer Debate
+Trending now · Television · 56 posts/>
+[162]<div presentation/>
+[163]<div />
+[164]<div />
+[165]<div link>KFC's Controversial Cult Ad: A Feast for Debate
+Trending now · Advertising · 39 posts/>
+[166]<div presentation/>
+[167]<div />
+[168]<div />
+[169]<div link>Goaltending Debate Heats Up After Controversial Call
+Trending now · Basketball · 28 posts/>
+[170]<div presentation/>
+[171]<div />
+[172]<div />
+[173]<a link>Show more/>
+[174]<a link>Terms of Service/>
+[175]<a link>Privacy Policy/>
+[176]<a link>Cookie Policy/>
+[177]<a link>Accessibility/>
+[178]<a link>Ads info/>
+[179]<button false>More/>
+[180]<img />
+... 1893 pixels below - scroll or extract content to see more ...
+Current step: 2/10Current date and time: 2025-03-22 19:53
 
  RESPONSE
 {
   "current_state": {
-    "evaluation_previous_goal": "Success - The account is already followed.",
-    "memory": "@DOGE is already followed. Task is complete.",
-    "next_goal": "Complete the task as @DOGE is followed."
+    "evaluation_previous_goal": "Unknown - Input text was successful, now need to click reply button",
+    "memory": "Current URL: https://x.com/ShawnOnTheRight/status/1902883820468044200. I have completed 2 out of 10 steps. I need to click the reply button.",
+    "next_goal": "Click the reply button to send the reply"
   },
   "action": [
     {
-      "done": {
-        "text": "@DOGE is successfully followed on X.",
-        "success": true
+      "click_element": {
+        "index": 59
       }
     }
   ]
