@@ -89,4 +89,4 @@ async def reply_to_post(my_post = "gross",
     return True
 
 if __name__ == "__main__":
-    asyncio.run(reply_to_post())
+    reply_to_post()

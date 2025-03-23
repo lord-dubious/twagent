@@ -47,4 +47,4 @@ async def follow_user(handle = "@doge"):
     return True
 
 if __name__ == "__main__":
-    asyncio.run(follow_user())
+    follow_user()

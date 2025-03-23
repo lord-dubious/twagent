@@ -16,11 +16,12 @@ from datetime import datetime
 
 load_dotenv()
 
-async def add_members_to_list(name = "my_list", handle=None, membersToAdd=[]):
+
+async def get_list_posts(name = "my_list"):
 
     browser = Browser()
     initial_actions = [
-        {'open_tab': {'url': 'https://x.com/'+ handle +'/lists'}},
+        {'open_tab': {'url': 'https://x.com/i/lists/1136636450206900225'}},
     ]
 
     file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
@@ -30,9 +31,8 @@ async def add_members_to_list(name = "my_list", handle=None, membersToAdd=[]):
     controller = Controller()
     agent = Agent(
         task=(
-            "Select the list with the name " + name + ". Select 'Edit List'. Select 'Manage members'. Go to the 'Suggested' tab. In the search people bar, search and add the following people, one at a time. Only add the person with the exact handle," + 
-            str([handle[1:] for handle in membersToAdd])
-        ),#remove the @ from the handle
+            "Get the urls of the top 10 posts in this list"
+        ),
         llm=ChatOpenAI(model="gpt-4o-mini"),
         save_conversation_path="logs/conversation",  # Save chat logs
 		browser_context=context,
@@ -40,10 +40,10 @@ async def add_members_to_list(name = "my_list", handle=None, membersToAdd=[]):
         max_actions_per_step=4,
         controller=controller
     )
-    history = await agent.run(max_steps=100)
+    history = await agent.run(max_steps=10)
     await browser.close()
 
     return True
 
 if __name__ == "__main__":
-    add_members_to_list()
+    get_list_posts()

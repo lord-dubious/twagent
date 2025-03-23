@@ -79,6 +79,8 @@ class TweetCreatorFlow:
         """Initialize the TweetCreatorFlow with a default state."""
         self.state = TweetCreatorState()
 
+
+
     def kickoff(self):
         """Start the workflow"""
         # Try to get the last saved tweet first
@@ -168,11 +170,16 @@ class TweetCreatorFlow:
 
         # Get tone with validation
         while True:
-            tone = input("What tone would you like? (professional/casual/humorous) ").lower()
-            if tone in ["professional", "casual", "humorous"]:
-                self.state.tone = tone
-                break
-            print("Please enter 'professional', 'casual', or 'humorous'")
+            tone_input = input("Select a tone: 1 for professional, 2 for casual, 3 for humorous: ")
+            if tone_input == "1":
+                self.state.tone = "professional"
+            elif tone_input == "2":
+                self.state.tone = "casual"
+            elif tone_input == "3":
+                self.state.tone = "humorous"
+            else:
+                print("Invalid selection. Please enter 1, 2, or 3.")
+                return  # Exit the function if the input is invalid
 
         print(f"\nOriginal tweet is {self.state.tweet_length} characters with avg word size of {self.state.avg_word_size:.1f}")
         print(f"Length category: {self.state.length_category} characters")

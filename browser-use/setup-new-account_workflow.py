@@ -20,6 +20,7 @@ aboutMe = "/000_about_me.json"
 users = "/004_users.json"
 lists = "/005_lists.json"
 
+
     
 # Simple LLM mock class for generating responses
 class LLM:
@@ -63,13 +64,28 @@ class TweetCreatorFlow:
             self.handle = data[0]['handle'] if data else None
         return self
     
-    async def kickoff(self):
+    def save_json_to_file(self, filepath, json_to_add):
+        try:
+            with open(os.path.join(SCRIPT_DIR, filepath), "r") as f:
+                data = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            # If file doesn't exist or is empty/invalid, start with empty list
+            data = []
+            
+        # Modify the data
+        data.append(json_to_add)
+        
+        # Write the updated data back to the file
+        with open(os.path.join(SCRIPT_DIR, filepath), "w") as f:
+            json.dump(data, f, indent=2)
+
+    def kickoff(self):
         """Start the workflow"""
         self.get_about()
-        await self.follow_accounts()
-        await self.block_accounts()
-        #await self.create_list()
-        await self.add_members_to_list()
+        self.follow_accounts()
+        self.block_accounts()
+        self.create_list()
+        #await self.add_members_to_list(list_name="asdfasdf")
         return True
 
     async def follow_accounts(self):
@@ -140,30 +156,43 @@ class TweetCreatorFlow:
         name = generate_random_name()
         from my_twitter_api_v3.lists.create_list import create_list
         await create_list(name=name)
-        with open(os.path.join(SCRIPT_DIR, pathToData + lists), "w") as f:
-            json.dump({"name": name, "handles": []}, f, indent=2)
+
+        self.save_json_to_file(str(pathToData+lists), {"name": name, "handles": []})
+        
         return True
     
-    async def add_members_to_list(self):
+    async def add_members_to_list(self, list_name="asdfasdf"):
         try:
             with open(os.path.join(SCRIPT_DIR, pathToData + users), "r") as f:
                 data = json.load(f)
                 if data:
-                    filtered_data = {user['handle']: user['score'] for user in data if user['score'] == 100 and not user.get('alreadyFollowingOrBlocked', False)}
-                    print(filtered_data)
+                    print(data)
+
+
+                    filtered_data = {
+                        user['handle'] for user in data 
+                        if list_name not in user['memberOfTheseLists'] and user['score']!=100}  # Only check this condition
+                    
+                    print("Filtered data (only checking 'alreadyFollowingOrBlocked'):", filtered_data)
+
+
 
                     from my_twitter_api_v3.lists.add_members_to_list import add_members_to_list
-                    for user_handle in filtered_data.keys():
-                        await block_user(handle=user_handle)
+                    await add_members_to_list(name=list_name, handle=self.handle, membersToAdd=filtered_data)  # Add user to the list
                         
-                        # Update the 'alreadyFollowingOrBlocked' field
-                        for user in data:
-                            if user['handle'] in filtered_data:
-                                user['alreadyFollowingOrBlocked'] = True
+                    # Update the 'alreadyFollowingOrBlocked' field
+                    for user in data:
+                        if user['handle'] in filtered_data:
+                            user['alreadyFollowingOrBlocked'] = True
+                            # Update the 'memberOfTheseLists' field
+                            if 'memberOfTheseLists' not in user:
+                                user['memberOfTheseLists'] = []
+                            user['memberOfTheseLists'].append(list_name)
 
-                        # Save the updated data
-                        with open(os.path.join(SCRIPT_DIR, pathToData + users), "w") as f:
-                            json.dump(data, f, indent=2)
+                    # Save the updated data
+                    with open(os.path.join(SCRIPT_DIR, pathToData + users), "w") as f:
+                        json.dump(data, f, indent=2)
+                        
                     return True
             return False
         except FileNotFoundError:

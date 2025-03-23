@@ -118,5 +118,5 @@ async def main():
     else:
         print('No result')
 
-
-asyncio.run(main())
+if __name__ == "__main__":
+    main()

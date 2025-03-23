@@ -46,4 +46,4 @@ async def create_list(name = "my_list"):
     return True
 
 if __name__ == "__main__":
-    asyncio.run(create_list())
+    create_list()

@@ -17,7 +17,7 @@ from datetime import datetime
 load_dotenv()
 
 
-async def main(tweet_url = 'https://pro.x.com/i/decks/1902192120082866405',
+async def create_post(tweet_url = 'https://pro.x.com/i/decks/1902192120082866405',
     my_post = "I want mexican food right now."):
 
 
@@ -68,4 +68,4 @@ async def main(tweet_url = 'https://pro.x.com/i/decks/1902192120082866405',
         print('No result')
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    create_post()

@@ -17,7 +17,7 @@ from datetime import datetime
 load_dotenv()
 
 
-async def main():
+async def create_new_deck():
 
     browser = Browser()
     initial_actions = [
@@ -62,4 +62,5 @@ async def main():
     return True
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    create_new_deck()
