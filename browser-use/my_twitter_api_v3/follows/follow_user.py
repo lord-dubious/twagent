@@ -16,27 +16,25 @@ from datetime import datetime
 
 load_dotenv()
 
-handle = "@doge"
-browser = Browser()
-initial_actions = [
-	{'open_tab': {'url': 'https://x.com/' + handle}},
-]
 
-file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
+async def follow_user(handle = "@doge"):
 
-# Use script location as reference point for json file path
-script_dir = os.path.dirname(os.path.abspath(__file__))
-json_file_path = os.path.join(script_dir, "../../../data/my_following.json")
-# Make the path absolute to resolve the relative components
-json_file_path = os.path.abspath(json_file_path)
+    browser = Browser()
+    initial_actions = [
+        {'open_tab': {'url': 'https://x.com/' + handle}},
+    ]
 
-context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
+    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
 
-controller = Controller()
+    # Use script location as reference point for json file path
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.join(script_dir, "../../../data/my_following.json")
+    # Make the path absolute to resolve the relative components
+    json_file_path = os.path.abspath(json_file_path)
 
-async def main():
+    context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
 
-     
+    controller = Controller()
     agent = Agent(
         task=(
             "Follow " + handle
@@ -56,6 +54,8 @@ async def main():
             print(f"Updated following saved to {json_file_path}")
     else:
         print('No result')
+        return False
+    return True
 
-
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(follow_user())

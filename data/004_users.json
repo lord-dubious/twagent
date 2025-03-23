@@ -1,25 +1,127 @@
-{
-  "@elonmusk": -20,
-  "@VivekGRamaswamy": -16,
-  "@AutismCapital": -16,
-  "@pmarca": -16,
-  "@garrytan": -16,
-  "@Lightconepod": -16,
-  "@FBI": -16,
-  "@dogeai_gov": -16,
-  "@yacineMTB": -7,
-  "@TheBabylonBee": -7,
-  "@jeremykauffman": -2,
-  "@unusual-whales": -2,
-  "@AviSchiffmann": 7,
-  "@Jiankui_He": 14,
-  "@rauchg": 14,
-  "@carynannharlos": 14,
-  "@sharland57753": 14,
-  "@AaronRDay": 14,
-  "@TheOnion": 20,
-  "@picturesfoider": 100,
-  "@DudespostingWs": 100,
-  "@InternetH0F": 100,
-  "@Macbaconai": 100
-}
+[
+  {
+    "handle": "@elonmusk",
+    "score": -20,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@doge",
+    "score": -20,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@VivekGRamaswamy",
+    "score": -16,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@AutismCapital",
+    "score": -16,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@pmarca",
+    "score": -16,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@garrytan",
+    "score": -16,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@Lightconepod",
+    "score": -16,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@FBI",
+    "score": -16,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@dogeai_gov",
+    "score": -16,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@yacineMTB",
+    "score": -7,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@TheBabylonBee",
+    "score": -7,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@jeremykauffman",
+    "score": -2,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@unusual-whales",
+    "score": -2,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@AviSchiffmann",
+    "score": 7,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@sama",
+    "score": 7,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@Jiankui_He",
+    "score": 14,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@rauchg",
+    "score": 14,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@carynannharlos",
+    "score": 14,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@sharland57753",
+    "score": 14,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@AaronRDay",
+    "score": 14,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@TheOnion",
+    "score": 20,
+    "alreadyFollowingOrBlocked": true
+  },
+  {
+    "handle": "@picturesfoider",
+    "score": 100,
+    "alreadyFollowingOrBlocked": false
+  },
+  {
+    "handle": "@DudespostingWs",
+    "score": 100,
+    "alreadyFollowingOrBlocked": false
+  },
+  {
+    "handle": "@InternetH0F",
+    "score": 100,
+    "alreadyFollowingOrBlocked": false
+  },
+  {
+    "handle": "@Macbaconai",
+    "score": 100,
+    "alreadyFollowingOrBlocked": false
+  }
+]
