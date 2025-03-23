@@ -26,12 +26,6 @@ async def follow_user(handle = "@doge"):
 
     file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
 
-    # Use script location as reference point for json file path
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    json_file_path = os.path.join(script_dir, "../../../data/my_following.json")
-    # Make the path absolute to resolve the relative components
-    json_file_path = os.path.abspath(json_file_path)
-
     context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
 
     controller = Controller()
@@ -48,6 +42,7 @@ async def follow_user(handle = "@doge"):
     )
     history = await agent.run(max_steps=10)
     result = history.final_result()
+    await browser.close()
 
     return True
 
