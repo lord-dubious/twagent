@@ -99,3 +99,9 @@ The toolkit stores data in JSON files in the data directory:
 
 
 # Roadmap
+- [ ] Specification for users with Twitter Premium. More cost effective to use twitter decks (pro.x.com/i/decks/[id]) given less UI clutter.
+- [ ] Refactor my_twitter_api folder; all API methods should be one .py file with prompts/browser-use settings modularized
+- [ ] If in prod, use a proper database solution
+- [ ] Voice AI w/ connection to Twitter Spaces
+- [ ] Automate the entire twitter account creation process (including 2FA)
+- [ ] Optimize prompts/settings by determining success rate of each
