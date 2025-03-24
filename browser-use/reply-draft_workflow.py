@@ -101,7 +101,7 @@ class TweetCreatorFlow:
             with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "r") as f:
                 data = json.load(f)
                 if data and "tweets" in data and data["tweets"]:
-                    last_tweet = data["tweets"][-1]
+                    last_tweet = data["tweets"][0]
                     print("Last saved tweet retrieved successfully.")
                     print(f"Last Tweet: {last_tweet}")
                     # Get original tweet to reply to
@@ -126,7 +126,7 @@ class TweetCreatorFlow:
                     self.state.topic = "funny"
 
                     # Get tone with validation
-                    self.state.tone = random.choice(["professional", "casual", "humorous"])
+                    self.state.tone = "humorous" #random.choice(["professional", "casual", "humorous"])
                     print(f"Randomly selected tone: {self.state.tone}")
 
                     print(f"\nOriginal tweet is {self.state.tweet_length} characters with avg word size of {self.state.avg_word_size:.1f}")

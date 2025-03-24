@@ -22,7 +22,7 @@ def load_cookies():
     
     return json.loads(cookies_data)
 
-def get_list_posts(list_id = "1136636450206900225"):
+def get_list_posts(list_id = "1903856475812045303"):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)  # Set to False to see browser
         context = browser.new_context()
