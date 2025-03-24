@@ -64,7 +64,7 @@ class TweetCreatorFlow:
 
     def kickoff(self):
         self.get_about()
-        #self.monitor_list_updates()
+        self.monitor_list_updates()
         self.get_tweet_here()
         return True
 
@@ -85,17 +85,20 @@ class TweetCreatorFlow:
         except (FileNotFoundError, json.JSONDecodeError):
             # If file doesn't exist or is empty/invalid, start with empty structure
             existing_data = {"tweets": []}
-        
+        print("\n\n" + str(existing_data))
         # Get existing tweet URLs to avoid duplicates
         existing_urls = {tweet.get("tweet_url", "") for tweet in existing_data["tweets"] 
                          if isinstance(tweet, dict) and "tweet_url" in tweet}
-        
-        # Only add new tweets that aren't already in the list
+
+        # Compare new_tweets with existing_data and remove duplicates
         for tweet in new_tweets:
-            if isinstance(tweet, dict) and "tweet_url" in tweet and tweet["tweet_url"] not in existing_urls:
-                existing_data["tweets"].append(tweet)
-                existing_urls.add(tweet["tweet_url"])
+            if isinstance(tweet, dict) and "tweet_url" in tweet:
+                if tweet["tweet_url"] not in existing_urls:
+                    existing_data["tweets"].append(tweet)
+                    existing_urls.add(tweet["tweet_url"])
+                # If it's a duplicate, do nothing (remove it)
         
+        print("\n\n" + str(existing_data))
         # Write the updated data back to the file
         with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "w") as f:
             json.dump(existing_data, f, indent=2)

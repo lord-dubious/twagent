@@ -22,7 +22,7 @@ def load_cookies():
     
     return json.loads(cookies_data)
 
-def get_list_posts():
+def get_list_posts(list_id = "1136636450206900225"):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)  # Set to False to see browser
         context = browser.new_context()
@@ -33,7 +33,6 @@ def get_list_posts():
         context.add_cookies(cookies)
 
         # Navigate to Twitter List
-        list_id = "1136636450206900225"  # Twitter List ID
         page.goto(f"https://twitter.com/i/lists/{list_id}", wait_until="load")
 
         # Wait for tweets to load
@@ -66,7 +65,6 @@ def get_list_posts():
             url = url[:-len("/photo/2")]
         elif url.endswith("/analytics"):
             url = url[:-len("/analytics")]
-            
         tweet_dict = {
             "handle": "",  # Placeholder for the tweet handle
             "datetime": "",  # Placeholder for the tweet datetime

@@ -30,7 +30,7 @@ async def reply_to_post(my_post = "gross",
     file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
     # Use script location as reference point for json file path
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    json_file_path = os.path.join(script_dir, "../../../data/posted_tweets.json")
+    json_file_path = os.path.join(script_dir, "../../../data/003_posted_tweets.json")
     # Make the path absolute to resolve the relative components
     json_file_path = os.path.abspath(json_file_path)
 

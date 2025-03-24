@@ -5,54 +5,6 @@ This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor 
 
 The workflow is designed for pseudosatirical social causes. It aims to create provocative arguments and pick fights online.
 
-<!-- 1) **What people should know (mission statement; system prompt)**
-  ```
-  [{
-    "cause": "The Bureau of Ergonomic Justice And Reparations"
-    "description": "Advocating for the fair distribution of standing desks, 
-                    lumbar-support chairs, 
-                    and those squishy keyboard wrist pads."
-  }]
-```
-2) **Accounts and Trends to monitor**
-  specify how much they would support the mission statement (20 is agreement, -20 is oppose)
-```
-//accounts
-[
-  {
-    "handle": "@HealthyPostureAlliance",
-    "rating": 20
-  },
-  {
-    "handle": "@BendAtTheKneesOrHips",
-    "rating": 8
-  },
-  {
-    "handle": "@BringBackCubicles",
-    "rating": -20
-  }
-  ...
-]
-```
-```
-//trends
-[
-  {
-    "handle": "#ErgonomicRevolution",
-    "rating": 18
-  },
-  {
-    "handle": "#OfficePostureMatters",
-    "rating": 10
-  },
-  {
-    "handle": "#SittingIsFreedom",
-    "rating": -20
-  }
-  ...
-]
-``` -->
-
 
 ## Why browser-use? Why not just use Twitter's V2 API?
 
@@ -69,7 +21,7 @@ The death of the Twitter API is long, long overdue. Bad for us consumers? Sure. 
 Given his heavy investment into XAI, Elon Musk should support AI Agentic Workflows which interact with X through selenium/puppeteer. Otherwise, he'd be anti-AI and threaten US digital sovereignty and national security.
 
 
-### my workflow prioritizes:
+<!-- ### my workflow prioritizes:
 
 1. **Insight Grading**: The system grades tweets based on their insightfulness. Insight is determined by analyzing the content of the tweet, considering factors such as relevance, originality, and depth of information. The grading process involves:
    - **Relevance**: How closely the tweet relates to the specified topic or trend.
@@ -80,7 +32,7 @@ Given his heavy investment into XAI, Elon Musk should support AI Agentic Workflo
 
 3. **Scoring System**: Each tweet is assigned a score based on the combined metrics of relevance, originality, and depth. Higher scores indicate more insightful tweets, which are prioritized for responses and retweets.
 
-4. **Continuous Improvement**: The grading algorithm is continuously refined based on feedback and new data, ensuring that the system adapts to changing trends and improves its accuracy over time.
+4. **Continuous Improvement**: The grading algorithm is continuously refined based on feedback and new data, ensuring that the system adapts to changing trends and improves its accuracy over time. -->
 
 ## How to Run This Repository
 
@@ -118,13 +70,32 @@ playwright install
    ```
    - You can obtain these cookies by logging into Twitter in your browser and extracting them using browser developer tools
 
-### Usage
-
-Run the main script to fetch the latest tweets from a specific Twitter profile:
 
 
-This will:
-1. Open a browser session
-2. Navigate to the specified Twitter profile (currently set to DOGE's profile)
-3. Extract the latest tweets
-4. Save them to `saved_tweets.json`
+## Key Components
+
+### Workflow Scripts
+- **tweet-finder_workflow.py**: Monitors Twitter lists for new tweets and fetches their details.
+- **reply-draft_workflow.py**: Generates AI-powered reply options for tweets and posts selected replies.
+- **setup-new-account_workflow.py**: Automates initial account setup (following/blocking users, creating lists).
+
+### Twitter API Modules
+- **get_tweet (get tweet w/ id)**: Fetches and parses tweet details.
+- **manage_posts (create/reply to posts)**: Creates new posts and replies to existing tweets.
+- **follows (follow user)**: Manages user following.
+- **blocks (block user)**: Manages user blocking.
+- **lists (create list, add list members, get list post timeline)**: Creates and manages Twitter lists.
+
+
+## Data Structure
+The toolkit stores data in JSON files in the data directory:
+
+- **000_about_me.json**: User account information
+- **001_saved_tweets.json**: Tweets fetched from Twitter
+- **002_generated_tweets.json**: AI-generated reply options
+- **003_posted_tweets.json**: Record of posted tweets/replies
+- **004_users.json**: User information for following/blocking
+- **005_lists.json**: Twitter list information
+
+
+# Roadmap
