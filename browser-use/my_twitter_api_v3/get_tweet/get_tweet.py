@@ -17,24 +17,6 @@ import argparse  # Added for command line arguments
 
 load_dotenv()
 
-# Add argument parsing
-parser = argparse.ArgumentParser(description='Fetch and save tweet data')
-parser.add_argument('tweet_url', nargs='?', 
-                    help='URL of the tweet to fetch')
-args = parser.parse_args()
-
-browser = Browser()
-initial_actions = [
-	{'open_tab': {'url': args.tweet_url}},  # Use the provided tweet URL
-]
-
-file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
-# Use script location as reference point for json file path
-script_dir = os.path.dirname(os.path.abspath(__file__))
-json_file_path = os.path.join(script_dir, "../../../data/saved_tweets.json")
-# Make the path absolute to resolve the relative components
-json_file_path = os.path.abspath(json_file_path)
-
 class Tweet(BaseModel):
     handle: str
     display_name: str
@@ -50,24 +32,37 @@ class Tweet(BaseModel):
 class Tweets(BaseModel):
     tweets: list[Tweet]
 
-controller = Controller(output_model=Tweets)
-context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
 
-async def main():
+async def get_tweet(post_url=""):
+
+    browser = Browser()
+    initial_actions = [
+        {'open_tab': {'url': post_url}},  # Use the provided tweet URL
+    ]
+
+    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
+    # Use script location as reference point for json file path
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.join(script_dir, "../../../data/saved_tweets.json")
+    # Make the path absolute to resolve the relative components
+    json_file_path = os.path.abspath(json_file_path)
+
+    controller = Controller(output_model=Tweets)
+    context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
 
     agent = Agent(
         task=(
             "Return the tweet's text, datetime, viewcount, comments, reposts, "
             "likes, bookmarks"
         ),
-        llm=ChatOpenAI(model="gpt-4o"),
+        llm=ChatOpenAI(model="gpt-4o-mini"),
         save_conversation_path="logs/conversation",  # Save chat logs
 		browser_context=context,
         initial_actions=initial_actions,
         max_actions_per_step=4,
         controller=controller
     )
-    history = await agent.run(max_steps=10)
+    history = await agent.run(max_steps=4)
     result = history.final_result()
     if result:
         parsed: Tweets = Tweets.model_validate_json(result)
@@ -119,4 +114,4 @@ async def main():
         print('No result')
 
 if __name__ == "__main__":
-    main()
+    get_tweet()

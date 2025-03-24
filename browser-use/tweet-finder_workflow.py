@@ -8,7 +8,7 @@ import random
 import datetime  # Add this import at the top with other imports
 from openai import OpenAI
 from dotenv import load_dotenv  # Add this import
-
+import asyncio
 load_dotenv()
 
 SCRIPT_DIR = os.path.dirname(__file__)
@@ -54,9 +54,6 @@ class LLM:
             return json.dumps({"tweet_options": options})
 
 class TweetCreatorFlow:
-    def __init__(self):
-        """Initialize the TweetCreatorFlow with a default state."""
-        self.state = TweetCreatorState()
 
     def get_about(self):
         with open(os.path.join(SCRIPT_DIR, pathToData + aboutMe), "r") as f:
@@ -64,29 +61,62 @@ class TweetCreatorFlow:
             self.handle = data[0]['handle'] if data else None
         return self
     
-    def save_json_to_file(self, filepath, json_to_add):
-        try:
-            with open(os.path.join(SCRIPT_DIR, filepath), "r") as f:
-                data = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            # If file doesn't exist or is empty/invalid, start with empty list
-            data = []
-            
-        # Modify the data
-        data.append(json_to_add)
-        
-        # Write the updated data back to the file
-        with open(os.path.join(SCRIPT_DIR, filepath), "w") as f:
-            json.dump(data, f, indent=2)
 
     def kickoff(self):
         self.get_about()
         self.monitor_list_updates()
-        return
+        self.get_tweet_here()
+        return True
 
     def monitor_list_updates(self):
+        from my_twitter_api_v3.lists.get_list_posts_timeline import get_list_posts
+        new_tweets = get_list_posts()
+        print(new_tweets)
         
-        return
+        # Read existing data first
+        try:
+            with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "r") as f:
+                existing_data = json.load(f)
+                # Ensure proper structure
+                if "tweets" not in existing_data or not isinstance(existing_data["tweets"], list):
+                    existing_data = {"tweets": []}
+                # Remove string entries if any exist
+                existing_data["tweets"] = [t for t in existing_data["tweets"] if isinstance(t, dict)]
+        except (FileNotFoundError, json.JSONDecodeError):
+            # If file doesn't exist or is empty/invalid, start with empty structure
+            existing_data = {"tweets": []}
+        
+        # Get existing tweet URLs to avoid duplicates
+        existing_urls = {tweet.get("tweet_url", "") for tweet in existing_data["tweets"] 
+                         if isinstance(tweet, dict) and "tweet_url" in tweet}
+        
+        # Only add new tweets that aren't already in the list
+        for tweet in new_tweets:
+            if isinstance(tweet, dict) and "tweet_url" in tweet and tweet["tweet_url"] not in existing_urls:
+                existing_data["tweets"].append(tweet)
+                existing_urls.add(tweet["tweet_url"])
+        
+        # Write the updated data back to the file
+        with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "w") as f:
+            json.dump(existing_data, f, indent=2)
+        return True
+    def get_tweet_here(self):
+
+        # Load existing tweets from the JSON file
+        with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "r") as f:
+            existing_data = json.load(f)
+            tweets = existing_data.get("tweets", [])
+            
+            # Iterate through each tweet
+            for tweet in tweets:
+                # Check if the tweet has a non-empty tweet_url and other fields are empty
+                if tweet.get("tweet_url") and all(not tweet.get(key) for key in ["handle", "datetime", "text", "likes", "retweets", "replies", "bookmarks", "viewcount"]):
+                    # Send the tweet_url to get_tweet
+                    from my_twitter_api_v3.get_tweet.get_tweet import get_tweet
+                    asyncio.run(get_tweet(tweet["tweet_url"]))
+        return True
+    
+
 if __name__ == "__main__":
     workflow = TweetCreatorFlow()
     workflow.kickoff()

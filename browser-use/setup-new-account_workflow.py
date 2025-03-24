@@ -88,7 +88,7 @@ class TweetCreatorFlow:
         #await self.add_members_to_list(list_name="asdfasdf")
         return True
 
-    async def follow_accounts(self):
+    def follow_accounts(self):
         try:
             with open(os.path.join(SCRIPT_DIR, pathToData + users), "r") as f:
                 data = json.load(f)
@@ -98,7 +98,7 @@ class TweetCreatorFlow:
 
                     from my_twitter_api_v3.follows.follow_user import follow_user
                     for user_handle in filtered_data.keys():
-                        await follow_user(handle=user_handle)
+                        asyncio.run(follow_user(handle=user_handle))
                         # Update the 'alreadyFollowingOrBlocked' field
                         for user in data:
                             if user['handle'] in filtered_data:
@@ -118,7 +118,7 @@ class TweetCreatorFlow:
             print("Error decoding the 004_users.json file.")
             return False
         
-    async def block_accounts(self):
+    def block_accounts(self):
         try:
             with open(os.path.join(SCRIPT_DIR, pathToData + users), "r") as f:
                 data = json.load(f)
@@ -128,7 +128,7 @@ class TweetCreatorFlow:
 
                     from my_twitter_api_v3.blocks.block_user import block_user
                     for user_handle in filtered_data.keys():
-                        await block_user(handle=user_handle)
+                        asyncio.run(block_user(handle=user_handle))
                         
                         # Update the 'alreadyFollowingOrBlocked' field
                         for user in data:
@@ -148,20 +148,20 @@ class TweetCreatorFlow:
             return False
 
         
-    async def create_list(self):
+    def create_list(self):
         def generate_random_name(length=8):
             letters = string.ascii_lowercase
             return ''.join(random.choice(letters) for i in range(length))
 
         name = generate_random_name()
         from my_twitter_api_v3.lists.create_list import create_list
-        await create_list(name=name)
+        asyncio.run(create_list(name=name))
 
         self.save_json_to_file(str(pathToData+lists), {"name": name, "handles": []})
         
         return True
     
-    async def add_members_to_list(self, list_name="asdfasdf"):
+    def add_members_to_list(self, list_name="asdfasdf"):
         try:
             with open(os.path.join(SCRIPT_DIR, pathToData + users), "r") as f:
                 data = json.load(f)
@@ -178,7 +178,7 @@ class TweetCreatorFlow:
 
 
                     from my_twitter_api_v3.lists.add_members_to_list import add_members_to_list
-                    await add_members_to_list(name=list_name, handle=self.handle, membersToAdd=filtered_data)  # Add user to the list
+                    asyncio.run(add_members_to_list(name=list_name, handle=self.handle, membersToAdd=filtered_data))  # Add user to the list
                         
                     # Update the 'alreadyFollowingOrBlocked' field
                     for user in data:
@@ -204,4 +204,4 @@ class TweetCreatorFlow:
 
 if __name__ == "__main__":
     workflow = TweetCreatorFlow()
-    asyncio.run(workflow.kickoff())
+    workflow.kickoff()
