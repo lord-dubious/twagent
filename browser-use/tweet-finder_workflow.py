@@ -64,7 +64,7 @@ class TweetCreatorFlow:
 
     def kickoff(self):
         self.get_about()
-        self.monitor_list_updates()
+        #self.monitor_list_updates()
         self.get_tweet_here()
         return True
 
@@ -100,6 +100,7 @@ class TweetCreatorFlow:
         with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "w") as f:
             json.dump(existing_data, f, indent=2)
         return True
+    
     def get_tweet_here(self):
 
         # Load existing tweets from the JSON file

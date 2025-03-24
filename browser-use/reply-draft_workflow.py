@@ -106,7 +106,7 @@ class TweetCreatorFlow:
                     print(f"Last Tweet: {last_tweet}")
                     # Get original tweet to reply to
                     self.state.original_tweet = last_tweet.get("text", "")
-                    self.state.tweet_url = last_tweet.get("tweet_link", "")
+                    self.state.tweet_url = last_tweet.get("tweet_url", "")
 
                     # Calculate tweet metrics
                     self.state.tweet_length = len(self.state.original_tweet)

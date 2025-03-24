@@ -38,7 +38,7 @@ class LLM:
             client = OpenAI(api_key=api_key)
             
             completion = client.chat.completions.create(
-                model="gpt-4o-mini-2024-07-18",
+                model="gpt-4o",
                 messages=messages,  # Use the messages passed to the function
                 response_format={"type": "json_object"}  # Request JSON response format
             )

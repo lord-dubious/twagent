@@ -18,24 +18,26 @@ import argparse  # Added for command line arguments
 load_dotenv()
 
 class Tweet(BaseModel):
-    handle: str
-    display_name: str
-    text: str
-    likes: int
-    retweets: int
-    replies: int
-    bookmarks: int
-    tweet_link: str
-    viewcount: int
-    datetime: str
+    handle: str | None
+    display_name: str | None
+    text: str | None
+    likes: int | None
+    retweets: int | None
+    replies: int | None
+    bookmarks: int | None
+    tweet_link: str | None
+    viewcount: int | None
+    datetime: str | None
 
-class Tweets(BaseModel):
-    tweets: list[Tweet]
+SCRIPT_DIR = os.path.dirname(__file__)
+
+pathToData = "../../../data"
+aboutMe = "/000_about_me.json"
+lastSavedTweets = "/001_saved_tweets.json"
 
 
-async def get_tweet(post_url=""):
+async def get_tweet(post_url="https://twitter.com/TheBabylonBee/status/1903616058562576739"):
 
-    browser = Browser()
     initial_actions = [
         {'open_tab': {'url': post_url}},  # Use the provided tweet URL
     ]
@@ -47,71 +49,74 @@ async def get_tweet(post_url=""):
     # Make the path absolute to resolve the relative components
     json_file_path = os.path.abspath(json_file_path)
 
-    controller = Controller(output_model=Tweets)
+    browser = Browser()
+    controller = Controller(output_model=Tweet)
     context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
 
     agent = Agent(
         task=(
-            "Return the tweet's text, datetime, viewcount, comments, reposts, "
-            "likes, bookmarks"
+            "Extract the tweet's: text, likes total, retweet total, reply total, bookmark total, tweet_link, the author's handle, the datetime it was psoted, and its viewcount"
         ),
-        llm=ChatOpenAI(model="gpt-4o-mini"),
+        llm=ChatOpenAI(model="gpt-4o"),
         save_conversation_path="logs/conversation",  # Save chat logs
 		browser_context=context,
         initial_actions=initial_actions,
-        max_actions_per_step=4,
+        max_actions_per_step=6,
         controller=controller
     )
-    history = await agent.run(max_steps=4)
+    history = await agent.run(max_steps=6)
     result = history.final_result()
     if result:
-        parsed: Tweets = Tweets.model_validate_json(result)
+        parsed: Tweet = Tweet.model_validate_json(result)
+        print(parsed)
+        try:
+
+            # Load existing tweets from JSON file if it exists
+            existing_tweets = []
+            with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "r") as f:
+                data = json.load(f)
+                existing_tweets = data.get("tweets", [])
+        except FileNotFoundError:
+            print("No existing tweets found. Starting with empty list.")
+            existing_tweets = []
+        except json.JSONDecodeError:
+            print("Error reading existing tweets file. Starting with empty list.")
+            existing_tweets = []
+
+        # Create a dictionary representation of the tweet
+        tweet_dict = {
+            "handle": parsed.handle,
+            "datetime": parsed.datetime,
+            "text": parsed.text,
+            "likes": parsed.likes,
+            "retweets": parsed.retweets,
+            "replies": parsed.replies,
+            "bookmarks": parsed.bookmarks,
+            "tweet_url": post_url,
+            "viewcount": parsed.viewcount
+        }
+
+        # Check if the tweet's URL matches the post_url and update or add it
+        updated = False
+        print(existing_tweets)
+        for i, existing in enumerate(existing_tweets):
+            if existing["tweet_url"] == tweet_dict["tweet_url"]:
+                existing_tweets[i] = tweet_dict
+                updated = True
+                print(f"Updated tweet from {tweet_dict['handle']} at {post_url}")
+                break
         
-        # Load existing tweets from JSON file if it exists
-        existing_tweets = []
-        if os.path.exists(json_file_path):
-            try:
-                with open(json_file_path, "r") as f:
-                    existing_data = json.load(f)
-                    existing_tweets = existing_data.get("tweets", [])
-            except json.JSONDecodeError:
-                print("Error reading existing tweets file. Starting with empty list.")
-        
-        # Check each tweet and add if not already in the file¬
-        new_tweets_added = False
-        for tweet in parsed.tweets:
-            # Create a dictionary representation of the tweet
-            tweet_dict = {
-                "handle": tweet.handle,
-                "datetime": tweet.datetime,
-                "text": tweet.text,
-                "likes": tweet.likes,
-                "retweets": tweet.retweets,
-                "replies": tweet.replies,
-                "bookmarks": tweet.bookmarks,
-                "tweet_link": tweet.tweet_link,
-                "viewcount": tweet.viewcount
-            }
-            
-            # Check if this tweet is already in our existing tweets
-            if not any(
-                existing["handle"] == tweet.handle and 
-                existing["datetime"] == tweet.datetime and
-                existing["text"] == tweet.text
-                for existing in existing_tweets
-            ):
-                existing_tweets.append(tweet_dict)
-                new_tweets_added = True
-                print(f"Added new tweet from {tweet.handle}")
-            
-        
-        # Save updated tweets list if any new tweets were added
-        if new_tweets_added:
-            with open(json_file_path, "w") as f:
-                json.dump({"tweets": existing_tweets}, f, indent=2)
-                print(f"Updated tweets saved to {json_file_path}")
+        if not updated:
+            existing_tweets.append(tweet_dict)
+            print(f"Added new tweet from {tweet_dict['handle']} at {post_url}")
+
+        # Save updated tweets list
+        with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "w") as f:
+            json.dump({"tweets": existing_tweets}, f, indent=2)
+            print(f"Updated tweets saved.")
     else:
         print('No result')
+    return True
 
 if __name__ == "__main__":
     get_tweet()
