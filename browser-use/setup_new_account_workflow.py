@@ -3,7 +3,7 @@ import json
 import os
 import math
 from typing import List
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field 
 import random
 import datetime  # Add this import at the top with other imports
 from openai import OpenAI
@@ -84,8 +84,8 @@ class TweetCreatorFlow:
         self.get_about()
         self.follow_accounts()
         self.block_accounts()
-        self.create_list()
-        #await self.add_members_to_list(list_name="asdfasdf")
+        #self.create_list()
+        self.add_members_to_list(list_name="asdfasdf")
         return True
 
     def follow_accounts(self):
