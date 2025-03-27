@@ -30,7 +30,7 @@ params = {
 	"include_errors": "true",
 	"type": "discover_new",
 	"discover_by": "profile_url",
-	"limit_per_input": "3",
+	"limit_per_input": "20",
 }
 
 # Function to process a batch of users
@@ -59,7 +59,7 @@ def process_user_batch(batch):
 		print(f"API response: {response.text[:1000]}...")  # Print first 1000 chars
 		
 		response_json = response.json()
-		print(f"Parsed response JSON: {json.dumps(response_json, indent=2)}")
+		#print(f"Parsed response JSON: {json.dumps(response_json, indent=2)}")
 		
 		snapshot_id = response_json.get('snapshot_id')
 		if not snapshot_id:
@@ -77,6 +77,8 @@ def process_user_batch(batch):
 		
 		attempts = 0
 		max_attempts = 5
+		snapshot_ready = False
+		
 		while attempts < max_attempts:
 			attempts += 1
 			print(f"Waiting 40 seconds before checking snapshot status (attempt {attempts}/{max_attempts})...")
@@ -87,17 +89,28 @@ def process_user_batch(batch):
 			print(f"Status response code: {status_response.status_code}")
 			print(f"Batch status: {status_response.text}")
 			
-			if status_response.text == "200" or status_response.text == "Snapshot is empty":
-				print(f"Snapshot is ready or empty")
+			if status_response.status_code == 200:
+				print(f"Snapshot is ready (status code 200)")
+				snapshot_ready = True
 				break
+			elif status_response.text == "Snapshot is empty":
+				print(f"Snapshot is empty")
+				return  # No data to save, exit the function
 			
 			if attempts == max_attempts:
 				print(f"Reached maximum attempts. Last status: {status_response.text}")
+				return  # Exit without saving if max attempts reached
 		
-		if status_response.text != "Snapshot is empty":
-			print(f"Snapshot is not empty, retrieving data...")
+		# Only proceed to retrieve and save data if snapshot is ready
+		if snapshot_ready:
+			print(f"Snapshot is ready, retrieving data...")
 			data_response = requests.get(snapshot_url, headers=snapshot_headers, params=snapshot_params)
 			print(f"Data response status code: {data_response.status_code}")
+			
+			if data_response.status_code != 200:
+				print(f"Error: Data response status code is not 200: {data_response.status_code}")
+				return  # Exit without saving if response is not 200
+				
 			print(f"Data response content type: {data_response.headers.get('Content-Type', 'unknown')}")
 			print(f"Data response length: {len(data_response.text)} bytes")
 			print(f"Data response preview: {data_response.text[:500]}...")  # Print first 500 chars
@@ -121,9 +134,11 @@ def process_user_batch(batch):
 						if line.strip():
 							try:
 								tweet_data = json.loads(line.strip())
-								new_data.append(tweet_data)
-								if line_num < 2:  # Print details of first two items for debugging
-									print(f"Successfully parsed item {line_num+1}: {json.dumps(tweet_data)[:200]}...")
+								# Check for warning before adding to new_data
+								if 'warning' not in tweet_data:
+									new_data.append(tweet_data)
+									if line_num < 2:  # Print details of first two items for debugging
+										print(f"Successfully parsed item {line_num+1}: {json.dumps(tweet_data)[:200]}...")
 							except json.JSONDecodeError as e:
 								print(f"Error parsing line {line_num+1}: {e}")
 								print(f"Problematic line: {line[:100]}...")
@@ -197,12 +212,12 @@ try:
 	filtered_users = [user for user in users_data if user.get('score') != 100]
 	
 	# Split users into batches of 3
-	batches = [filtered_users[i:i+3] for i in range(0, len(filtered_users), 3)]
-	print(f"Processing {len(filtered_users)} users in {len(batches)} batches")
+	# batches = [filtered_users[i:i+3] for i in range(0, len(filtered_users), 3)]
+	# print(f"Processing {len(filtered_users)} users in {len(batches)} batches")
 
 	# Just take the first three users
-	#first_three_users = filtered_users[:3]
-	#batches = [first_three_users]
+	first_three_users = filtered_users[:3]
+	batches = [first_three_users]
 
 	# Print the handles of all users who will be processed
 	print("Users who will be processed:")
