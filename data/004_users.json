@@ -1,200 +1,110 @@
 [
   {
+    "handle": "@AviSchiffmann",
+    "score": 7
+  },
+  {
     "handle": "@elonmusk",
-    "score": -20,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -20
   },
   {
     "handle": "@doge",
-    "score": -20,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -20
   },
   {
     "handle": "@VivekGRamaswamy",
-    "score": -16,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -16
   },
   {
     "handle": "@AutismCapital",
-    "score": -16,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -16
   },
   {
     "handle": "@pmarca",
-    "score": -16,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -16
   },
   {
     "handle": "@garrytan",
-    "score": -16,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -16
   },
   {
     "handle": "@Lightconepod",
-    "score": -16,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -16
   },
   {
     "handle": "@FBI",
-    "score": -16,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -16
   },
   {
     "handle": "@dogeai_gov",
-    "score": -16,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -16
   },
   {
     "handle": "@yacineMTB",
-    "score": -7,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -7
+  },
+  {
+    "handle": "@WatcherGuru",
+    "score": -10
   },
   {
     "handle": "@TheBabylonBee",
-    "score": -7,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -7
   },
   {
     "handle": "@jeremykauffman",
-    "score": -2,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -2
   },
   {
     "handle": "@unusual-whales",
-    "score": -2,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
-  },
-  {
-    "handle": "@AviSchiffmann",
-    "score": 7,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": -2
   },
   {
     "handle": "@sama",
-    "score": 7,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": 7
   },
   {
     "handle": "@Jiankui_He",
-    "score": 14,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": 14
   },
   {
     "handle": "@rauchg",
-    "score": 14,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": 14
   },
   {
     "handle": "@carynannharlos",
-    "score": 14,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": 14
   },
   {
     "handle": "@sharland57753",
-    "score": 14,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": 14
   },
   {
     "handle": "@AaronRDay",
-    "score": 14,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": 14
   },
   {
     "handle": "@TheOnion",
-    "score": 20,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": [
-      "asdfasdf"
-    ]
+    "score": 20
   },
   {
     "handle": "@picturesfoider",
-    "score": 100,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": []
+    "score": 100
   },
   {
     "handle": "@DudespostingWs",
-    "score": 100,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": []
+    "score": 100
   },
   {
     "handle": "@InternetH0F",
-    "score": 100,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": []
+    "score": 100
   },
   {
     "handle": "@Macbaconai",
-    "score": 100,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": []
+    "score": 100
   },
   {
     "handle": "@HumansNoContext",
-    "score": 100,
-    "alreadyFollowingOrBlocked": true,
-    "memberOfTheseLists": []
+    "score": 100
   }
 ]
