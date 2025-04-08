@@ -105,3 +105,7 @@ The toolkit stores data in JSON files in the data directory:
 - [ ] Voice AI w/ connection to Twitter Spaces
 - [ ] Automate the entire twitter account creation process (including 2FA)
 - [ ] Optimize prompts/settings by determining success rate of each
+
+<!---
+- [ ] Make tutorial video with Telepath music
+---->
