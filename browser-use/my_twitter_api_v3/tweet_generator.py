@@ -75,6 +75,13 @@ class TweetGenerator:
         Returns:
             Generated tweet text
         """
+        # Automatically select topic and adjective if not provided
+        if topic is None:
+            topic = self.persona_manager.get_random_topic()
+        
+        if adjective is None:
+            adjective = self.persona_manager.get_random_adjective()
+            
         # Generate prompt
         prompt = self.persona_manager.generate_post_prompt(
             topic=topic,
@@ -256,4 +263,3 @@ if __name__ == "__main__":
         print(actions)
     
     asyncio.run(main())
-

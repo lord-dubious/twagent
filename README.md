@@ -137,7 +137,7 @@ Generates tweets in the voice and style of specific personas, with support for m
 
 ```bash
 # Generate a post with a specific persona
-python persona_tweet_example.py --persona personas/holly_snow.json --action post --topic "Fitness & Workouts" --adjective "Seductive"
+python persona_tweet_example.py --persona personas/holly_snow.json --action post
 
 # Run timeline monitoring with persona integration
 python -m browser_use.my_twitter_api_v3.persona_tweet_workflow --persona personas/holly_snow.json --action monitor --interval 1800 --max-posts 10

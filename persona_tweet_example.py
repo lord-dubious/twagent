@@ -30,16 +30,6 @@ async def main():
         help="Action to perform (post, reply, quote, decide)"
     )
     parser.add_argument(
-        "--topic", 
-        type=str, 
-        help="Topic to post about (for post action)"
-    )
-    parser.add_argument(
-        "--adjective", 
-        type=str, 
-        help="Adjective to describe the post (for post action)"
-    )
-    parser.add_argument(
         "--tweet", 
         type=str, 
         help="Original tweet to reply to, quote, or decide action on"
@@ -80,10 +70,8 @@ async def main():
     
     # Perform action
     if args.action == "post":
-        # Generate post
+        # Generate post - topics and adjectives are automatically selected
         post = await generator.generate_post(
-            topic=args.topic,
-            adjective=args.adjective,
             media_description=args.media
         )
         
@@ -148,4 +136,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-

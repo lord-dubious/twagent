@@ -9,6 +9,7 @@ This module enables persona-based tweet generation for Twitter automation, inclu
 - **Content Generation**: Create posts, replies, and quote tweets
 - **Timeline Monitoring**: Automatically monitor timeline and interact with relevant content
 - **Decision Making**: Decide what action to take on tweets based on persona preferences
+- **Automatic Content Selection**: Automatically selects topics and adjectives from persona data
 
 ## Persona Configuration
 
@@ -43,7 +44,7 @@ See `personas/holly_snow.json` for a complete example.
 
 ```bash
 # Generate a post with a specific persona
-python persona_tweet_example.py --persona personas/holly_snow.json --action post --topic "Fitness & Workouts" --adjective "Seductive"
+python persona_tweet_example.py --persona personas/holly_snow.json --action post
 
 # Generate a post with media
 python persona_tweet_example.py --persona personas/holly_snow.json --action post --media "A photo of a sunset at the beach"
@@ -103,10 +104,8 @@ from browser_use.my_twitter_api_v3.tweet_generator import TweetGenerator
 # Create tweet generator
 generator = TweetGenerator(persona_file_path="personas/holly_snow.json")
 
-# Generate a post
+# Generate a post - topics and adjectives are automatically selected
 post = await generator.generate_post(
-    topic="Fitness & Workouts",
-    adjective="Seductive",
     media_description="A photo of a sunset at the beach"
 )
 ```
@@ -121,10 +120,8 @@ from browser_use.my_twitter_api_v3.persona_tweet_workflow import PersonaTweetWor
 # Create workflow
 workflow = PersonaTweetWorkflow(persona_file_path="personas/holly_snow.json")
 
-# Create post
+# Create post - topics and adjectives are automatically selected
 success = await workflow.create_persona_post(
-    topic="Fitness & Workouts",
-    adjective="Seductive",
     media_path="media/sunset.jpg"
 )
 
@@ -152,7 +149,6 @@ To create a new persona:
 
 - **Persona Consistency**: Ensure the persona's voice and style are consistent across all content
 - **Media Integration**: When including media, provide a description that helps the LLM generate relevant content
-- **Topic Selection**: Choose topics that are relevant to the persona's interests and expertise
+- **Topic Selection**: Include a variety of topics in the persona data for diverse content generation
 - **Style Guidelines**: Include detailed style guidelines to help the LLM generate appropriate content
 - **Examples**: Provide plenty of examples to help the LLM understand the persona's voice and style
-

@@ -74,16 +74,11 @@ class PersonaTweetWorkflow:
             print(f"Error loading config from {config_path}: {e}")
             return {}
     
-    async def create_persona_post(self, 
-                                 topic: Optional[str] = None, 
-                                 adjective: Optional[str] = None,
-                                 media_path: Optional[str] = None) -> bool:
+    async def create_persona_post(self, media_path: Optional[str] = None) -> bool:
         """
         Create a post with persona integration.
         
         Args:
-            topic: Topic to post about (random if None)
-            adjective: Adjective to describe the post (random if None)
             media_path: Path to media file to include (optional)
             
         Returns:
@@ -101,10 +96,8 @@ class PersonaTweetWorkflow:
                 elif media_path.lower().endswith(('.gif')):
                     media_description = "A GIF"
             
-            # Generate post content
+            # Generate post content - let the generator automatically select topic and adjective
             post_content = await self.tweet_generator.generate_post(
-                topic=topic,
-                adjective=adjective,
                 media_description=media_description
             )
             
@@ -283,16 +276,6 @@ async def main():
         help="Action to perform (post, monitor)"
     )
     parser.add_argument(
-        "--topic", 
-        type=str, 
-        help="Topic to post about (for post action)"
-    )
-    parser.add_argument(
-        "--adjective", 
-        type=str, 
-        help="Adjective to describe the post (for post action)"
-    )
-    parser.add_argument(
         "--media", 
         type=str, 
         help="Path to media file to include"
@@ -328,8 +311,6 @@ async def main():
     if args.action == "post":
         # Create post
         success = await workflow.create_persona_post(
-            topic=args.topic,
-            adjective=args.adjective,
             media_path=args.media
         )
         
@@ -348,4 +329,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
