@@ -10,6 +10,7 @@ import os
 from typing import Optional
 
 from browser_use.my_twitter_api_v3.tweet_generator import TweetGenerator
+from browser_use.my_twitter_api_v3.media_manager import MediaManager
 
 
 async def main():
@@ -37,7 +38,18 @@ async def main():
     parser.add_argument(
         "--media", 
         type=str, 
-        help="Description of media to include"
+        help="Path to media file to include"
+    )
+    parser.add_argument(
+        "--media-dir", 
+        type=str, 
+        default="media",
+        help="Path to media directory for random media selection"
+    )
+    parser.add_argument(
+        "--random-media", 
+        action="store_true",
+        help="Use random media from the media directory"
     )
     parser.add_argument(
         "--model", 
@@ -62,22 +74,54 @@ async def main():
         print(f"Error: Failed to load persona from '{args.persona}'.")
         return
     
+    # Create media manager
+    media_manager = MediaManager(media_dir=args.media_dir, llm_model=args.model)
+    
     # Get persona name
     persona_name = generator.persona_manager.persona_context.agent_name
     
     print(f"=== Persona-based Tweet Generator for {persona_name} ===")
     print(f"Action: {args.action}")
     
+    # Handle random media selection
+    media_path = args.media
+    media_description = None
+    
+    if args.random_media and not media_path:
+        # Get persona context for media selection
+        persona_context = None
+        if generator.persona_manager.persona_context:
+            persona_context = {
+                "agent_name": generator.persona_manager.persona_context.agent_name,
+                "system": generator.persona_manager.persona_context.system,
+                "topics": generator.persona_manager.persona_context.topics,
+                "adjectives": generator.persona_manager.persona_context.adjectives
+            }
+        
+        media_path = media_manager.get_random_media(persona_context=persona_context)
+        
+        if media_path:
+            print(f"Selected random media: {media_path}")
+            
+            # Generate caption
+            media_description = await media_manager.generate_caption(media_path, persona_context=persona_context)
+            print(f"Generated caption: {media_description}")
+        else:
+            print("No suitable media files found. Creating text-only content.")
+    
     # Perform action
     if args.action == "post":
         # Generate post - topics and adjectives are automatically selected
         post = await generator.generate_post(
-            media_description=args.media
+            media_description=media_description
         )
         
         print("\nGenerated Post:")
         print(post)
         print(f"Character count: {len(post)}")
+        
+        if media_path:
+            print(f"Media: {media_path}")
         
     elif args.action == "reply":
         # Check if tweet is provided
@@ -88,7 +132,7 @@ async def main():
         # Generate reply
         reply = await generator.generate_reply(
             original_tweet=args.tweet,
-            media_description=args.media
+            media_description=media_description
         )
         
         print("\nOriginal Tweet:")
@@ -96,6 +140,9 @@ async def main():
         print("\nGenerated Reply:")
         print(reply)
         print(f"Character count: {len(reply)}")
+        
+        if media_path:
+            print(f"Media: {media_path}")
         
     elif args.action == "quote":
         # Check if tweet is provided
@@ -106,7 +153,7 @@ async def main():
         # Generate quote
         quote = await generator.generate_quote_tweet(
             original_tweet=args.tweet,
-            media_description=args.media
+            media_description=media_description
         )
         
         print("\nOriginal Tweet:")
@@ -114,6 +161,9 @@ async def main():
         print("\nGenerated Quote:")
         print(quote)
         print(f"Character count: {len(quote)}")
+        
+        if media_path:
+            print(f"Media: {media_path}")
         
     elif args.action == "decide":
         # Check if tweet is provided

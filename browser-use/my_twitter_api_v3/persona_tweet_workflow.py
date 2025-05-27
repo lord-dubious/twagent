@@ -21,6 +21,7 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
 from .tweet_generator import TweetGenerator
+from .media_manager import MediaManager
 from .utils.cookie_manager import get_cookie_manager
 from .manage_posts.create_post import create_post
 
@@ -38,6 +39,7 @@ class PersonaTweetWorkflow:
     def __init__(self, 
                  persona_file_path: str,
                  llm_model: str = "gpt-4o",
+                 media_dir: Optional[str] = None,
                  config_path: Optional[str] = None):
         """
         Initialize the persona tweet workflow.
@@ -45,6 +47,7 @@ class PersonaTweetWorkflow:
         Args:
             persona_file_path: Path to the persona JSON file
             llm_model: LLM model to use
+            media_dir: Path to the media directory (optional)
             config_path: Path to configuration file (optional)
         """
         self.persona_file_path = persona_file_path
@@ -53,6 +56,9 @@ class PersonaTweetWorkflow:
         
         # Initialize tweet generator
         self.tweet_generator = TweetGenerator(llm_model=llm_model, persona_file_path=persona_file_path)
+        
+        # Initialize media manager
+        self.media_manager = MediaManager(media_dir=media_dir, llm_model=llm_model)
         
         # Initialize tracking variables
         self.posts_created = 0
@@ -74,29 +80,48 @@ class PersonaTweetWorkflow:
             print(f"Error loading config from {config_path}: {e}")
             return {}
     
-    async def create_persona_post(self, media_path: Optional[str] = None) -> bool:
+    async def create_persona_post(self, media_path: Optional[str] = None, use_random_media: bool = False) -> bool:
         """
         Create a post with persona integration.
         
         Args:
             media_path: Path to media file to include (optional)
+            use_random_media: Whether to use a random media file from the media directory
             
         Returns:
             bool: True if successful, False otherwise
         """
         try:
+            # Get random media if requested
+            if use_random_media and not media_path:
+                # Get persona context for media selection
+                persona_context = None
+                if self.tweet_generator.persona_manager.persona_context:
+                    persona_context = {
+                        "agent_name": self.tweet_generator.persona_manager.persona_context.agent_name,
+                        "system": self.tweet_generator.persona_manager.persona_context.system,
+                        "topics": self.tweet_generator.persona_manager.persona_context.topics,
+                        "adjectives": self.tweet_generator.persona_manager.persona_context.adjectives
+                    }
+                
+                media_path = self.media_manager.get_random_media(persona_context=persona_context)
+                
+                if not media_path:
+                    print("No suitable media files found. Creating text-only post.")
+            
             # Generate media description if media is provided
             media_description = None
             if media_path:
-                # Simple media description based on file type
-                if media_path.lower().endswith(('.jpg', '.jpeg', '.png')):
-                    media_description = "A photo"
-                elif media_path.lower().endswith(('.mp4', '.mov')):
-                    media_description = "A video"
-                elif media_path.lower().endswith(('.gif')):
-                    media_description = "A GIF"
+                # Generate caption using LLM
+                media_description = await self.media_manager.generate_caption(
+                    media_path,
+                    persona_context=persona_context if 'persona_context' in locals() else None
+                )
+                
+                print(f"Using media: {media_path}")
+                print(f"Generated caption: {media_description}")
             
-            # Generate post content - let the generator automatically select topic and adjective
+            # Generate post content
             post_content = await self.tweet_generator.generate_post(
                 media_description=media_description
             )
@@ -120,7 +145,8 @@ class PersonaTweetWorkflow:
     async def create_persona_reply(self, 
                                   tweet_id: str, 
                                   original_tweet: str,
-                                  media_path: Optional[str] = None) -> bool:
+                                  media_path: Optional[str] = None,
+                                  use_random_media: bool = False) -> bool:
         """
         Create a reply with persona integration.
         
@@ -128,21 +154,40 @@ class PersonaTweetWorkflow:
             tweet_id: ID of the tweet to reply to
             original_tweet: Content of the original tweet
             media_path: Path to media file to include (optional)
+            use_random_media: Whether to use a random media file from the media directory
             
         Returns:
             bool: True if successful, False otherwise
         """
         try:
+            # Get random media if requested
+            if use_random_media and not media_path:
+                # Get persona context for media selection
+                persona_context = None
+                if self.tweet_generator.persona_manager.persona_context:
+                    persona_context = {
+                        "agent_name": self.tweet_generator.persona_manager.persona_context.agent_name,
+                        "system": self.tweet_generator.persona_manager.persona_context.system,
+                        "topics": self.tweet_generator.persona_manager.persona_context.topics,
+                        "adjectives": self.tweet_generator.persona_manager.persona_context.adjectives
+                    }
+                
+                media_path = self.media_manager.get_random_media(persona_context=persona_context)
+                
+                if not media_path:
+                    print("No suitable media files found. Creating text-only reply.")
+            
             # Generate media description if media is provided
             media_description = None
             if media_path:
-                # Simple media description based on file type
-                if media_path.lower().endswith(('.jpg', '.jpeg', '.png')):
-                    media_description = "A photo"
-                elif media_path.lower().endswith(('.mp4', '.mov')):
-                    media_description = "A video"
-                elif media_path.lower().endswith(('.gif')):
-                    media_description = "A GIF"
+                # Generate caption using LLM
+                media_description = await self.media_manager.generate_caption(
+                    media_path,
+                    persona_context=persona_context if 'persona_context' in locals() else None
+                )
+                
+                print(f"Using media: {media_path}")
+                print(f"Generated caption: {media_description}")
             
             # Generate reply content
             reply_content = await self.tweet_generator.generate_reply(
@@ -172,6 +217,7 @@ class PersonaTweetWorkflow:
     async def run_timeline_monitoring(self, 
                                      interval: int = 3600, 
                                      max_posts: int = 5,
+                                     use_random_media: bool = False,
                                      search_terms: Optional[List[str]] = None) -> None:
         """
         Run timeline monitoring to automatically post, reply, and interact.
@@ -179,12 +225,14 @@ class PersonaTweetWorkflow:
         Args:
             interval: Interval between checks in seconds
             max_posts: Maximum number of posts to create
+            use_random_media: Whether to use random media files for posts
             search_terms: List of search terms to monitor (optional)
         """
         try:
             print(f"Starting timeline monitoring with {self.tweet_generator.persona_manager.persona_context.agent_name} persona")
             print(f"Interval: {interval} seconds")
             print(f"Max posts: {max_posts}")
+            print(f"Use random media: {use_random_media}")
             
             # Initialize browser
             browser = Browser()
@@ -239,7 +287,7 @@ class PersonaTweetWorkflow:
                 
                 if should_post:
                     print("Creating original post...")
-                    success = await self.create_persona_post()
+                    success = await self.create_persona_post(use_random_media=use_random_media)
                     if success:
                         posts_created += 1
                 
@@ -281,6 +329,17 @@ async def main():
         help="Path to media file to include"
     )
     parser.add_argument(
+        "--media-dir", 
+        type=str, 
+        default="media",
+        help="Path to media directory for random media selection"
+    )
+    parser.add_argument(
+        "--random-media", 
+        action="store_true",
+        help="Use random media from the media directory"
+    )
+    parser.add_argument(
         "--interval", 
         type=int, 
         default=3600,
@@ -304,14 +363,16 @@ async def main():
     # Create workflow
     workflow = PersonaTweetWorkflow(
         persona_file_path=args.persona,
-        llm_model=args.model
+        llm_model=args.model,
+        media_dir=args.media_dir
     )
     
     # Perform action
     if args.action == "post":
         # Create post
         success = await workflow.create_persona_post(
-            media_path=args.media
+            media_path=args.media,
+            use_random_media=args.random_media
         )
         
         if success:
@@ -323,7 +384,8 @@ async def main():
         # Run timeline monitoring
         await workflow.run_timeline_monitoring(
             interval=args.interval,
-            max_posts=args.max_posts
+            max_posts=args.max_posts,
+            use_random_media=args.random_media
         )
 
 

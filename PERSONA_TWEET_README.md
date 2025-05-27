@@ -10,6 +10,7 @@ This module enables persona-based tweet generation for Twitter automation, inclu
 - **Timeline Monitoring**: Automatically monitor timeline and interact with relevant content
 - **Decision Making**: Decide what action to take on tweets based on persona preferences
 - **Automatic Content Selection**: Automatically selects topics and adjectives from persona data
+- **Automatic Media Selection**: Randomly selects media files from a directory and generates captions
 
 ## Persona Configuration
 
@@ -46,8 +47,11 @@ See `personas/holly_snow.json` for a complete example.
 # Generate a post with a specific persona
 python persona_tweet_example.py --persona personas/holly_snow.json --action post
 
-# Generate a post with media
-python persona_tweet_example.py --persona personas/holly_snow.json --action post --media "A photo of a sunset at the beach"
+# Generate a post with specific media
+python persona_tweet_example.py --persona personas/holly_snow.json --action post --media path/to/image.jpg
+
+# Generate a post with random media from the media directory
+python persona_tweet_example.py --persona personas/holly_snow.json --action post --random-media
 ```
 
 #### Generate a Reply
@@ -55,6 +59,9 @@ python persona_tweet_example.py --persona personas/holly_snow.json --action post
 ```bash
 # Generate a reply to a tweet
 python persona_tweet_example.py --persona personas/holly_snow.json --action reply --tweet "Just finished my workout! Feeling great!"
+
+# Generate a reply with random media
+python persona_tweet_example.py --persona personas/holly_snow.json --action reply --tweet "Just finished my workout! Feeling great!" --random-media
 ```
 
 #### Decide Action
@@ -70,8 +77,11 @@ python persona_tweet_example.py --persona personas/holly_snow.json --action deci
 # Post a tweet with persona integration
 python -m browser_use.my_twitter_api_v3.persona_tweet_workflow --persona personas/holly_snow.json --action post
 
-# Run timeline monitoring
-python -m browser_use.my_twitter_api_v3.persona_tweet_workflow --persona personas/holly_snow.json --action monitor --interval 1800 --max-posts 10
+# Post a tweet with random media
+python -m browser_use.my_twitter_api_v3.persona_tweet_workflow --persona personas/holly_snow.json --action post --random-media
+
+# Run timeline monitoring with random media
+python -m browser_use.my_twitter_api_v3.persona_tweet_workflow --persona personas/holly_snow.json --action monitor --interval 1800 --max-posts 10 --random-media
 ```
 
 ## Components
@@ -92,6 +102,23 @@ post_prompt = manager.generate_post_prompt(
     adjective="Seductive",
     media_description="A photo of a sunset at the beach"
 )
+```
+
+### MediaManager
+
+The `MediaManager` class handles automatic selection of media files and LLM-based captioning.
+
+```python
+from browser_use.my_twitter_api_v3.media_manager import MediaManager
+
+# Create media manager
+manager = MediaManager(media_dir="media")
+
+# Get random media file
+media_file = manager.get_random_media()
+
+# Generate caption
+caption = await manager.generate_caption(media_file)
 ```
 
 ### TweetGenerator
@@ -120,17 +147,29 @@ from browser_use.my_twitter_api_v3.persona_tweet_workflow import PersonaTweetWor
 # Create workflow
 workflow = PersonaTweetWorkflow(persona_file_path="personas/holly_snow.json")
 
-# Create post - topics and adjectives are automatically selected
+# Create post with random media
 success = await workflow.create_persona_post(
-    media_path="media/sunset.jpg"
+    use_random_media=True
 )
 
-# Run timeline monitoring
+# Run timeline monitoring with random media
 await workflow.run_timeline_monitoring(
     interval=3600,
-    max_posts=5
+    max_posts=5,
+    use_random_media=True
 )
 ```
+
+## Media Directory Structure
+
+The media directory should contain image, video, and GIF files that the system can randomly select for posts. For best results:
+
+1. Name files descriptively (e.g., `beach_sunset.jpg`, `workout_selfie.jpg`)
+2. Organize files by topic if desired (the system will try to match topics from the persona)
+3. Use common formats:
+   - Images: `.jpg`, `.jpeg`, `.png`
+   - Videos: `.mp4`, `.mov`, `.avi`
+   - GIFs: `.gif`
 
 ## Creating New Personas
 
@@ -148,7 +187,7 @@ To create a new persona:
 ## Best Practices
 
 - **Persona Consistency**: Ensure the persona's voice and style are consistent across all content
-- **Media Integration**: When including media, provide a description that helps the LLM generate relevant content
+- **Media Integration**: Provide a variety of media files that match the persona's interests and topics
 - **Topic Selection**: Include a variety of topics in the persona data for diverse content generation
 - **Style Guidelines**: Include detailed style guidelines to help the LLM generate appropriate content
 - **Examples**: Provide plenty of examples to help the LLM understand the persona's voice and style

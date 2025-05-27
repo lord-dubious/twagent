@@ -139,8 +139,11 @@ Generates tweets in the voice and style of specific personas, with support for m
 # Generate a post with a specific persona
 python persona_tweet_example.py --persona personas/holly_snow.json --action post
 
-# Run timeline monitoring with persona integration
-python -m browser_use.my_twitter_api_v3.persona_tweet_workflow --persona personas/holly_snow.json --action monitor --interval 1800 --max-posts 10
+# Generate a post with random media from the media directory
+python persona_tweet_example.py --persona personas/holly_snow.json --action post --random-media
+
+# Run timeline monitoring with persona integration and random media
+python -m browser_use.my_twitter_api_v3.persona_tweet_workflow --persona personas/holly_snow.json --action monitor --interval 1800 --max-posts 10 --random-media
 ```
 
 # Roadmap
