@@ -48,16 +48,21 @@ class MediaManager:
     
     def get_random_media(self, 
                         media_type: Optional[str] = None, 
-                        persona_context: Optional[Dict[str, Any]] = None) -> Optional[str]:
+                        persona_context: Optional[Dict[str, Any]] = None,
+                        max_images: int = 4,
+                        single_image_probability: float = 0.9) -> Union[List[str], str, None]:
         """
-        Get a random media file from the media directory.
+        Get random media file(s) from the media directory following Twitter guidelines.
         
         Args:
             media_type: Type of media to select (image, video, gif, or None for any)
             persona_context: Persona context for filtering media (optional)
+            max_images: Maximum number of images to return (Twitter allows up to 4)
+            single_image_probability: Probability of returning just 1 image (0.0-1.0)
             
         Returns:
-            Path to the selected media file, or None if no suitable media found
+            Path(s) to the selected media file(s), or None if no suitable media found.
+            Returns a string for single file, list for multiple files.
         """
         # Define file extensions for each media type
         extensions = {
@@ -96,11 +101,71 @@ class MediaManager:
                 if not filtered_files:
                     filtered_files = all_files
         
-        # Select a random file
-        if filtered_files:
-            return random.choice(filtered_files)
+        # Return None if no files found
+        if not filtered_files:
+            return None
         
+        # Separate files by type
+        image_files = [f for f in filtered_files if any(f.lower().endswith(ext) for ext in extensions["image"])]
+        video_files = [f for f in filtered_files if any(f.lower().endswith(ext) for ext in extensions["video"])]
+        gif_files = [f for f in filtered_files if any(f.lower().endswith(ext) for ext in extensions["gif"])]
+        
+        # Twitter rules:
+        # - Can include up to 4 images OR 1 GIF OR 1 video
+        # - Cannot mix media types
+        
+        # Decide which type of media to use based on availability
+        if media_type == "video" and video_files:
+            # For video, always return a single file
+            return random.choice(video_files)
+        elif media_type == "gif" and gif_files:
+            # For GIF, always return a single file
+            return random.choice(gif_files)
+        elif media_type == "image" and image_files:
+            # For images, decide how many to return (1-4)
+            return self._select_images(image_files, max_images, single_image_probability)
+        elif not media_type:
+            # If no specific type requested, prioritize based on availability
+            if video_files:
+                return random.choice(video_files)
+            elif gif_files:
+                return random.choice(gif_files)
+            elif image_files:
+                return self._select_images(image_files, max_images, single_image_probability)
+        
+        # If we get here, no suitable media was found
         return None
+    
+    def _select_images(self, 
+                      image_files: List[str], 
+                      max_images: int = 4, 
+                      single_image_probability: float = 0.9) -> Union[List[str], str]:
+        """
+        Select random images following Twitter guidelines.
+        
+        Args:
+            image_files: List of image file paths
+            max_images: Maximum number of images to return (Twitter allows up to 4)
+            single_image_probability: Probability of returning just 1 image (0.0-1.0)
+            
+        Returns:
+            Path(s) to the selected image(s). String for single image, list for multiple.
+        """
+        # Ensure max_images is within Twitter's limits
+        max_images = min(max_images, 4)
+        
+        # Determine if we should return a single image based on probability
+        use_single_image = random.random() < single_image_probability
+        
+        if use_single_image or len(image_files) == 1 or max_images == 1:
+            # Return a single image
+            return random.choice(image_files)
+        else:
+            # Determine how many images to return (2-4, limited by available files)
+            num_images = min(random.randint(2, max_images), len(image_files))
+            
+            # Return multiple images
+            return random.sample(image_files, num_images)
     
     def get_media_type(self, file_path: str) -> Optional[str]:
         """
@@ -245,4 +310,3 @@ if __name__ == "__main__":
             print("No media files found")
     
     asyncio.run(main())
-

@@ -93,6 +93,7 @@ class PersonaTweetWorkflow:
         """
         try:
             # Get random media if requested
+            media_paths = None
             if use_random_media and not media_path:
                 # Get persona context for media selection
                 persona_context = None
@@ -104,21 +105,42 @@ class PersonaTweetWorkflow:
                         "adjectives": self.tweet_generator.persona_manager.persona_context.adjectives
                     }
                 
-                media_path = self.media_manager.get_random_media(persona_context=persona_context)
+                # Get random media following Twitter guidelines (max 4 images, 90% chance of single image)
+                media_paths = self.media_manager.get_random_media(
+                    persona_context=persona_context,
+                    max_images=4,
+                    single_image_probability=0.9
+                )
                 
-                if not media_path:
+                if not media_paths:
                     print("No suitable media files found. Creating text-only post.")
+            elif media_path:
+                # Use the provided media path
+                media_paths = media_path
             
             # Generate media description if media is provided
             media_description = None
-            if media_path:
-                # Generate caption using LLM
-                media_description = await self.media_manager.generate_caption(
-                    media_path,
-                    persona_context=persona_context if 'persona_context' in locals() else None
-                )
+            if media_paths:
+                # Handle both single file (string) and multiple files (list)
+                if isinstance(media_paths, list):
+                    print(f"Using {len(media_paths)} media files: {', '.join(os.path.basename(p) for p in media_paths)}")
+                    
+                    # Generate caption for the first image to represent the set
+                    media_description = await self.media_manager.generate_caption(
+                        media_paths[0],
+                        persona_context=persona_context if 'persona_context' in locals() else None
+                    )
+                    
+                    media_description = f"A set of {len(media_paths)} images. {media_description}"
+                else:
+                    print(f"Using media: {media_paths}")
+                    
+                    # Generate caption
+                    media_description = await self.media_manager.generate_caption(
+                        media_paths,
+                        persona_context=persona_context if 'persona_context' in locals() else None
+                    )
                 
-                print(f"Using media: {media_path}")
                 print(f"Generated caption: {media_description}")
             
             # Generate post content
@@ -127,7 +149,10 @@ class PersonaTweetWorkflow:
             )
             
             # Create post
-            success = await create_post(post_content, media_path=media_path)
+            # Note: The create_post function needs to be updated to handle multiple media files
+            # For now, we'll just use the first file if multiple are provided
+            media_path_for_post = media_paths[0] if isinstance(media_paths, list) else media_paths
+            success = await create_post(post_content, media_path=media_path_for_post)
             
             if success:
                 self.posts_created += 1
@@ -161,6 +186,7 @@ class PersonaTweetWorkflow:
         """
         try:
             # Get random media if requested
+            media_paths = None
             if use_random_media and not media_path:
                 # Get persona context for media selection
                 persona_context = None
@@ -172,21 +198,42 @@ class PersonaTweetWorkflow:
                         "adjectives": self.tweet_generator.persona_manager.persona_context.adjectives
                     }
                 
-                media_path = self.media_manager.get_random_media(persona_context=persona_context)
+                # Get random media following Twitter guidelines (max 4 images, 90% chance of single image)
+                media_paths = self.media_manager.get_random_media(
+                    persona_context=persona_context,
+                    max_images=4,
+                    single_image_probability=0.9
+                )
                 
-                if not media_path:
+                if not media_paths:
                     print("No suitable media files found. Creating text-only reply.")
+            elif media_path:
+                # Use the provided media path
+                media_paths = media_path
             
             # Generate media description if media is provided
             media_description = None
-            if media_path:
-                # Generate caption using LLM
-                media_description = await self.media_manager.generate_caption(
-                    media_path,
-                    persona_context=persona_context if 'persona_context' in locals() else None
-                )
+            if media_paths:
+                # Handle both single file (string) and multiple files (list)
+                if isinstance(media_paths, list):
+                    print(f"Using {len(media_paths)} media files: {', '.join(os.path.basename(p) for p in media_paths)}")
+                    
+                    # Generate caption for the first image to represent the set
+                    media_description = await self.media_manager.generate_caption(
+                        media_paths[0],
+                        persona_context=persona_context if 'persona_context' in locals() else None
+                    )
+                    
+                    media_description = f"A set of {len(media_paths)} images. {media_description}"
+                else:
+                    print(f"Using media: {media_paths}")
+                    
+                    # Generate caption
+                    media_description = await self.media_manager.generate_caption(
+                        media_paths,
+                        persona_context=persona_context if 'persona_context' in locals() else None
+                    )
                 
-                print(f"Using media: {media_path}")
                 print(f"Generated caption: {media_description}")
             
             # Generate reply content
@@ -199,7 +246,10 @@ class PersonaTweetWorkflow:
             from .manage_posts.reply_to_post import reply_to_post
             
             # Create reply
-            success = await reply_to_post(tweet_id, reply_content, media_path=media_path)
+            # Note: The reply_to_post function needs to be updated to handle multiple media files
+            # For now, we'll just use the first file if multiple are provided
+            media_path_for_reply = media_paths[0] if isinstance(media_paths, list) else media_paths
+            success = await reply_to_post(tweet_id, reply_content, media_path=media_path_for_reply)
             
             if success:
                 self.replies_created += 1

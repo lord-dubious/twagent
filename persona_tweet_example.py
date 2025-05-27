@@ -84,10 +84,10 @@ async def main():
     print(f"Action: {args.action}")
     
     # Handle random media selection
-    media_path = args.media
+    media_paths = args.media
     media_description = None
     
-    if args.random_media and not media_path:
+    if args.random_media and not media_paths:
         # Get persona context for media selection
         persona_context = None
         if generator.persona_manager.persona_context:
@@ -98,13 +98,28 @@ async def main():
                 "adjectives": generator.persona_manager.persona_context.adjectives
             }
         
-        media_path = media_manager.get_random_media(persona_context=persona_context)
+        # Get random media following Twitter guidelines (max 4 images, 90% chance of single image)
+        media_paths = media_manager.get_random_media(
+            persona_context=persona_context,
+            max_images=4,
+            single_image_probability=0.9
+        )
         
-        if media_path:
-            print(f"Selected random media: {media_path}")
+        if media_paths:
+            if isinstance(media_paths, list):
+                print(f"Selected {len(media_paths)} random media files:")
+                for path in media_paths:
+                    print(f"  - {path}")
+                
+                # Generate caption for the first image to represent the set
+                media_description = await media_manager.generate_caption(media_paths[0], persona_context=persona_context)
+                media_description = f"A set of {len(media_paths)} images. {media_description}"
+            else:
+                print(f"Selected random media: {media_paths}")
+                
+                # Generate caption
+                media_description = await media_manager.generate_caption(media_paths, persona_context=persona_context)
             
-            # Generate caption
-            media_description = await media_manager.generate_caption(media_path, persona_context=persona_context)
             print(f"Generated caption: {media_description}")
         else:
             print("No suitable media files found. Creating text-only content.")
@@ -120,8 +135,8 @@ async def main():
         print(post)
         print(f"Character count: {len(post)}")
         
-        if media_path:
-            print(f"Media: {media_path}")
+        if media_paths:
+            print(f"Media: {media_paths}")
         
     elif args.action == "reply":
         # Check if tweet is provided
@@ -141,8 +156,8 @@ async def main():
         print(reply)
         print(f"Character count: {len(reply)}")
         
-        if media_path:
-            print(f"Media: {media_path}")
+        if media_paths:
+            print(f"Media: {media_paths}")
         
     elif args.action == "quote":
         # Check if tweet is provided
@@ -162,8 +177,8 @@ async def main():
         print(quote)
         print(f"Character count: {len(quote)}")
         
-        if media_path:
-            print(f"Media: {media_path}")
+        if media_paths:
+            print(f"Media: {media_paths}")
         
     elif args.action == "decide":
         # Check if tweet is provided

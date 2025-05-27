@@ -11,6 +11,7 @@ This module enables persona-based tweet generation for Twitter automation, inclu
 - **Decision Making**: Decide what action to take on tweets based on persona preferences
 - **Automatic Content Selection**: Automatically selects topics and adjectives from persona data
 - **Automatic Media Selection**: Randomly selects media files from a directory and generates captions
+- **Twitter Guidelines Compliance**: Follows Twitter media guidelines (up to 4 images, 90% chance of single image)
 
 ## Persona Configuration
 
@@ -114,11 +115,14 @@ from browser_use.my_twitter_api_v3.media_manager import MediaManager
 # Create media manager
 manager = MediaManager(media_dir="media")
 
-# Get random media file
-media_file = manager.get_random_media()
+# Get random media file(s) following Twitter guidelines
+media_files = manager.get_random_media(
+    max_images=4,
+    single_image_probability=0.9
+)
 
 # Generate caption
-caption = await manager.generate_caption(media_file)
+caption = await manager.generate_caption(media_files[0] if isinstance(media_files, list) else media_files)
 ```
 
 ### TweetGenerator
@@ -170,6 +174,15 @@ The media directory should contain image, video, and GIF files that the system c
    - Images: `.jpg`, `.jpeg`, `.png`
    - Videos: `.mp4`, `.mov`, `.avi`
    - GIFs: `.gif`
+
+## Twitter Media Guidelines
+
+The system follows Twitter's media guidelines:
+
+- Can include up to 4 images OR 1 GIF OR 1 video in a single tweet
+- Cannot mix media types (e.g., cannot include both images and videos)
+- By default, there's a 90% chance of selecting a single image and a 10% chance of selecting 2-4 images
+- This probability can be adjusted using the `single_image_probability` parameter
 
 ## Creating New Personas
 
