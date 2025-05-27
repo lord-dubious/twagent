@@ -1,0 +1,70 @@
+{
+  "accounts": [
+    {
+      "handle": "elonmusk",
+      "priority": "high",
+      "category": "tech_leaders",
+      "followed": false
+    },
+    {
+      "handle": "sama",
+      "priority": "high", 
+      "category": "tech_leaders",
+      "followed": false
+    },
+    {
+      "handle": "pmarca",
+      "priority": "medium",
+      "category": "tech_leaders", 
+      "followed": false
+    },
+    {
+      "handle": "garrytan",
+      "priority": "medium",
+      "category": "tech_leaders",
+      "followed": false
+    },
+    {
+      "handle": "OpenAI",
+      "priority": "high",
+      "category": "ai_ml",
+      "followed": false
+    },
+    {
+      "handle": "AnthropicAI", 
+      "priority": "high",
+      "category": "ai_ml",
+      "followed": false
+    },
+    {
+      "handle": "DeepMind",
+      "priority": "medium",
+      "category": "ai_ml",
+      "followed": false
+    },
+    {
+      "handle": "BBCBreaking",
+      "priority": "low",
+      "category": "news",
+      "followed": false
+    },
+    {
+      "handle": "Reuters",
+      "priority": "low", 
+      "category": "news",
+      "followed": false
+    },
+    {
+      "handle": "TechCrunch",
+      "priority": "medium",
+      "category": "news",
+      "followed": false
+    }
+  ],
+  "metadata": {
+    "last_updated": "2024-01-01T00:00:00Z",
+    "total_accounts": 10,
+    "followed_count": 0,
+    "pending_count": 10
+  }
+}

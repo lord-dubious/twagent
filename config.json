@@ -1,0 +1,42 @@
+{
+  "cookies": {
+    "file_path": "./cookies.json",
+    "format": "json"
+  },
+  "data": {
+    "directory": "./data"
+  },
+  "browser": {
+    "headless": false,
+    "timeout": 30000
+  },
+  "llm": {
+    "provider": "openai",
+    "model": "gpt-4o-mini-2024-07-18",
+    "temperature": 0.7,
+    "max_tokens": 1000,
+    "api_key_env": "OPENAI_API_KEY",
+    "base_url": null,
+    "tweet_generation": {
+      "provider": null,
+      "model": null,
+      "temperature": 0.8,
+      "max_tokens": 500
+    }
+  },
+  "api": {
+    "max_retries": 3
+  },
+  "following": {
+    "accounts_file": "./accounts_to_follow.json",
+    "rate_limits": {
+      "follows_per_minute": 15,
+      "follows_per_day": 400,
+      "delay_between_follows": 4
+    },
+    "retry": {
+      "max_attempts": 3,
+      "delay_on_error": 10
+    }
+  }
+}

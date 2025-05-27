@@ -8,7 +8,7 @@ The workflow is designed for pseudosatirical social causes. It aims to create pr
 
 ## Why browser-use? Why not just use Twitter's V2 API?
 
-This approach was chosen as a solution because the Twitter API is prohibitively expensive and is often seen as anti-developer. 
+This approach was chosen as a solution because the Twitter API is prohibitively expensive and is often seen as anti-developer.
 
 - **Frequent API Changes**: Pricing, access levels, and endpoints have changed unpredictably. Some previously available endpoints have been removed or moved to higher-cost tiers.
 - **Expensive Paid Tiers**: Free-tier access is very limited, and paid tiers are costly.
@@ -49,26 +49,36 @@ pip install browser-use
 playwright install
 
 ```
-2. Add your API keys for the provider you want to use to your .env file. 
+2. Add your API keys for the provider you want to use to your .env file.
 
-3. Set up Twitter authentication:
-   - Create a `twitter_cookies.txt` file in the root directory
+3. Set up configuration and Twitter authentication:
+   - Copy `config.json` and customize the cookie file path if needed
+   - Create a `cookies.json` file (or use the path specified in config.json)
    - Format the cookies file as shown below:
    ```json
-   [{
+   [
+     {
        "name": "auth_token",
-       "value": "YOUR_AUTH_TOKEN",
+       "value": "YOUR_AUTH_TOKEN_HERE",
        "domain": ".x.com",
-       "path": "/"
+       "path": "/",
+       "secure": true,
+       "httpOnly": true,
+       "sameSite": "Lax"
      },
-   {
+     {
        "name": "ct0",
-       "value": "YOUR_CT0_TOKEN",
+       "value": "YOUR_CT0_TOKEN_HERE",
        "domain": ".x.com",
-       "path": "/"
-   }]
+       "path": "/",
+       "secure": true,
+       "httpOnly": false,
+       "sameSite": "Lax"
+     }
+   ]
    ```
    - You can obtain these cookies by logging into Twitter in your browser and extracting them using browser developer tools
+   - See `cookies.example.json` for a complete example
 
 
 

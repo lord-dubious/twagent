@@ -1,28 +1,21 @@
+import json
+import time
+
 from playwright.sync_api import sync_playwright
 from pydantic import BaseModel
-import json
-import os
-import pathlib
-import time
+
+from ..utils.cookie_manager import load_cookies
+
 
 class Tweet(BaseModel):
     tweet_url: str
 
+
 class Tweets(BaseModel):
     tweets: list[Tweet]
 
-def load_cookies():
-    """Load Twitter cookies from a file."""
-    current_dir = pathlib.Path(__file__).parent
-    parent_dir = current_dir.parent
-    cookie_path = parent_dir / "twitter_cookies.txt"
-    
-    with open(cookie_path, "r") as f:
-        cookies_data = f.read()
-    
-    return json.loads(cookies_data)
 
-def get_list_posts(list_id = "1903856475812045303"):
+def get_list_posts(list_id="1903856475812045303"):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)  # Set to False to see browser
         context = browser.new_context()
@@ -45,7 +38,7 @@ def get_list_posts(list_id = "1903856475812045303"):
         # Extract tweet URLs - fix the selector line
         tweet_urls = set()
         tweets = page.query_selector_all("article a[href*='/status/']")
-        
+
         for tweet in tweets:
             href = tweet.get_attribute("href")
             if href:
@@ -56,15 +49,14 @@ def get_list_posts(list_id = "1903856475812045303"):
 
     # Create a list to hold tweet dictionaries
     tweet_dicts = []
-    
-    for url in tweet_urls:
 
+    for url in tweet_urls:
         if url.endswith("/photo/1"):
-            url = url[:-len("/photo/1")]
+            url = url[: -len("/photo/1")]
         elif url.endswith("/photo/2"):
-            url = url[:-len("/photo/2")]
+            url = url[: -len("/photo/2")]
         elif url.endswith("/analytics"):
-            url = url[:-len("/analytics")]
+            url = url[: -len("/analytics")]
         tweet_dict = {
             "handle": "",  # Placeholder for the tweet handle
             "datetime": "",  # Placeholder for the tweet datetime
@@ -74,7 +66,7 @@ def get_list_posts(list_id = "1903856475812045303"):
             "replies": "",  # Placeholder for the number of replies
             "bookmarks": "",  # Placeholder for the number of bookmarks
             "viewcount": "",  # Placeholder for the view count
-            "tweet_url": url  # The tweet URL
+            "tweet_url": url,  # The tweet URL
         }
         tweet_dicts.append(tweet_dict)
 
@@ -83,6 +75,7 @@ def get_list_posts(list_id = "1903856475812045303"):
 
     print(json.dumps(parsed, indent=4))  # Print JSON output
     return parsed["tweets"]  # Return just the tweets array to match expected format
+
 
 if __name__ == "__main__":
     get_list_posts()

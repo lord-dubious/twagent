@@ -1,50 +1,24 @@
-from langchain_openai import ChatOpenAI
-from browser_use import Agent, Browser
-from pydantic import SecretStr
-from pydantic import BaseModel
+"""
+Legacy follow_user module - now uses the main following system
+"""
 
-from browser_use import Agent, ActionResult, Controller
-from browser_use.browser.browser import Browser, BrowserConfig
-from browser_use.browser.context import BrowserContext, BrowserContextConfig
-
-import os
 import asyncio
-from dotenv import load_dotenv
-import json
-import os.path
-from datetime import datetime
 
-load_dotenv()
+from .follow_system import follow_user as _follow_user
 
 
-async def follow_user(handle = "@doge"):
+async def follow_user(handle="@doge"):
+    """
+    Follow a single user using the main following system with rate limiting
 
-    browser = Browser()
-    initial_actions = [
-        {'open_tab': {'url': 'https://x.com/' + handle}},
-    ]
+    Args:
+        handle: Twitter handle to follow (with or without @)
 
-    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    return await _follow_user(handle)
 
-    context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
-
-    controller = Controller()
-    agent = Agent(
-        task=(
-            "Follow " + handle
-        ),
-        llm=ChatOpenAI(model="gpt-4o"),
-        save_conversation_path="logs/conversation",  # Save chat logs
-		browser_context=context,
-        initial_actions=initial_actions,
-        max_actions_per_step=4,
-        controller=controller
-    )
-    history = await agent.run(max_steps=10)
-    result = history.final_result()
-    await browser.close()
-
-    return True
 
 if __name__ == "__main__":
-    follow_user()
+    asyncio.run(follow_user())

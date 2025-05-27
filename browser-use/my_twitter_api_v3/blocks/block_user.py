@@ -1,50 +1,42 @@
-from langchain_openai import ChatOpenAI
-from browser_use import Agent, Browser
-from pydantic import SecretStr
-from pydantic import BaseModel
-
-from browser_use import Agent, ActionResult, Controller
-from browser_use.browser.browser import Browser, BrowserConfig
-from browser_use.browser.context import BrowserContext, BrowserContextConfig
-
-import os
 import asyncio
+
+from browser_use import Agent, Browser, Controller
+from browser_use.browser.browser import Browser
+from browser_use.browser.context import BrowserContext
 from dotenv import load_dotenv
-import json
-import os.path
-from datetime import datetime
+from langchain_openai import ChatOpenAI
 
 load_dotenv()
 
 
-async def block_user(handle = "@doge"):
-
+async def block_user(handle="@doge"):
     browser = Browser()
     initial_actions = [
-        {'open_tab': {'url': 'https://x.com/' + handle}},
+        {"open_tab": {"url": "https://x.com/" + handle}},
     ]
 
-    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
+    # Use cookie manager for centralized cookie handling
+    cookie_manager = get_cookie_manager()
 
-
-    context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
+    context = BrowserContext(
+        browser=browser, config=cookie_manager.create_browser_context_config()
+    )
 
     controller = Controller()
     agent = Agent(
-        task=(
-            "Block " + handle
-        ),
+        task=("Block " + handle),
         llm=ChatOpenAI(model="gpt-4o"),
         save_conversation_path="logs/conversation",  # Save chat logs
-		browser_context=context,
+        browser_context=context,
         initial_actions=initial_actions,
         max_actions_per_step=4,
-        controller=controller
+        controller=controller,
     )
     history = await agent.run(max_steps=10)
     await browser.close()
 
     return True
+
 
 if __name__ == "__main__":
     asyncio.run(block_user())

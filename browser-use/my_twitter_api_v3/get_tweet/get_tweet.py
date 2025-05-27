@@ -1,21 +1,16 @@
+import json
+import os
+import os.path
+
+from browser_use import Agent, Browser, Controller
+from browser_use.browser.browser import Browser
+from browser_use.browser.context import BrowserContext
+from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from browser_use import Agent, Browser
-from pydantic import SecretStr
 from pydantic import BaseModel
 
-from browser_use import Agent, ActionResult, Controller
-from browser_use.browser.browser import Browser, BrowserConfig
-from browser_use.browser.context import BrowserContext, BrowserContextConfig
-
-import os
-import asyncio
-from dotenv import load_dotenv
-import json
-import os.path
-from datetime import datetime
-import argparse  # Added for command line arguments
-
 load_dotenv()
+
 
 class Tweet(BaseModel):
     handle: str | None
@@ -29,6 +24,7 @@ class Tweet(BaseModel):
     viewcount: int | None
     datetime: str | None
 
+
 SCRIPT_DIR = os.path.dirname(__file__)
 
 pathToData = "../../../data"
@@ -36,13 +32,16 @@ aboutMe = "/000_about_me.json"
 lastSavedTweets = "/001_saved_tweets.json"
 
 
-async def get_tweet(post_url="https://twitter.com/TheBabylonBee/status/1903616058562576739"):
-
+async def get_tweet(
+    post_url="https://twitter.com/TheBabylonBee/status/1903616058562576739",
+):
     initial_actions = [
-        {'open_tab': {'url': post_url}},  # Use the provided tweet URL
+        {"open_tab": {"url": post_url}},  # Use the provided tweet URL
     ]
 
-    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'twitter_cookies.txt')
+    # Use cookie manager for centralized cookie handling
+    cookie_manager = get_cookie_manager()
+
     # Use script location as reference point for json file path
     script_dir = os.path.dirname(os.path.abspath(__file__))
     json_file_path = os.path.join(script_dir, "../../../data/saved_tweets.json")
@@ -51,7 +50,9 @@ async def get_tweet(post_url="https://twitter.com/TheBabylonBee/status/190361605
 
     browser = Browser()
     controller = Controller(output_model=Tweet)
-    context = BrowserContext(browser=browser, config=BrowserContextConfig(cookies_file=file_path))
+    context = BrowserContext(
+        browser=browser, config=cookie_manager.create_browser_context_config()
+    )
 
     agent = Agent(
         task=(
@@ -59,10 +60,10 @@ async def get_tweet(post_url="https://twitter.com/TheBabylonBee/status/190361605
         ),
         llm=ChatOpenAI(model="gpt-4o"),
         save_conversation_path="logs/conversation",  # Save chat logs
-		browser_context=context,
+        browser_context=context,
         initial_actions=initial_actions,
         max_actions_per_step=6,
-        controller=controller
+        controller=controller,
     )
     history = await agent.run(max_steps=6)
     result = history.final_result()
@@ -70,7 +71,6 @@ async def get_tweet(post_url="https://twitter.com/TheBabylonBee/status/190361605
         parsed: Tweet = Tweet.model_validate_json(result)
         print(parsed)
         try:
-
             # Load existing tweets from JSON file if it exists
             existing_tweets = []
             with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "r") as f:
@@ -93,7 +93,7 @@ async def get_tweet(post_url="https://twitter.com/TheBabylonBee/status/190361605
             "replies": parsed.replies,
             "bookmarks": parsed.bookmarks,
             "tweet_url": post_url,
-            "viewcount": parsed.viewcount
+            "viewcount": parsed.viewcount,
         }
 
         # Check if the tweet's URL matches the post_url and update or add it
@@ -105,7 +105,7 @@ async def get_tweet(post_url="https://twitter.com/TheBabylonBee/status/190361605
                 updated = True
                 print(f"Updated tweet from {tweet_dict['handle']} at {post_url}")
                 break
-        
+
         if not updated:
             existing_tweets.append(tweet_dict)
             print(f"Added new tweet from {tweet_dict['handle']} at {post_url}")
@@ -113,10 +113,11 @@ async def get_tweet(post_url="https://twitter.com/TheBabylonBee/status/190361605
         # Save updated tweets list
         with open(os.path.join(SCRIPT_DIR, pathToData + lastSavedTweets), "w") as f:
             json.dump({"tweets": existing_tweets}, f, indent=2)
-            print(f"Updated tweets saved.")
+            print("Updated tweets saved.")
     else:
-        print('No result')
+        print("No result")
     return True
+
 
 if __name__ == "__main__":
     get_tweet()

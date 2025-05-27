@@ -1,0 +1,29 @@
+[
+  {
+    "name": "auth_token",
+    "value": "YOUR_AUTH_TOKEN_HERE",
+    "domain": ".x.com",
+    "path": "/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "ct0",
+    "value": "YOUR_CT0_TOKEN_HERE",
+    "domain": ".x.com",
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "guest_id",
+    "value": "YOUR_GUEST_ID_HERE",
+    "domain": ".x.com",
+    "path": "/",
+    "secure": true,
+    "httpOnly": false,
+    "sameSite": "Lax"
+  }
+]
