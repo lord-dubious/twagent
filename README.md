@@ -6,6 +6,16 @@ This repository leverages AI agents (w/ `browser_use`, `elevenlabs`) to monitor 
 The workflow is designed for pseudosatirical social causes. It aims to create provocative arguments and pick fights online.
 
 
+## Key Features
+
+- **Twitter Monitoring**: Monitor Twitter accounts and analyze trends
+- **Tweet Analysis**: Score tweets based on relevance and engagement potential
+- **Automated Interactions**: Reply, post, and retweet content
+- **Twitter Spaces**: Participate in Twitter Spaces with voice capabilities
+- **Follower Automation**: Target and follow users based on specific criteria
+- **Persona-Based Tweets**: Generate tweets in the voice and style of specific personas, with support for media tweets
+
+
 ## Why browser-use? Why not just use Twitter's V2 API?
 
 This approach was chosen as a solution because the Twitter API is prohibitively expensive and is often seen as anti-developer.
@@ -19,7 +29,6 @@ Name a single other major **social network** around today that has an API and al
 The death of the Twitter API is long, long overdue. Bad for us consumers? Sure. But these companies are not charities, they exist to make money.
 
 Given his heavy investment into XAI, Elon Musk should support AI Agentic Workflows which interact with X through selenium/puppeteer. Otherwise, he'd be anti-AI and threaten US digital sovereignty and national security.
-
 
 <!-- ### my workflow prioritizes:
 
@@ -88,6 +97,8 @@ playwright install
 - **tweet-finder_workflow.py**: Monitors Twitter lists for new tweets and fetches their details.
 - **reply-draft_workflow.py**: Generates AI-powered reply options for tweets and posts selected replies.
 - **setup-new-account_workflow.py**: Automates initial account setup (following/blocking users, creating lists).
+- **x_follower_automation.py**: Automates following users who are followers of a target account.
+- **persona_tweet_workflow.py**: Automates posting tweets with persona integration.
 
 ### Twitter API Modules
 - **get_tweet (get tweet w/ id)**: Fetches and parses tweet details.
@@ -95,6 +106,8 @@ playwright install
 - **follows (follow user)**: Manages user following.
 - **blocks (block user)**: Manages user blocking.
 - **lists (create list, add list members, get list post timeline)**: Creates and manages Twitter lists.
+- **persona_manager**: Manages persona data for tweet generation.
+- **tweet_generator**: Generates tweets with persona integration.
 
 
 ## Data Structure
@@ -106,7 +119,29 @@ The toolkit stores data in JSON files in the data directory:
 - **003_posted_tweets.json**: Record of posted tweets/replies
 - **004_users.json**: User information for following/blocking
 - **005_lists.json**: Twitter list information
+- **personas/**: Persona data for tweet generation
 
+
+## Available Workflows
+
+### X.com Follower Automation
+Automates the process of following users who are followers of a specified target account. See [X_FOLLOWER_AUTOMATION.md](X_FOLLOWER_AUTOMATION.md) for detailed instructions.
+
+```bash
+# Example usage
+python browser-use/x_follower_automation.py --target elonmusk --goal 20 --max-refreshes 10
+```
+
+### Persona-Based Tweet Generation
+Generates tweets in the voice and style of specific personas, with support for media tweets. See [PERSONA_TWEET_README.md](PERSONA_TWEET_README.md) for detailed instructions.
+
+```bash
+# Generate a post with a specific persona
+python persona_tweet_example.py --persona personas/holly_snow.json --action post --topic "Fitness & Workouts" --adjective "Seductive"
+
+# Run timeline monitoring with persona integration
+python -m browser_use.my_twitter_api_v3.persona_tweet_workflow --persona personas/holly_snow.json --action monitor --interval 1800 --max-posts 10
+```
 
 # Roadmap
 - [ ] Specification for users with Twitter Premium. More cost effective to use twitter decks (pro.x.com/i/decks/[id]) given less UI clutter.
