@@ -10,17 +10,21 @@ import json
 import os
 import os.path
 from datetime import datetime
-from typing import Dict, List, Any, Optional, Union
+from typing import Dict, List, Any, Optional, Union, TypeVar, Type
 from pathlib import Path
 
 from browser_use import Agent, Browser, Controller
 from browser_use.browser.browser import Browser
 from browser_use.browser.context import BrowserContext, BrowserContextConfig
+from browser_use.agent.views import AgentHistoryList
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 
 load_dotenv()
+
+# Type variable for generic return types
+T = TypeVar('T')
 
 # ============================================================================
 # Data Models
@@ -228,35 +232,44 @@ class PromptTemplates:
 class TwitterBrowserSession:
     """Manages browser sessions for Twitter API operations"""
     
-    def __init__(self, config: Optional[TwitterAPIConfig] = None):
+    def __init__(self, 
+                config: Optional[TwitterAPIConfig] = None,
+                browser: Optional[Browser] = None,
+                browser_context: Optional[BrowserContext] = None):
         """
         Initialize Twitter browser session
         
         Args:
             config: TwitterAPIConfig instance (optional)
+            browser: Existing Browser instance to reuse (optional)
+            browser_context: Existing BrowserContext to reuse (optional)
         """
         self.config = config or get_twitter_config()
-        self.browser = None
-        self.context = None
+        self.browser = browser
+        self.context = browser_context
+        self.should_close_browser = browser is None
     
     async def __aenter__(self):
         """Set up browser session when entering context"""
-        self.browser = Browser()
-        self.context = BrowserContext(
-            browser=self.browser,
-            config=self.config.create_browser_context_config()
-        )
+        if self.browser is None:
+            self.browser = Browser()
+            
+        if self.context is None:
+            self.context = BrowserContext(
+                browser=self.browser,
+                config=self.config.create_browser_context_config()
+            )
         return self
     
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Clean up browser session when exiting context"""
-        if self.browser:
+        if self.should_close_browser and self.browser:
             await self.browser.close()
     
     def create_agent(self, 
                     task: str, 
                     initial_actions: List[Dict[str, Any]],
-                    output_model: Optional[Any] = None,
+                    output_model: Optional[Type[T]] = None,
                     max_actions_per_step: int = 6,
                     max_steps: int = 10) -> Agent:
         """
@@ -304,69 +317,73 @@ async def get_tweet(post_url: str) -> Optional[Tweet]:
         {"open_tab": {"url": post_url}},
     ]
     
-    async with TwitterBrowserSession(config) as session:
-        agent = session.create_agent(
-            task=PromptTemplates.get_tweet_prompt(),
-            initial_actions=initial_actions,
-            output_model=Tweet
-        )
-        
-        history = await agent.run(max_steps=6)
-        result = history.final_result()
-        
-        if result:
-            parsed_tweet = Tweet.model_validate_json(result)
+    try:
+        async with TwitterBrowserSession(config) as session:
+            agent = session.create_agent(
+                task=PromptTemplates.get_tweet_prompt(),
+                initial_actions=initial_actions,
+                output_model=Tweet,
+                max_steps=6
+            )
             
-            # Save tweet data
-            try:
-                # Load existing tweets from JSON file if it exists
-                tweets_file = config.get_data_file_path("001_saved_tweets.json")
-                existing_tweets = []
+            history = await agent.run()
+            result = history.final_result()
+            
+            if result:
+                parsed_tweet = Tweet.model_validate_json(result)
                 
+                # Save tweet data
                 try:
-                    with open(tweets_file, "r") as f:
-                        data = json.load(f)
-                        existing_tweets = data.get("tweets", [])
-                except (FileNotFoundError, json.JSONDecodeError):
+                    # Load existing tweets from JSON file if it exists
+                    tweets_file = config.get_data_file_path("001_saved_tweets.json")
                     existing_tweets = []
+                    
+                    try:
+                        with open(tweets_file, "r") as f:
+                            data = json.load(f)
+                            existing_tweets = data.get("tweets", [])
+                    except (FileNotFoundError, json.JSONDecodeError):
+                        existing_tweets = []
+                    
+                    # Create a dictionary representation of the tweet
+                    tweet_dict = {
+                        "handle": parsed_tweet.handle,
+                        "datetime": parsed_tweet.datetime,
+                        "text": parsed_tweet.text,
+                        "likes": parsed_tweet.likes,
+                        "retweets": parsed_tweet.retweets,
+                        "replies": parsed_tweet.replies,
+                        "bookmarks": parsed_tweet.bookmarks,
+                        "tweet_url": post_url,
+                        "viewcount": parsed_tweet.viewcount,
+                    }
+                    
+                    # Check if the tweet's URL matches the post_url and update or add it
+                    updated = False
+                    for i, existing in enumerate(existing_tweets):
+                        if existing["tweet_url"] == tweet_dict["tweet_url"]:
+                            existing_tweets[i] = tweet_dict
+                            updated = True
+                            print(f"Updated tweet from {tweet_dict['handle']} at {post_url}")
+                            break
+                    
+                    if not updated:
+                        existing_tweets.append(tweet_dict)
+                        print(f"Added new tweet from {tweet_dict['handle']} at {post_url}")
+                    
+                    # Save updated tweets list
+                    with open(tweets_file, "w") as f:
+                        json.dump({"tweets": existing_tweets}, f, indent=2)
+                        print("Updated tweets saved.")
                 
-                # Create a dictionary representation of the tweet
-                tweet_dict = {
-                    "handle": parsed_tweet.handle,
-                    "datetime": parsed_tweet.datetime,
-                    "text": parsed_tweet.text,
-                    "likes": parsed_tweet.likes,
-                    "retweets": parsed_tweet.retweets,
-                    "replies": parsed_tweet.replies,
-                    "bookmarks": parsed_tweet.bookmarks,
-                    "tweet_url": post_url,
-                    "viewcount": parsed_tweet.viewcount,
-                }
+                except Exception as e:
+                    print(f"Error saving tweet data: {e}")
                 
-                # Check if the tweet's URL matches the post_url and update or add it
-                updated = False
-                for i, existing in enumerate(existing_tweets):
-                    if existing["tweet_url"] == tweet_dict["tweet_url"]:
-                        existing_tweets[i] = tweet_dict
-                        updated = True
-                        print(f"Updated tweet from {tweet_dict['handle']} at {post_url}")
-                        break
-                
-                if not updated:
-                    existing_tweets.append(tweet_dict)
-                    print(f"Added new tweet from {tweet_dict['handle']} at {post_url}")
-                
-                # Save updated tweets list
-                with open(tweets_file, "w") as f:
-                    json.dump({"tweets": existing_tweets}, f, indent=2)
-                    print("Updated tweets saved.")
-            
-            except Exception as e:
-                print(f"Error saving tweet data: {e}")
-            
-            return parsed_tweet
-        
-        return None
+                return parsed_tweet
+    except Exception as e:
+        print(f"Error retrieving tweet: {e}")
+    
+    return None
 
 
 async def create_post(post_text: str, media_path: Optional[str] = None) -> bool:
@@ -385,56 +402,66 @@ async def create_post(post_text: str, media_path: Optional[str] = None) -> bool:
         {"open_tab": {"url": "https://x.com/home"}},
     ]
     
-    async with TwitterBrowserSession(config) as session:
-        task = PromptTemplates.create_post_prompt(post_text)
-        
-        # If media is provided, add it to the task description
-        if media_path:
-            task += f" and attach the media file from {media_path}"
-        
-        agent = session.create_agent(
-            task=task,
-            initial_actions=initial_actions
-        )
-        
-        history = await agent.run(max_steps=10)
-        result = history.final_result()
-        
-        if result:
-            # Save post data
-            try:
-                post_time = datetime.now().isoformat()
-                post_data = {
-                    "post_text": post_text,
-                    "post_time": post_time,
-                    "media_path": media_path
-                }
-                
-                posts_file = config.get_data_file_path("003_posted_tweets.json")
-                
-                # Load existing posts if file exists
-                existing_posts = []
+    try:
+        async with TwitterBrowserSession(config) as session:
+            task = PromptTemplates.create_post_prompt(post_text)
+            
+            # If media is provided, add it to the task description
+            if media_path:
+                if os.path.exists(media_path):
+                    task += f" and attach the media file from {media_path}"
+                else:
+                    print(f"Warning: Media file not found at {media_path}")
+            
+            agent = session.create_agent(
+                task=task,
+                initial_actions=initial_actions,
+                max_steps=10
+            )
+            
+            history = await agent.run()
+            result = history.final_result()
+            
+            if result:
+                # Save post data
                 try:
-                    with open(posts_file, "r") as f:
-                        data = json.load(f)
-                        existing_posts = data.get("posts", [])
-                except (FileNotFoundError, json.JSONDecodeError):
-                    existing_posts = []
+                    post_time = datetime.now().isoformat()
+                    post_data = {
+                        "post_text": post_text,
+                        "post_time": post_time,
+                        "media_path": media_path
+                    }
+                    
+                    posts_file = config.get_data_file_path("003_posted_tweets.json")
+                    
+                    # Load existing posts if file exists
+                    existing_data = {}
+                    try:
+                        with open(posts_file, "r") as f:
+                            existing_data = json.load(f)
+                    except (FileNotFoundError, json.JSONDecodeError):
+                        existing_data = {}
+                    
+                    # Initialize posts list if it doesn't exist
+                    if "posts" not in existing_data:
+                        existing_data["posts"] = []
+                    
+                    # Add new post
+                    existing_data["posts"].append(post_data)
+                    
+                    # Save updated posts list
+                    with open(posts_file, "w") as f:
+                        json.dump(existing_data, f, indent=2)
+                        print(f"Post data saved to {posts_file}")
                 
-                # Add new post
-                existing_posts.append(post_data)
+                except Exception as e:
+                    print(f"Error saving post data: {e}")
                 
-                # Save updated posts list
-                with open(posts_file, "w") as f:
-                    json.dump({"posts": existing_posts}, f, indent=2)
-                    print(f"Post data saved to {posts_file}")
-            
-            except Exception as e:
-                print(f"Error saving post data: {e}")
-            
-            return True
-        
-        return False
+                return True
+    except Exception as e:
+        print(f"Error creating post: {e}")
+    
+    return False
 
 
 async def reply_to_post(post_url: str, reply_text: str, media_path: Optional[str] = None) -> bool:
@@ -847,16 +874,60 @@ if __name__ == "__main__":
     import asyncio
     
     async def main():
-        # Example usage
+        """Example usage of the Twitter API"""
+        print("Twitter API Example")
+        print("===================")
+        
+        # Example 1: Get a tweet
+        print("\n1. Getting a tweet...")
         tweet_url = "https://twitter.com/TheBabylonBee/status/1903616058562576739"
         tweet = await get_tweet(tweet_url)
         
         if tweet:
-            print(f"Retrieved tweet from @{tweet.handle}:")
+            print(f"✅ Retrieved tweet from @{tweet.handle}:")
             print(f"Text: {tweet.text}")
             print(f"Likes: {tweet.likes}")
+            print(f"Retweets: {tweet.retweets}")
         else:
-            print("Failed to retrieve tweet.")
+            print("❌ Failed to retrieve tweet.")
+        
+        # Example 2: Create a post (commented out to avoid actual posting)
+        """
+        print("\n2. Creating a post...")
+        success = await create_post("Testing the Twitter API from browser-use")
+        
+        if success:
+            print("✅ Post created successfully!")
+        else:
+            print("❌ Failed to create post.")
+        """
+        
+        # Example 3: Reusing browser session
+        print("\n3. Demonstrating browser session reuse...")
+        config = get_twitter_config()
+        browser = Browser()
+        
+        try:
+            # First operation with shared browser
+            async with TwitterBrowserSession(config, browser=browser) as session1:
+                print("  First operation with shared browser...")
+                # Just a placeholder operation
+                pass
+                
+            # Second operation with same browser
+            async with TwitterBrowserSession(config, browser=browser) as session2:
+                print("  Second operation with same browser...")
+                # Just a placeholder operation
+                pass
+                
+            print("✅ Browser session reuse successful!")
+        except Exception as e:
+            print(f"❌ Error during browser session reuse: {e}")
+        finally:
+            # Clean up the browser
+            await browser.close()
+            print("  Browser closed.")
+        
+        print("\nAll examples completed.")
     
     asyncio.run(main())
-

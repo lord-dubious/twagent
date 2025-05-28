@@ -9,6 +9,8 @@ This module provides a unified interface for Twitter API operations using browse
 - **Configuration**: Centralized configuration management
 - **Data Storage**: Consistent data storage for all operations
 - **Error Handling**: Robust error handling and logging
+- **Browser Reuse**: Support for reusing browser sessions across operations
+- **Type Safety**: Improved type annotations for better IDE support
 
 ## Installation
 
@@ -34,6 +36,43 @@ async def main():
     # Follow a user
     success = await follow_user("elonmusk")
     print(f"User followed: {success}")
+
+asyncio.run(main())
+```
+
+### Browser Session Reuse
+
+You can reuse browser sessions across multiple operations for better performance:
+
+```python
+import asyncio
+from browser_use.twitter_api import TwitterBrowserSession, get_twitter_config, Browser
+
+async def main():
+    config = get_twitter_config()
+    browser = Browser()
+    
+    try:
+        # First operation with shared browser
+        async with TwitterBrowserSession(config, browser=browser) as session1:
+            agent = session1.create_agent(
+                task="Extract the tweet's text and author",
+                initial_actions=[{"open_tab": {"url": "https://twitter.com/username/status/123456789"}}],
+                max_steps=6
+            )
+            history = await agent.run()
+            
+        # Second operation with same browser
+        async with TwitterBrowserSession(config, browser=browser) as session2:
+            agent = session2.create_agent(
+                task="Visit Twitter home page",
+                initial_actions=[{"open_tab": {"url": "https://x.com/home"}}],
+                max_steps=3
+            )
+            history = await agent.run()
+    finally:
+        # Clean up the browser
+        await browser.close()
 
 asyncio.run(main())
 ```
@@ -187,10 +226,9 @@ async def custom_operation():
         )
         
         # Run the agent
-        history = await agent.run(max_steps=10)
-        result = history.final_result()
+        history = await agent.run()
         
-        return result
+        return history.final_result()
 ```
 
 ### Custom Prompts
@@ -212,11 +250,13 @@ class CustomPromptTemplates(PromptTemplates):
 
 ## Error Handling
 
-All API methods include error handling and will return appropriate values on failure:
+All API methods include comprehensive error handling:
 
+- Top-level try/except blocks catch and log all exceptions
 - Tweet operations return `None` or `False` on failure
 - User operations return `False` on failure
 - List operations return `False` on failure
+- Detailed error messages are printed to the console
 
 ## Data Storage
 
@@ -227,6 +267,15 @@ The API automatically stores data in JSON files in the configured data directory
 - `004_users.json`: Followed and blocked users
 - `005_lists.json`: Created lists and their members
 
+## Browser-Use Compatibility
+
+This API is fully compatible with the browser-use Python package:
+
+- Uses the Agent, Browser, and Controller classes correctly
+- Properly manages browser contexts and sessions
+- Supports all browser-use features like vision capabilities
+- Follows browser-use best practices for resource management
+
 ## Contributing
 
 To extend the API with new functionality:
@@ -234,4 +283,3 @@ To extend the API with new functionality:
 1. Add a new method to the `twitter_api.py` file
 2. Add a new prompt template to the `PromptTemplates` class
 3. Update the README with documentation for the new method
-

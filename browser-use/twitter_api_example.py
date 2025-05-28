@@ -17,7 +17,10 @@ from browser_use.twitter_api import (
     block_user,
     create_list,
     add_members_to_list,
-    get_list_posts
+    get_list_posts,
+    TwitterBrowserSession,
+    get_twitter_config,
+    Browser
 )
 
 
@@ -131,6 +134,50 @@ async def get_list_posts_example(list_name: str):
         print(f"Failed to retrieve posts from list '{list_name}'.")
 
 
+async def browser_reuse_example():
+    """Example of reusing a browser session for multiple operations"""
+    print("Demonstrating browser session reuse...")
+    
+    config = get_twitter_config()
+    browser = Browser()
+    
+    try:
+        # First operation with shared browser
+        print("  First operation: Get tweet")
+        tweet_url = "https://twitter.com/TheBabylonBee/status/1903616058562576739"
+        
+        async with TwitterBrowserSession(config, browser=browser) as session1:
+            agent = session1.create_agent(
+                task="Extract the tweet's text and author",
+                initial_actions=[{"open_tab": {"url": tweet_url}}],
+                max_steps=6
+            )
+            
+            history = await agent.run()
+            print(f"  First operation completed: {history.is_done()}")
+            
+        # Second operation with same browser
+        print("  Second operation: Visit Twitter home")
+        
+        async with TwitterBrowserSession(config, browser=browser) as session2:
+            agent = session2.create_agent(
+                task="Just visit Twitter home page and report what you see",
+                initial_actions=[{"open_tab": {"url": "https://x.com/home"}}],
+                max_steps=3
+            )
+            
+            history = await agent.run()
+            print(f"  Second operation completed: {history.is_done()}")
+            
+        print("Browser session reuse successful!")
+    except Exception as e:
+        print(f"Error during browser session reuse: {e}")
+    finally:
+        # Clean up the browser
+        await browser.close()
+        print("Browser closed.")
+
+
 async def main():
     """Main function"""
     parser = argparse.ArgumentParser(description="Twitter API Example")
@@ -173,6 +220,9 @@ async def main():
     get_list_posts_parser = subparsers.add_parser("get-list-posts", help="Get posts from a list")
     get_list_posts_parser.add_argument("list_name", help="Name of the list")
     
+    # Browser reuse example command
+    browser_reuse_parser = subparsers.add_parser("browser-reuse", help="Demonstrate browser session reuse")
+    
     args = parser.parse_args()
     
     if args.command == "get-tweet":
@@ -191,6 +241,8 @@ async def main():
         await add_members_to_list_example(args.list_name, args.usernames)
     elif args.command == "get-list-posts":
         await get_list_posts_example(args.list_name)
+    elif args.command == "browser-reuse":
+        await browser_reuse_example()
     else:
         parser.print_help()
 
