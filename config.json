@@ -37,6 +37,14 @@
     "retry": {
       "max_attempts": 3,
       "delay_on_error": 10
+    },
+    "safety": {
+      "min_delay_between_follows": 2,
+      "max_delay_between_follows": 4,
+      "page_load_delay": 5,
+      "scroll_delay": 4,
+      "error_delay": 10,
+      "max_follows_per_page": 20
     }
   }
 }
