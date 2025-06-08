@@ -1,0 +1,44 @@
+{
+  "targets": [
+    {
+      "handle": "elonmusk",
+      "max_followers": 100,
+      "min_followers_count": 10,
+      "max_following_count": 5000,
+      "verified_only": false
+    },
+    {
+      "handle": "sama",
+      "max_followers": 100,
+      "min_followers_count": 10,
+      "max_following_count": 5000,
+      "verified_only": false
+    },
+    {
+      "handle": "OpenAI",
+      "max_followers": 100,
+      "min_followers_count": 10,
+      "max_following_count": 5000,
+      "verified_only": false
+    },
+    {
+      "handle": "AnthropicAI",
+      "max_followers": 100,
+      "min_followers_count": 10,
+      "max_following_count": 5000,
+      "verified_only": false
+    },
+    {
+      "handle": "pmarca",
+      "max_followers": 100,
+      "min_followers_count": 10,
+      "max_following_count": 5000,
+      "verified_only": false
+    }
+  ],
+  "metadata": {
+    "description": "Target accounts to get followers from",
+    "last_updated": "2024-05-27T00:00:00Z"
+  }
+}
+
